@@ -15,6 +15,11 @@ import {
   Loader2,
   Zap,
   Copy,
+  Wallet,
+  Sparkles,
+  Clock,
+  Star,
+  TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
 import { wallets } from "@/lib/wallets";
