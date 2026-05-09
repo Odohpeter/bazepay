@@ -522,38 +522,48 @@ function TransferFlow() {
             transition={{ duration: 0.25 }}
             className="flex-1 flex flex-col"
           >
-            <div className="px-6 mt-6 text-center">
-              <p className="text-xs text-foreground/55 font-semibold">You are sending</p>
-              <p className="font-display text-4xl font-bold tracking-tight mt-2 tabular-nums">
-                ₦{formatted}
-              </p>
-              <p className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-primary">
-                <Zap className="w-3 h-3" /> Arrives instantly
-              </p>
-            </div>
+            <div className="px-6 mt-6">
+              <div className="rounded-3xl bg-gradient-to-br from-primary/15 via-primary/5 to-lime/15 border border-primary/20 p-5">
+                <p className="text-[11px] uppercase tracking-widest text-foreground/55 font-bold text-center">
+                  You're sending
+                </p>
+                <p className="font-display text-5xl font-bold tracking-tight mt-2 tabular-nums text-center">
+                  ₦{formatted}
+                </p>
+                <p className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-primary mx-auto w-full justify-center">
+                  <Zap className="w-3 h-3" /> Arrives instantly · Fee ₦{fee}
+                </p>
 
-            <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <div className="rounded-2xl bg-card-foreground/[0.04] p-4">
-                <div className="flex items-center gap-3">
+                <div className="mt-5 flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-foreground/10 flex items-center justify-center text-xs font-bold uppercase tracking-wider">
+                    YOU
+                  </div>
+                  <div className="flex-1 flex items-center gap-1">
+                    <div className="flex-1 border-t border-dashed border-foreground/25" />
+                    <div className="w-7 h-7 rounded-full bg-lime/20 flex items-center justify-center">
+                      <ChevronRight className="w-3.5 h-3.5 text-lime" />
+                    </div>
+                    <div className="flex-1 border-t border-dashed border-foreground/25" />
+                  </div>
                   <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ring-2 ring-background"
                     style={{ background: recipient.color, color: "#1a1335" }}
                   >
                     {recipient.initials}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[10px] uppercase tracking-wider font-bold text-card-foreground/55">
-                      Recipient
-                    </p>
-                    <p className="text-sm font-bold truncate">{recipient.name}</p>
-                    <p className="text-[11px] text-card-foreground/55 truncate">
-                      {recipient.bank} · {recipient.account}
-                    </p>
-                  </div>
+                </div>
+                <div className="mt-3 flex items-center justify-between text-[11px]">
+                  <span className="font-bold text-foreground/55">From wallet</span>
+                  <span className="font-bold truncate ml-2 text-right">
+                    {recipient.name}
+                    <span className="text-foreground/45 font-semibold"> · {recipient.bank}</span>
+                  </span>
                 </div>
               </div>
+            </div>
 
-              <div className="mt-3 rounded-2xl bg-card-foreground/[0.04] p-4 space-y-2.5">
+            <div className="flex-1 mt-5 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
+              <div className="rounded-2xl bg-card-foreground/[0.04] p-4 space-y-2.5">
                 <Row label="Amount" value={`₦${formatted}`} />
                 <Row label="Fee" value={`₦${fee}`} />
                 <div>
