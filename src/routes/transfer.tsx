@@ -403,25 +403,39 @@ function TransferFlow() {
                     {newAccount.length}/10
                   </span>
                 </div>
-                <input
-                  inputMode="numeric"
-                  maxLength={10}
-                  value={newAccount}
-                  onChange={(e) => setNewAccount(e.target.value.replace(/\D/g, ""))}
-                  placeholder="0 0 0 0 0 0 0 0 0 0"
-                  className="mt-2 w-full bg-transparent font-display text-[28px] font-bold tabular-nums tracking-[0.18em] outline-none placeholder:text-card-foreground/20"
-                />
-                {/* progress dots */}
-                <div className="mt-2 flex gap-1">
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className={`flex-1 h-1 rounded-full transition ${
-                        i < newAccount.length ? "bg-primary" : "bg-card-foreground/10"
-                      }`}
-                    />
-                  ))}
-                </div>
+                <label className="relative mt-3 grid grid-cols-10 gap-1.5 cursor-text">
+                  <input
+                    inputMode="numeric"
+                    maxLength={10}
+                    value={newAccount}
+                    onChange={(e) => setNewAccount(e.target.value.replace(/\D/g, ""))}
+                    className="absolute inset-0 w-full h-full opacity-0 outline-none"
+                    aria-label="Account number"
+                  />
+                  {Array.from({ length: 10 }).map((_, i) => {
+                    const ch = newAccount[i];
+                    const active = i === newAccount.length;
+                    return (
+                      <div
+                        key={i}
+                        className="flex flex-col items-center justify-end h-12"
+                      >
+                        <span className="font-display text-xl font-bold tabular-nums leading-none mb-1.5 min-h-[20px]">
+                          {ch ?? ""}
+                        </span>
+                        <span
+                          className={`block w-full h-[2px] rounded-full transition ${
+                            ch
+                              ? "bg-primary"
+                              : active
+                                ? "bg-primary/40"
+                                : "bg-card-foreground/15"
+                          }`}
+                        />
+                      </div>
+                    );
+                  })}
+                </label>
               </div>
 
               {/* Bank section */}
