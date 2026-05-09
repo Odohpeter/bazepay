@@ -26,14 +26,14 @@ export function PinPromptSheet({
     if (!open) setPin("");
   }, [open]);
 
-  // If user has not set a PIN yet, redirect to setup.
+  // PIN creation happens during signup (after KYC). If somehow no PIN
+  // exists yet, auto-pass instead of redirecting to a setup screen here.
   useEffect(() => {
     if (open && !hasPin()) {
-      toast.info("Set up your transaction PIN first");
+      onSuccess();
       onClose();
-      navigate({ to: "/auth/pin-setup" });
     }
-  }, [open, onClose, navigate]);
+  }, [open, onClose, onSuccess]);
 
   useEffect(() => {
     if (!open || pin.length < 4) return;
