@@ -254,26 +254,15 @@ function TransferFlow() {
             transition={{ duration: 0.25 }}
             className="flex-1 flex flex-col"
           >
-            <div className="px-6 mt-6">
-              <h1 className="font-display text-2xl font-bold tracking-tight whitespace-nowrap">
-                Who are you paying?
-              </h1>
-            </div>
-
             {/* Balance — minimal & prominent */}
-            <div className="px-6 mt-5 flex items-baseline justify-between">
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.18em] font-bold text-foreground/45">
-                  Available balance
-                </p>
-                <p className="font-display text-3xl font-bold tabular-nums mt-0.5">
-                  ₦{wallets.NGN.whole}
-                  <span className="text-foreground/40">{wallets.NGN.decimals}</span>
-                </p>
-              </div>
-              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-lime bg-lime/15 rounded-full px-2 py-1">
-                <Zap className="w-3 h-3" /> Instant
-              </span>
+            <div className="px-6 mt-8">
+              <p className="text-[10px] uppercase tracking-[0.18em] font-bold text-foreground/45">
+                Available balance
+              </p>
+              <p className="font-display text-[56px] leading-none font-bold tabular-nums mt-2">
+                ₦{wallets.NGN.whole}
+                <span className="text-foreground/35">{wallets.NGN.decimals}</span>
+              </p>
             </div>
 
             <div className="px-6 mt-4">
