@@ -42,23 +42,64 @@ const METHODS: Method[] = [
   { id: "ussd", label: "USSD", sub: "Pay with bank shortcode", icon: Banknote, fee: "Free", arrival: "Instant" },
 ];
 
-type SrcCurrency = "NGN" | "USD" | "EUR" | "GBP";
+type SrcCurrency = string;
 
-const CURRENCY_META: Record<SrcCurrency, { symbol: string; flag: string; rate: number; min: number }> = {
-  NGN: { symbol: "₦", flag: "🇳🇬", rate: 1, min: 100 },
-  USD: { symbol: "$", flag: "🇺🇸", rate: 1542, min: 1 },
-  EUR: { symbol: "€", flag: "🇪🇺", rate: 1540, min: 1 },
-  GBP: { symbol: "£", flag: "🇬🇧", rate: 1952, min: 1 },
+type CurrencyInfo = { symbol: string; flag: string; rate: number; min: number; name: string };
+
+const CURRENCY_META: Record<string, CurrencyInfo> = {
+  NGN: { symbol: "₦", flag: "🇳🇬", rate: 1, min: 100, name: "Nigerian Naira" },
+  USD: { symbol: "$", flag: "🇺🇸", rate: 1542, min: 1, name: "US Dollar" },
+  EUR: { symbol: "€", flag: "🇪🇺", rate: 1670, min: 1, name: "Euro" },
+  GBP: { symbol: "£", flag: "🇬🇧", rate: 1952, min: 1, name: "British Pound" },
+  CAD: { symbol: "C$", flag: "🇨🇦", rate: 1130, min: 1, name: "Canadian Dollar" },
+  AUD: { symbol: "A$", flag: "🇦🇺", rate: 1015, min: 1, name: "Australian Dollar" },
+  NZD: { symbol: "NZ$", flag: "🇳🇿", rate: 920, min: 1, name: "New Zealand Dollar" },
+  CHF: { symbol: "CHF", flag: "🇨🇭", rate: 1740, min: 1, name: "Swiss Franc" },
+  JPY: { symbol: "¥", flag: "🇯🇵", rate: 10, min: 100, name: "Japanese Yen" },
+  CNY: { symbol: "¥", flag: "🇨🇳", rate: 215, min: 5, name: "Chinese Yuan" },
+  HKD: { symbol: "HK$", flag: "🇭🇰", rate: 198, min: 5, name: "Hong Kong Dollar" },
+  SGD: { symbol: "S$", flag: "🇸🇬", rate: 1145, min: 1, name: "Singapore Dollar" },
+  INR: { symbol: "₹", flag: "🇮🇳", rate: 18, min: 50, name: "Indian Rupee" },
+  AED: { symbol: "د.إ", flag: "🇦🇪", rate: 420, min: 5, name: "UAE Dirham" },
+  SAR: { symbol: "﷼", flag: "🇸🇦", rate: 411, min: 5, name: "Saudi Riyal" },
+  TRY: { symbol: "₺", flag: "🇹🇷", rate: 45, min: 10, name: "Turkish Lira" },
+  ZAR: { symbol: "R", flag: "🇿🇦", rate: 85, min: 10, name: "South African Rand" },
+  KES: { symbol: "KSh", flag: "🇰🇪", rate: 12, min: 50, name: "Kenyan Shilling" },
+  GHS: { symbol: "₵", flag: "🇬🇭", rate: 100, min: 5, name: "Ghanaian Cedi" },
+  EGP: { symbol: "E£", flag: "🇪🇬", rate: 32, min: 10, name: "Egyptian Pound" },
+  MAD: { symbol: "DH", flag: "🇲🇦", rate: 155, min: 5, name: "Moroccan Dirham" },
+  XOF: { symbol: "CFA", flag: "🇸🇳", rate: 2.55, min: 500, name: "West African CFA" },
+  BRL: { symbol: "R$", flag: "🇧🇷", rate: 285, min: 5, name: "Brazilian Real" },
+  MXN: { symbol: "Mex$", flag: "🇲🇽", rate: 78, min: 10, name: "Mexican Peso" },
+  ARS: { symbol: "$", flag: "🇦🇷", rate: 1.55, min: 1000, name: "Argentine Peso" },
+  SEK: { symbol: "kr", flag: "🇸🇪", rate: 145, min: 10, name: "Swedish Krona" },
+  NOK: { symbol: "kr", flag: "🇳🇴", rate: 142, min: 10, name: "Norwegian Krone" },
+  DKK: { symbol: "kr", flag: "🇩🇰", rate: 224, min: 5, name: "Danish Krone" },
+  PLN: { symbol: "zł", flag: "🇵🇱", rate: 385, min: 5, name: "Polish Złoty" },
+  CZK: { symbol: "Kč", flag: "🇨🇿", rate: 67, min: 20, name: "Czech Koruna" },
+  RUB: { symbol: "₽", flag: "🇷🇺", rate: 17, min: 50, name: "Russian Ruble" },
+  KRW: { symbol: "₩", flag: "🇰🇷", rate: 1.1, min: 1000, name: "South Korean Won" },
+  THB: { symbol: "฿", flag: "🇹🇭", rate: 45, min: 30, name: "Thai Baht" },
+  IDR: { symbol: "Rp", flag: "🇮🇩", rate: 0.095, min: 10000, name: "Indonesian Rupiah" },
+  MYR: { symbol: "RM", flag: "🇲🇾", rate: 345, min: 5, name: "Malaysian Ringgit" },
+  PHP: { symbol: "₱", flag: "🇵🇭", rate: 26, min: 50, name: "Philippine Peso" },
+  VND: { symbol: "₫", flag: "🇻🇳", rate: 0.061, min: 20000, name: "Vietnamese Dong" },
+  PKR: { symbol: "₨", flag: "🇵🇰", rate: 5.5, min: 100, name: "Pakistani Rupee" },
+  BDT: { symbol: "৳", flag: "🇧🇩", rate: 13, min: 50, name: "Bangladeshi Taka" },
 };
 
-const CURRENCIES: SrcCurrency[] = ["NGN", "USD", "EUR", "GBP"];
+const CURRENCIES: SrcCurrency[] = Object.keys(CURRENCY_META);
 
-const QUICK_BY_CCY: Record<SrcCurrency, number[]> = {
-  NGN: [10000, 25000, 50000, 100000],
-  USD: [10, 50, 100, 500],
-  EUR: [10, 50, 100, 500],
-  GBP: [10, 50, 100, 500],
-};
+function quickAmounts(rate: number): number[] {
+  const targets = [15000, 40000, 80000, 160000];
+  return targets.map((t) => {
+    const v = t / rate;
+    if (v >= 10000) return Math.round(v / 1000) * 1000;
+    if (v >= 100) return Math.round(v / 10) * 10;
+    if (v >= 10) return Math.round(v);
+    return Math.round(v * 10) / 10;
+  });
+}
 
 type Step = "amount" | "method" | "success" | "transfer-details";
 
@@ -160,7 +201,7 @@ function TopupFlow() {
                     <ChevronRight className={`w-3.5 h-3.5 transition ${ccyOpen ? "rotate-90" : "rotate-90"}`} />
                   </button>
                   {ccyOpen && (
-                    <div className="absolute left-0 top-full mt-2 w-40 bg-card border border-foreground/10 rounded-2xl p-1.5 shadow-xl z-30">
+                    <div className="absolute left-0 top-full mt-2 w-64 bg-card border border-foreground/10 rounded-2xl p-1.5 shadow-xl z-30 max-h-72 overflow-y-auto">
                       {CURRENCIES.map((c) => (
                         <button
                           key={c}
@@ -172,8 +213,9 @@ function TopupFlow() {
                           className="w-full flex items-center gap-2 px-2.5 py-2 rounded-xl hover:bg-foreground/5 text-xs font-semibold"
                         >
                           <span className="text-base">{CURRENCY_META[c].flag}</span>
-                          <span className="flex-1 text-left">{c}</span>
-                          {srcCurrency === c && <Check className="w-3.5 h-3.5 text-primary" />}
+                          <span className="w-10 text-left shrink-0">{c}</span>
+                          <span className="flex-1 text-left text-foreground/55 truncate">{CURRENCY_META[c].name}</span>
+                          {srcCurrency === c && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
                         </button>
                       ))}
                     </div>
@@ -227,7 +269,7 @@ function TopupFlow() {
               </div>
 
               <div className="mt-3 flex gap-1.5 w-full">
-                {QUICK_BY_CCY[srcCurrency].map((q) => (
+                {quickAmounts(meta.rate).map((q: number) => (
                   <button
                     key={q}
                     onClick={() => setAmount(String(q))}
