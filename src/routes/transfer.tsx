@@ -449,79 +449,63 @@ function TransferFlow() {
             transition={{ duration: 0.25 }}
             className="flex-1 flex flex-col"
           >
-            <div className="flex-1 flex flex-col px-6 pt-4">
-              <p className="text-[11px] uppercase tracking-widest text-foreground/55 font-bold">
-                Sending to
+            <div className="flex-1 flex flex-col items-center justify-center px-6">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center text-base font-bold"
+                style={{ background: recipient.color, color: "#1a1335" }}
+              >
+                {recipient.initials}
+              </div>
+              <p className="text-xs text-foreground/55 font-semibold mt-3">
+                Sending to <span className="text-foreground font-bold">{recipient.name}</span>
+              </p>
+              <p className="text-[10px] text-foreground/40 mt-0.5">
+                {recipient.bank} · {recipient.account}
               </p>
 
-              <div className="mt-2 rounded-3xl bg-foreground/5 border border-foreground/10 p-4 flex items-center gap-3">
-                <div
-                  className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                  style={{ background: recipient.color, color: "#1a1335" }}
-                >
-                  {recipient.initials}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold truncate">{recipient.name}</p>
-                  <p className="text-[11px] text-foreground/55 truncate">
-                    {recipient.bank} · {recipient.account}
-                  </p>
-                </div>
-              </div>
-
-              <div className="my-2 flex justify-center">
-                <div className="w-9 h-9 rounded-full bg-lime/20 border border-background flex items-center justify-center">
-                  <ChevronRight className="w-4 h-4 text-lime rotate-90" />
-                </div>
-              </div>
-
-              <p className="text-[11px] uppercase tracking-widest text-foreground/55 font-bold">
-                Amount
+              <p className="font-display text-6xl font-bold tracking-tight mt-6 tabular-nums">
+                <span className="text-foreground/40">₦</span>
+                {formatted}
               </p>
-              <div className="mt-2 rounded-3xl bg-primary/5 border border-primary/20 p-4 flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-foreground/5 rounded-full pl-2.5 pr-2.5 py-1.5">
-                  <span className="text-sm font-bold">NGN</span>
-                </div>
-                <div className="flex-1 text-right">
-                  <p className="font-display text-3xl font-bold tabular-nums leading-none">
-                    ₦{formatted}
-                  </p>
-                </div>
-              </div>
 
-              <div className="mt-4 rounded-2xl bg-foreground/5 p-3.5 space-y-2">
-                <Row label="Fee" value={`₦${fee}`} />
-                <Row label="Total" value={`₦${total.toLocaleString()}`} />
-                <Row
-                  label="Balance"
-                  value={`₦${wallets.NGN.whole}${wallets.NGN.decimals}`}
-                />
-                {overBalance && (
-                  <p className="text-[11px] font-bold text-destructive text-right">
-                    Insufficient balance
-                  </p>
+              <div className="mt-2 h-4 text-[11px] font-semibold">
+                {numeric > 0 && !overBalance && (
+                  <span className="text-foreground/55">Fee ₦{fee} · Total ₦{total.toLocaleString()}</span>
                 )}
+                {overBalance && <span className="text-destructive">Insufficient balance</span>}
               </div>
 
-              <div className="mt-3 flex gap-1.5 w-full">
+              <p className="text-[10px] text-foreground/45 mt-1">
+                Balance: ₦{wallets.NGN.whole}
+                {wallets.NGN.decimals}
+              </p>
+
+              <div className="mt-4 flex gap-2 flex-wrap justify-center">
                 {QUICK_AMOUNTS.map((q) => (
                   <button
                     key={q}
                     onClick={() => setAmount(String(q))}
-                    className="flex-1 min-w-0 px-2 h-9 rounded-full bg-foreground/10 text-[11px] font-bold active:scale-95 transition whitespace-nowrap"
+                    className="px-3 h-8 rounded-full bg-foreground/10 text-[11px] font-bold active:scale-95 transition"
                   >
                     ₦{q.toLocaleString()}
                   </button>
                 ))}
               </div>
+
+              <input
+                value={note}
+                onChange={(e) => setNote(e.target.value.slice(0, 64))}
+                placeholder="Add a note (optional)"
+                className="mt-4 bg-foreground/10 rounded-full px-4 h-10 text-xs outline-none placeholder:text-foreground/45 text-center w-64"
+              />
             </div>
 
-            <div className="bg-card text-card-foreground rounded-t-[2rem] px-6 pt-5 pb-7 mt-4">
+            <div className="bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
               <Keypad onPress={press} />
               <button
                 onClick={onContinueAmount}
                 disabled={!numeric || overBalance}
-                className="mt-4 w-full h-13 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition"
+                className="mt-5 w-full h-12 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition"
               >
                 Review transfer
               </button>
