@@ -178,8 +178,7 @@ function TopupFlow() {
         <button
           onClick={() => {
             if (step === "amount") navigate({ to: "/home" });
-            else if (step === "method") setStep("amount");
-            else if (step === "transfer-details") setStep("method");
+            else if (step === "summary") setStep("amount");
             else setStep("amount");
           }}
           className="w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center"
