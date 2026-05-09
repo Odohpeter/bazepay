@@ -138,7 +138,11 @@ function TopupFlow() {
     : "0";
   const numeric = Math.round(srcAmount * meta.rate); // NGN equivalent
   const formatted = numeric ? numeric.toLocaleString("en-US") : "0";
-  const fee = method?.id === "card" ? Math.round(numeric * 0.015) : 0;
+  const srcFee = srcAmount * FEE_RATE;
+  const srcFeeFormatted = srcFee
+    ? srcFee.toLocaleString("en-US", { maximumFractionDigits: 2 })
+    : "0";
+  const fee = Math.round(numeric * FEE_RATE);
   const total = numeric + fee;
 
   const press = (key: string) => {
