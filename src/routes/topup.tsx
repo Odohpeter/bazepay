@@ -192,38 +192,16 @@ function TopupFlow() {
               </p>
 
               <div className="mt-2 rounded-3xl bg-foreground/5 border border-foreground/10 p-4 flex items-center gap-3">
-                <div className="relative">
-                  <button
-                    onClick={() => setCcyOpen((v) => !v)}
-                    className="flex items-center gap-2 bg-foreground/10 rounded-full pl-1.5 pr-2.5 py-1.5"
-                  >
-                    <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
-                      {meta.flag}
-                    </span>
-                    <span className="text-sm font-bold">{srcCurrency}</span>
-                    <ChevronRight className={`w-3.5 h-3.5 transition ${ccyOpen ? "rotate-90" : "rotate-90"}`} />
-                  </button>
-                  {ccyOpen && (
-                    <div className="absolute left-0 top-full mt-2 w-64 bg-card border border-foreground/10 rounded-2xl p-1.5 shadow-xl z-30 max-h-72 overflow-y-auto">
-                      {CURRENCIES.map((c) => (
-                        <button
-                          key={c}
-                          onClick={() => {
-                            setSrcCurrency(c);
-                            setCcyOpen(false);
-                            setAmount("");
-                          }}
-                          className="w-full flex items-center gap-2 px-2.5 py-2 rounded-xl hover:bg-foreground/5 text-xs font-semibold"
-                        >
-                          <span className="text-base">{CURRENCY_META[c].flag}</span>
-                          <span className="w-10 text-left shrink-0">{c}</span>
-                          <span className="flex-1 text-left text-foreground/55 truncate">{CURRENCY_META[c].name}</span>
-                          {srcCurrency === c && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <button
+                  onClick={() => setCcyOpen(true)}
+                  className="flex items-center gap-2 bg-foreground/10 rounded-full pl-1.5 pr-2.5 py-1.5 active:scale-95 transition"
+                >
+                  <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
+                    {meta.flag}
+                  </span>
+                  <span className="text-sm font-bold">{srcCurrency}</span>
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
                 <div className="flex-1 text-right">
                   <p className="font-display text-3xl font-bold tabular-nums leading-none">
                     {meta.symbol}
