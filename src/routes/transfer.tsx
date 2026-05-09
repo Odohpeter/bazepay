@@ -672,15 +672,24 @@ function TransferFlow() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex-1 flex flex-col items-center justify-center px-6 text-center"
+            className="flex-1 flex flex-col items-center justify-center px-6 text-center relative"
           >
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+              <div className="w-72 h-72 rounded-full bg-lime/20 blur-3xl" />
+            </div>
             <motion.div
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", damping: 18, stiffness: 200 }}
-              className="w-24 h-24 rounded-full bg-lime/20 flex items-center justify-center"
+              className="relative w-28 h-28 rounded-full bg-lime/20 flex items-center justify-center"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-lime flex items-center justify-center">
+              <motion.div
+                initial={{ scale: 1, opacity: 0.7 }}
+                animate={{ scale: 1.6, opacity: 0 }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: "easeOut" }}
+                className="absolute inset-0 rounded-full bg-lime/30"
+              />
+              <div className="relative w-16 h-16 rounded-full bg-gradient-lime flex items-center justify-center shadow-lg shadow-lime/30">
                 <Check className="w-8 h-8 text-lime-foreground" strokeWidth={3} />
               </div>
             </motion.div>
