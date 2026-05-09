@@ -601,7 +601,7 @@ function CurrencySheet({
                       selected ? "bg-primary/10" : "hover:bg-muted"
                     }`}
                   >
-                    <span className="text-2xl">{m.flag}</span>
+                    <Flag code={m.cc} className="w-8 h-6" />
                     <div className="flex-1 min-w-0">
                       <p className="text-[14.5px] font-bold">{c}</p>
                       <p className="text-[12px] text-card-foreground/55 truncate">{m.name}</p>
