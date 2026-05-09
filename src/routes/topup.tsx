@@ -127,7 +127,7 @@ function TopupFlow() {
   const navigate = useNavigate();
   const [step, setStep] = useState<Step>("amount");
   const [amount, setAmount] = useState("");
-  const [srcCurrency, setSrcCurrency] = useState<SrcCurrency>("NGN");
+  const [srcCurrency, setSrcCurrency] = useState<SrcCurrency>("GBP");
   const [ccyOpen, setCcyOpen] = useState(false);
   const [method, setMethod] = useState<Method | null>(null);
 
