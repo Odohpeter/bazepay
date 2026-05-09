@@ -511,54 +511,111 @@ function TransferFlow() {
             transition={{ duration: 0.25 }}
             className="flex-1 flex flex-col"
           >
+            {/* Recipient pill card */}
+            <div className="px-6 mt-4">
+              <div className="rounded-2xl bg-card text-card-foreground p-3 flex items-center gap-3 shadow-sm">
+                <div
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-sm font-bold shrink-0"
+                  style={{ background: recipient.color, color: "#1a1335" }}
+                >
+                  {recipient.initials}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] uppercase tracking-wider font-bold text-card-foreground/55">
+                    Sending to
+                  </p>
+                  <p className="text-sm font-bold truncate">{recipient.name}</p>
+                  <p className="text-[10.5px] text-card-foreground/55 truncate">
+                    {recipient.bank} · {recipient.account}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setStep("recipient")}
+                  className="text-[10px] font-bold text-primary px-3 py-1.5 rounded-full bg-primary/10"
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+
             <div className="flex-1 flex flex-col items-center justify-center px-6">
-              <div
-                className="w-14 h-14 rounded-full flex items-center justify-center text-base font-bold"
-                style={{ background: recipient.color, color: "#1a1335" }}
+              <p className="text-[10px] uppercase tracking-[0.18em] text-foreground/55 font-bold">
+                Amount
+              </p>
+              <motion.p
+                key={formatted}
+                initial={{ scale: 0.96, opacity: 0.7 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.15 }}
+                className="font-display text-[64px] leading-none font-bold tracking-tight mt-2 tabular-nums"
               >
-                {recipient.initials}
-              </div>
-              <p className="text-xs text-foreground/55 font-semibold mt-3">
-                Sending to <span className="text-foreground font-bold">{recipient.name}</span>
-              </p>
-              <p className="text-[10px] text-foreground/40 mt-0.5">
-                {recipient.bank} · {recipient.account}
-              </p>
-
-              <p className="font-display text-6xl font-bold tracking-tight mt-6 tabular-nums">
-                <span className="text-foreground/40">₦</span>
+                <span className="text-foreground/35">₦</span>
                 {formatted}
-              </p>
+              </motion.p>
 
-              <div className="mt-2 h-4 text-[11px] font-semibold">
+              <div className="mt-3 h-5 text-[11px] font-semibold flex items-center gap-2">
                 {numeric > 0 && !overBalance && (
-                  <span className="text-foreground/55">Fee ₦{fee} · Total ₦{total.toLocaleString()}</span>
+                  <>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-foreground/10 text-foreground/70">
+                      Fee ₦{fee}
+                    </span>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-lime/15 text-lime font-bold">
+                      <TrendingUp className="w-3 h-3" />
+                      Total ₦{total.toLocaleString()}
+                    </span>
+                  </>
                 )}
-                {overBalance && <span className="text-destructive">Insufficient balance</span>}
+                {overBalance && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-destructive/15 text-destructive">
+                    Insufficient balance
+                  </span>
+                )}
+                {!numeric && (
+                  <span className="text-foreground/45">
+                    Balance ₦{wallets.NGN.whole}
+                    {wallets.NGN.decimals}
+                  </span>
+                )}
               </div>
 
-              <p className="text-[10px] text-foreground/45 mt-1">
-                Balance: ₦{wallets.NGN.whole}
-                {wallets.NGN.decimals}
-              </p>
+              {/* Balance progress */}
+              {numeric > 0 && (
+                <div className="mt-3 w-56 h-1 rounded-full bg-foreground/10 overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{
+                      width: `${Math.min(100, (total / WALLET_BALANCE) * 100)}%`,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className={`h-full rounded-full ${overBalance ? "bg-destructive" : "bg-gradient-to-r from-primary to-lime"}`}
+                  />
+                </div>
+              )}
 
-              <div className="mt-4 flex gap-2 flex-wrap justify-center">
-                {QUICK_AMOUNTS.map((q) => (
-                  <button
-                    key={q}
-                    onClick={() => setAmount(String(q))}
-                    className="px-3 h-8 rounded-full bg-foreground/10 text-[11px] font-bold active:scale-95 transition"
-                  >
-                    ₦{q.toLocaleString()}
-                  </button>
-                ))}
+              <div className="mt-5 flex gap-2 flex-wrap justify-center">
+                {QUICK_AMOUNTS.map((q) => {
+                  const sel = numeric === q;
+                  return (
+                    <button
+                      key={q}
+                      onClick={() => setAmount(String(q))}
+                      className={`px-3.5 h-9 rounded-full text-[11px] font-bold active:scale-95 transition ${
+                        sel
+                          ? "bg-primary text-primary-foreground shadow-md shadow-primary/25"
+                          : "bg-foreground/10 text-foreground/80"
+                      }`}
+                    >
+                      ₦{q.toLocaleString()}
+                    </button>
+                  );
+                })}
               </div>
 
               <input
                 value={note}
                 onChange={(e) => setNote(e.target.value.slice(0, 64))}
-                placeholder="Add a note (optional)"
-                className="mt-4 bg-foreground/10 rounded-full px-4 h-10 text-xs outline-none placeholder:text-foreground/45 text-center w-64"
+                placeholder="✏️  Add a note (optional)"
+                className="mt-5 bg-foreground/10 rounded-full px-4 h-10 text-xs outline-none placeholder:text-foreground/45 text-center w-64"
               />
             </div>
 
@@ -567,9 +624,10 @@ function TransferFlow() {
               <button
                 onClick={onContinueAmount}
                 disabled={!numeric || overBalance}
-                className="mt-5 w-full h-12 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition"
+                className="mt-5 w-full h-12 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition flex items-center justify-center gap-2"
               >
                 Review transfer
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </motion.div>
