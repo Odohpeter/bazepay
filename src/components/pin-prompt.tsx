@@ -19,7 +19,7 @@ export function PinPromptSheet({
 }) {
   const [pin, setPin] = useState("");
   const [shake, setShake] = useState(false);
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     if (!open) setPin("");
