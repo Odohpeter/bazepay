@@ -230,8 +230,8 @@ function TopupFlow() {
               </div>
 
               <div className="my-2 flex justify-center">
-                <div className="w-9 h-9 rounded-full bg-primary/15 border border-background flex items-center justify-center">
-                  <ChevronRight className="w-4 h-4 text-primary rotate-90" />
+                <div className="w-9 h-9 rounded-full bg-lime/20 border border-background flex items-center justify-center">
+                  <ChevronRight className="w-4 h-4 text-lime rotate-90" />
                 </div>
               </div>
 
