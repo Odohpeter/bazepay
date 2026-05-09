@@ -260,10 +260,10 @@ function TopupFlow() {
                   }
                 />
                 <Row
-                  label="Processing fee"
-                  value={method?.id === "card" ? "1.5%" : "Free"}
+                  label="Bank Processing Fees"
+                  value={`${meta.symbol}${srcFeeFormatted} (3.9%)`}
                 />
-                <Row label="Arrives" value="Instantly" />
+                <Row label="Processing Time" value="Instant" />
               </div>
 
               <div className="mt-3 flex gap-1.5 w-full">
