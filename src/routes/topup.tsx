@@ -94,16 +94,32 @@ const CURRENCY_META: Record<string, CurrencyInfo> = {
 
 const CURRENCIES: SrcCurrency[] = Object.keys(CURRENCY_META);
 
-function quickAmounts(rate: number): number[] {
-  const targets = [15000, 40000, 80000, 160000];
-  return targets.map((t) => {
-    const v = t / rate;
-    if (v >= 10000) return Math.round(v / 1000) * 1000;
-    if (v >= 100) return Math.round(v / 10) * 10;
-    if (v >= 10) return Math.round(v);
-    return Math.round(v * 10) / 10;
-  });
+// USD-equivalent targets, snapped to clean round numbers per currency
+const USD_TARGETS = [50, 100, 500, 1000];
+const USD_RATE = 1542;
+
+function snapNice(v: number): number {
+  if (v <= 0) return 0;
+  const mag = Math.pow(10, Math.floor(Math.log10(v)));
+  const n = v / mag;
+  let s;
+  if (n < 1.5) s = 1;
+  else if (n < 3.5) s = 2;
+  else if (n < 7.5) s = 5;
+  else s = 10;
+  return s * mag;
 }
+
+function quickAmounts(rate: number): number[] {
+  const out: number[] = [];
+  for (const t of USD_TARGETS) {
+    const v = snapNice((t * USD_RATE) / rate);
+    if (!out.includes(v)) out.push(v);
+  }
+  return out;
+}
+
+const FEE_RATE = 0.039;
 
 type Step = "amount" | "method" | "success" | "transfer-details";
 
@@ -122,7 +138,11 @@ function TopupFlow() {
     : "0";
   const numeric = Math.round(srcAmount * meta.rate); // NGN equivalent
   const formatted = numeric ? numeric.toLocaleString("en-US") : "0";
-  const fee = method?.id === "card" ? Math.round(numeric * 0.015) : 0;
+  const srcFee = srcAmount * FEE_RATE;
+  const srcFeeFormatted = srcFee
+    ? srcFee.toLocaleString("en-US", { maximumFractionDigits: 2 })
+    : "0";
+  const fee = Math.round(numeric * FEE_RATE);
   const total = numeric + fee;
 
   const press = (key: string) => {
@@ -240,10 +260,10 @@ function TopupFlow() {
                   }
                 />
                 <Row
-                  label="Processing fee"
-                  value={method?.id === "card" ? "1.5%" : "Free"}
+                  label="Bank Processing Fees"
+                  value={`${meta.symbol}${srcFeeFormatted} (3.9%)`}
                 />
-                <Row label="Arrives" value="Instantly" />
+                <Row label="Processing Time" value="Instant" />
               </div>
 
               <div className="mt-3 flex gap-1.5 w-full">
