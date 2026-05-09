@@ -267,22 +267,43 @@ function TransferFlow() {
             </div>
 
             <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <button
-                onClick={() => setStep("new-recipient")}
-                className="w-full flex items-center gap-3 p-4 rounded-2xl border-2 border-dashed border-card-foreground/15 active:bg-card-foreground/[0.04] transition"
-              >
-                <div className="w-11 h-11 rounded-full bg-primary/15 text-primary flex items-center justify-center">
-                  <Plus className="w-5 h-5" />
-                </div>
-                <div className="flex-1 text-left">
-                  <p className="font-bold text-sm">Add new recipient</p>
-                  <p className="text-[11px] text-card-foreground/55 mt-0.5">Bank account · Nigeria</p>
-                </div>
-                <ChevronRight className="w-4 h-4 text-card-foreground/40" />
-              </button>
+              <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mb-3 px-1">
+                Favorites
+              </p>
+              <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-6 px-6 pb-1">
+                <button
+                  onClick={() => setStep("new-recipient")}
+                  className="flex flex-col items-center gap-1.5 shrink-0 w-16"
+                >
+                  <div className="w-14 h-14 rounded-full bg-primary/10 border-2 border-dashed border-primary/40 text-primary flex items-center justify-center">
+                    <Plus className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10.5px] font-bold leading-tight text-center">New</span>
+                </button>
+                {RECENTS.map((r) => (
+                  <button
+                    key={r.id}
+                    onClick={() => {
+                      setRecipient(r);
+                      setStep("amount");
+                    }}
+                    className="flex flex-col items-center gap-1.5 shrink-0 w-16 active:scale-95 transition"
+                  >
+                    <div
+                      className="w-14 h-14 rounded-full flex items-center justify-center text-sm font-bold ring-2 ring-card"
+                      style={{ background: r.color, color: "#1a1335" }}
+                    >
+                      {r.initials}
+                    </div>
+                    <span className="text-[10.5px] font-semibold leading-tight text-center truncate w-full">
+                      {r.name.split(" ")[0]}
+                    </span>
+                  </button>
+                ))}
+              </div>
 
               <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mt-7 mb-3 px-1">
-                Recent
+                Recent transfers
               </p>
               <div className="space-y-1">
                 {filtered.map((r) => (
@@ -501,38 +522,48 @@ function TransferFlow() {
             transition={{ duration: 0.25 }}
             className="flex-1 flex flex-col"
           >
-            <div className="px-6 mt-6 text-center">
-              <p className="text-xs text-foreground/55 font-semibold">You are sending</p>
-              <p className="font-display text-4xl font-bold tracking-tight mt-2 tabular-nums">
-                ₦{formatted}
-              </p>
-              <p className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-primary">
-                <Zap className="w-3 h-3" /> Arrives instantly
-              </p>
-            </div>
+            <div className="px-6 mt-6">
+              <div className="rounded-3xl bg-gradient-to-br from-primary/15 via-primary/5 to-lime/15 border border-primary/20 p-5">
+                <p className="text-[11px] uppercase tracking-widest text-foreground/55 font-bold text-center">
+                  You're sending
+                </p>
+                <p className="font-display text-5xl font-bold tracking-tight mt-2 tabular-nums text-center">
+                  ₦{formatted}
+                </p>
+                <p className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-primary mx-auto w-full justify-center">
+                  <Zap className="w-3 h-3" /> Arrives instantly · Fee ₦{fee}
+                </p>
 
-            <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <div className="rounded-2xl bg-card-foreground/[0.04] p-4">
-                <div className="flex items-center gap-3">
+                <div className="mt-5 flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-foreground/10 flex items-center justify-center text-xs font-bold uppercase tracking-wider">
+                    YOU
+                  </div>
+                  <div className="flex-1 flex items-center gap-1">
+                    <div className="flex-1 border-t border-dashed border-foreground/25" />
+                    <div className="w-7 h-7 rounded-full bg-lime/20 flex items-center justify-center">
+                      <ChevronRight className="w-3.5 h-3.5 text-lime" />
+                    </div>
+                    <div className="flex-1 border-t border-dashed border-foreground/25" />
+                  </div>
                   <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ring-2 ring-background"
                     style={{ background: recipient.color, color: "#1a1335" }}
                   >
                     {recipient.initials}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[10px] uppercase tracking-wider font-bold text-card-foreground/55">
-                      Recipient
-                    </p>
-                    <p className="text-sm font-bold truncate">{recipient.name}</p>
-                    <p className="text-[11px] text-card-foreground/55 truncate">
-                      {recipient.bank} · {recipient.account}
-                    </p>
-                  </div>
+                </div>
+                <div className="mt-3 flex items-center justify-between text-[11px]">
+                  <span className="font-bold text-foreground/55">From wallet</span>
+                  <span className="font-bold truncate ml-2 text-right">
+                    {recipient.name}
+                    <span className="text-foreground/45 font-semibold"> · {recipient.bank}</span>
+                  </span>
                 </div>
               </div>
+            </div>
 
-              <div className="mt-3 rounded-2xl bg-card-foreground/[0.04] p-4 space-y-2.5">
+            <div className="flex-1 mt-5 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
+              <div className="rounded-2xl bg-card-foreground/[0.04] p-4 space-y-2.5">
                 <Row label="Amount" value={`₦${formatted}`} />
                 <Row label="Fee" value={`₦${fee}`} />
                 <div>
@@ -641,15 +672,24 @@ function TransferFlow() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex-1 flex flex-col items-center justify-center px-6 text-center"
+            className="flex-1 flex flex-col items-center justify-center px-6 text-center relative"
           >
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+              <div className="w-72 h-72 rounded-full bg-lime/20 blur-3xl" />
+            </div>
             <motion.div
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", damping: 18, stiffness: 200 }}
-              className="w-24 h-24 rounded-full bg-lime/20 flex items-center justify-center"
+              className="relative w-28 h-28 rounded-full bg-lime/20 flex items-center justify-center"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-lime flex items-center justify-center">
+              <motion.div
+                initial={{ scale: 1, opacity: 0.7 }}
+                animate={{ scale: 1.6, opacity: 0 }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: "easeOut" }}
+                className="absolute inset-0 rounded-full bg-lime/30"
+              />
+              <div className="relative w-16 h-16 rounded-full bg-gradient-lime flex items-center justify-center shadow-lg shadow-lime/30">
                 <Check className="w-8 h-8 text-lime-foreground" strokeWidth={3} />
               </div>
             </motion.div>
