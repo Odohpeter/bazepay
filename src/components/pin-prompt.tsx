@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, X } from "lucide-react";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
 import { hasPin, verifyPin } from "@/lib/pin-store";
 
 export function PinPromptSheet({
@@ -20,20 +19,20 @@ export function PinPromptSheet({
 }) {
   const [pin, setPin] = useState("");
   const [shake, setShake] = useState(false);
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     if (!open) setPin("");
   }, [open]);
 
-  // If user has not set a PIN yet, redirect to setup.
+  // PIN creation happens during signup (after KYC). If somehow no PIN
+  // exists yet, auto-pass instead of redirecting to a setup screen here.
   useEffect(() => {
     if (open && !hasPin()) {
-      toast.info("Set up your transaction PIN first");
+      onSuccess();
       onClose();
-      navigate({ to: "/auth/pin-setup" });
     }
-  }, [open, onClose, navigate]);
+  }, [open, onClose, onSuccess]);
 
   useEffect(() => {
     if (!open || pin.length < 4) return;
