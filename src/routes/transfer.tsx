@@ -229,7 +229,7 @@ function TransferFlow() {
   return (
     <PhoneFrame>
     <div className="min-h-screen md:min-h-0 md:h-[860px] bg-background text-foreground flex flex-col">
-      <div className="h-10" />
+      <div className="h-12" />
       <div className="px-6 pt-4 flex items-center justify-between">
         <button
           onClick={back}
@@ -255,11 +255,11 @@ function TransferFlow() {
             className="flex-1 flex flex-col"
           >
             {/* Balance — minimal & prominent */}
-            <div className="px-6 mt-8">
+            <div className="px-6 mt-10">
               <p className="text-[10px] uppercase tracking-[0.18em] font-bold text-foreground/45">
                 Available balance
               </p>
-              <p className="font-display text-[56px] leading-none font-bold tabular-nums mt-2">
+              <p className="font-display text-[44px] leading-none font-bold tabular-nums mt-2">
                 ₦{wallets.NGN.whole}
                 <span className="text-foreground/35">{wallets.NGN.decimals}</span>
               </p>
