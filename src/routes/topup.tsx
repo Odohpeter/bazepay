@@ -121,7 +121,7 @@ function quickAmounts(rate: number): number[] {
 
 const FEE_RATE = 0.039;
 
-type Step = "amount" | "method" | "success" | "transfer-details";
+type Step = "amount" | "summary" | "success";
 
 function TopupFlow() {
   const navigate = useNavigate();
@@ -129,7 +129,6 @@ function TopupFlow() {
   const [amount, setAmount] = useState("");
   const [srcCurrency, setSrcCurrency] = useState<SrcCurrency>("GBP");
   const [ccyOpen, setCcyOpen] = useState(false);
-  const [method, setMethod] = useState<Method | null>(null);
 
   const meta = CURRENCY_META[srcCurrency];
   const srcAmount = Number(amount.replace(/,/g, "")) || 0;
@@ -142,6 +141,8 @@ function TopupFlow() {
   const srcFeeFormatted = srcFee
     ? srcFee.toLocaleString("en-US", { maximumFractionDigits: 2 })
     : "0";
+  const srcTotal = srcAmount + srcFee;
+  const srcTotalFormatted = srcTotal.toLocaleString("en-US", { maximumFractionDigits: 2 });
   const fee = Math.round(numeric * FEE_RATE);
   const total = numeric + fee;
 
@@ -160,18 +161,13 @@ function TopupFlow() {
       toast.error(`Enter at least ${meta.symbol}${meta.min}`);
       return;
     }
-    setStep("method");
+    setStep("summary");
   };
 
   const { requirePin, pinGate } = usePinGate({ subtitle: "Authorise wallet top-up" });
 
   const onPay = () => {
-    if (!method) return;
-    if (method.id === "transfer") {
-      setStep("transfer-details");
-    } else {
-      requirePin(() => setStep("success"));
-    }
+    requirePin(() => setStep("success"));
   };
 
   return (
