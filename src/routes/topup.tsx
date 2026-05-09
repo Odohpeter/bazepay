@@ -197,9 +197,7 @@ function TopupFlow() {
                   onClick={() => setCcyOpen(true)}
                   className="flex items-center gap-2 bg-foreground/10 rounded-full pl-1.5 pr-2.5 py-1.5 active:scale-95 transition"
                 >
-                  <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
-                    {meta.flag}
-                  </span>
+                  <Flag code={meta.cc} className="w-7 h-5" />
                   <span className="text-sm font-bold">{srcCurrency}</span>
                   <ChevronDown className="w-3.5 h-3.5" />
                 </button>
