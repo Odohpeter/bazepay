@@ -121,7 +121,7 @@ function quickAmounts(rate: number): number[] {
 
 const FEE_RATE = 0.039;
 
-type Step = "amount" | "method" | "success" | "transfer-details";
+type Step = "amount" | "summary" | "success";
 
 function TopupFlow() {
   const navigate = useNavigate();
@@ -129,7 +129,6 @@ function TopupFlow() {
   const [amount, setAmount] = useState("");
   const [srcCurrency, setSrcCurrency] = useState<SrcCurrency>("GBP");
   const [ccyOpen, setCcyOpen] = useState(false);
-  const [method, setMethod] = useState<Method | null>(null);
 
   const meta = CURRENCY_META[srcCurrency];
   const srcAmount = Number(amount.replace(/,/g, "")) || 0;
@@ -142,6 +141,8 @@ function TopupFlow() {
   const srcFeeFormatted = srcFee
     ? srcFee.toLocaleString("en-US", { maximumFractionDigits: 2 })
     : "0";
+  const srcTotal = srcAmount + srcFee;
+  const srcTotalFormatted = srcTotal.toLocaleString("en-US", { maximumFractionDigits: 2 });
   const fee = Math.round(numeric * FEE_RATE);
   const total = numeric + fee;
 
@@ -160,18 +161,13 @@ function TopupFlow() {
       toast.error(`Enter at least ${meta.symbol}${meta.min}`);
       return;
     }
-    setStep("method");
+    setStep("summary");
   };
 
   const { requirePin, pinGate } = usePinGate({ subtitle: "Authorise wallet top-up" });
 
   const onPay = () => {
-    if (!method) return;
-    if (method.id === "transfer") {
-      setStep("transfer-details");
-    } else {
-      requirePin(() => setStep("success"));
-    }
+    requirePin(() => setStep("success"));
   };
 
   return (
@@ -182,8 +178,7 @@ function TopupFlow() {
         <button
           onClick={() => {
             if (step === "amount") navigate({ to: "/home" });
-            else if (step === "method") setStep("amount");
-            else if (step === "transfer-details") setStep("method");
+            else if (step === "summary") setStep("amount");
             else setStep("amount");
           }}
           className="w-10 h-10 rounded-full bg-foreground/10 flex items-center justify-center"
@@ -293,9 +288,9 @@ function TopupFlow() {
           </motion.div>
         )}
 
-        {step === "method" && (
+        {step === "summary" && (
           <motion.div
-            key="method"
+            key="summary"
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
@@ -303,127 +298,72 @@ function TopupFlow() {
             className="flex-1 flex flex-col"
           >
             <div className="px-6 mt-6">
-              <h1 className="font-display text-2xl font-bold tracking-tight">How would you like to pay?</h1>
+              <h1 className="font-display text-2xl font-bold tracking-tight">Confirm top-up</h1>
               <p className="text-sm text-foreground/55 mt-1">
-                Adding <span className="font-bold text-foreground">₦{formatted}</span> to your wallet.
+                Review the details before continuing to payment.
               </p>
             </div>
 
-            <div className="flex-1 mt-7 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mb-3">
-                Payment method
-              </p>
-              <div className="space-y-2.5">
-                {METHODS.map((m) => {
-                  const selected = method?.id === m.id;
-                  const Icon = m.icon;
-                  return (
-                    <button
-                      key={m.id}
-                      onClick={() => setMethod(m)}
-                      className={`w-full flex items-center gap-3 p-4 rounded-2xl border transition text-left ${
-                        selected
-                          ? "border-primary bg-primary/5"
-                          : "border-card-foreground/10 active:bg-card-foreground/[0.04]"
-                      }`}
-                    >
-                      <div
-                        className={`w-11 h-11 rounded-xl flex items-center justify-center ${
-                          selected ? "bg-primary text-primary-foreground" : "bg-accent text-card-foreground/70"
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm">{m.label}</p>
-                        <p className="text-[11px] text-card-foreground/55 mt-0.5">{m.sub}</p>
-                        <div className="flex items-center gap-2 mt-1.5">
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-card-foreground/[0.05]">
-                            {m.fee}
-                          </span>
-                          <span className="text-[10px] font-semibold text-card-foreground/55">
-                            {m.arrival}
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition ${
-                          selected ? "border-primary bg-primary" : "border-card-foreground/20"
-                        }`}
-                      >
-                        {selected && <Check className="w-3 h-3 text-primary-foreground" strokeWidth={3} />}
-                      </div>
-                    </button>
-                  );
-                })}
+            <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
+              <div className="rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 p-5 text-center">
+                <p className="text-[11px] uppercase tracking-widest text-card-foreground/55 font-bold">
+                  You'll receive
+                </p>
+                <p className="font-display text-4xl font-bold tabular-nums mt-2">
+                  ₦{formatted}
+                </p>
+                <p className="text-xs text-card-foreground/55 mt-1">
+                  from {meta.symbol}
+                  {srcFormatted} {srcCurrency}
+                </p>
               </div>
 
-              {method && (
-                <div className="mt-6 rounded-2xl bg-card-foreground/[0.04] p-4 space-y-2.5">
-                  <Row label="Amount" value={`₦${formatted}`} />
-                  <Row label="Fee" value={fee ? `₦${fee.toLocaleString()}` : "Free"} />
-                  <div className="h-px bg-card-foreground/[0.08]" />
-                  <Row label="Total" value={`₦${total.toLocaleString()}`} bold />
+              <div className="mt-5 rounded-2xl bg-card-foreground/[0.04] p-4 space-y-3">
+                <SummaryRow label="Amount" value={`${meta.symbol}${srcFormatted} ${srcCurrency}`} />
+                <SummaryRow
+                  label="Exchange rate"
+                  value={
+                    srcCurrency === "NGN"
+                      ? "Base currency"
+                      : `1 ${srcCurrency} = ₦${meta.rate.toLocaleString()}`
+                  }
+                />
+                <SummaryRow
+                  label="Bank Processing Fees"
+                  value={`${meta.symbol}${srcFeeFormatted} (3.9%)`}
+                />
+                <SummaryRow label="Arrival Time" value="Instant" />
+                <div className="h-px bg-card-foreground/[0.08]" />
+                <SummaryRow
+                  label="You pay"
+                  value={`${meta.symbol}${srcTotalFormatted} ${srcCurrency}`}
+                  bold
+                />
+              </div>
+
+              <div className="mt-5 rounded-2xl bg-card-foreground/[0.04] border border-card-foreground/[0.06] p-4 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <CreditCard className="w-5 h-5 text-primary" />
                 </div>
-              )}
-
-              <button
-                onClick={onPay}
-                disabled={!method}
-                className="mt-6 w-full h-13 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 flex items-center justify-center gap-2 active:scale-[0.99] transition"
-              >
-                <ShieldCheck className="w-4 h-4" />
-                {method?.id === "transfer" ? "Show account details" : `Pay ₦${total.toLocaleString()}`}
-              </button>
-              <p className="text-[10px] text-card-foreground/45 text-center mt-3">
-                Secured by 256-bit encryption · BazePay never stores your card details.
-              </p>
-            </div>
-          </motion.div>
-        )}
-
-        {step === "transfer-details" && (
-          <motion.div
-            key="transfer-details"
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -16 }}
-            transition={{ duration: 0.25 }}
-            className="flex-1 flex flex-col"
-          >
-            <div className="px-6 mt-6 text-center">
-              <p className="text-xs text-foreground/55 font-semibold">Send exactly</p>
-              <p className="font-display text-4xl font-bold tracking-tight mt-2 tabular-nums">
-                ₦{formatted}
-              </p>
-              <p className="text-xs text-foreground/55 mt-1">to the account below</p>
-            </div>
-
-            <div className="flex-1 mt-7 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <div className="rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 p-5 space-y-4">
-                <DetailRow label="Bank" value="Wema Bank" />
-                <div className="h-px bg-card-foreground/[0.08]" />
-                <DetailRow label="Account number" value="9012 3456 78" copy />
-                <div className="h-px bg-card-foreground/[0.08]" />
-                <DetailRow label="Account name" value="BazePay / Adaeze O." />
-              </div>
-
-              <div className="mt-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 p-4 flex gap-3">
-                <Sparkles className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-xs font-bold">This is your unique BazePay number</p>
-                  <p className="text-[11px] text-card-foreground/65 mt-0.5 leading-relaxed">
-                    Transfers reflect in under 30 seconds. Save it for next time.
+                <div className="flex-1">
+                  <p className="text-xs font-bold">Pay with Paystack</p>
+                  <p className="text-[11px] text-card-foreground/55 mt-0.5">
+                    Card, bank transfer, USSD or bank app
                   </p>
                 </div>
               </div>
 
               <button
-                onClick={() => setStep("success")}
-                className="mt-6 w-full h-13 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm active:scale-[0.99] transition"
+                onClick={onPay}
+                className="mt-6 w-full h-13 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition"
               >
-                I've sent the transfer
+                <ShieldCheck className="w-4 h-4" />
+                Pay {meta.symbol}
+                {srcTotalFormatted}
               </button>
+              <p className="text-[10px] text-card-foreground/45 text-center mt-3">
+                Secured by Paystack · BazePay never stores your card details.
+              </p>
             </div>
           </motion.div>
         )}
@@ -481,6 +421,23 @@ function TopupFlow() {
       }}
     />
     </PhoneFrame>
+  );
+}
+
+function SummaryRow({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className={`text-[12px] ${bold ? "font-bold text-card-foreground" : "text-card-foreground/65"}`}>
+        {label}
+      </span>
+      <span
+        className={`tabular-nums text-card-foreground text-right ${
+          bold ? "font-display font-bold text-base" : "text-sm font-semibold"
+        }`}
+      >
+        {value}
+      </span>
+    </div>
   );
 }
 
