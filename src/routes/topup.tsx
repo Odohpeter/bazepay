@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/phone-frame";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -8,11 +8,14 @@ import {
   Building2,
   Banknote,
   Check,
+  ChevronDown,
   ChevronRight,
   Delete,
   ShieldCheck,
   Copy,
   Sparkles,
+  Search,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { usePinGate } from "@/components/pin-prompt";
@@ -189,38 +192,16 @@ function TopupFlow() {
               </p>
 
               <div className="mt-2 rounded-3xl bg-foreground/5 border border-foreground/10 p-4 flex items-center gap-3">
-                <div className="relative">
-                  <button
-                    onClick={() => setCcyOpen((v) => !v)}
-                    className="flex items-center gap-2 bg-foreground/10 rounded-full pl-1.5 pr-2.5 py-1.5"
-                  >
-                    <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
-                      {meta.flag}
-                    </span>
-                    <span className="text-sm font-bold">{srcCurrency}</span>
-                    <ChevronRight className={`w-3.5 h-3.5 transition ${ccyOpen ? "rotate-90" : "rotate-90"}`} />
-                  </button>
-                  {ccyOpen && (
-                    <div className="absolute left-0 top-full mt-2 w-64 bg-card border border-foreground/10 rounded-2xl p-1.5 shadow-xl z-30 max-h-72 overflow-y-auto">
-                      {CURRENCIES.map((c) => (
-                        <button
-                          key={c}
-                          onClick={() => {
-                            setSrcCurrency(c);
-                            setCcyOpen(false);
-                            setAmount("");
-                          }}
-                          className="w-full flex items-center gap-2 px-2.5 py-2 rounded-xl hover:bg-foreground/5 text-xs font-semibold"
-                        >
-                          <span className="text-base">{CURRENCY_META[c].flag}</span>
-                          <span className="w-10 text-left shrink-0">{c}</span>
-                          <span className="flex-1 text-left text-foreground/55 truncate">{CURRENCY_META[c].name}</span>
-                          {srcCurrency === c && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <button
+                  onClick={() => setCcyOpen(true)}
+                  className="flex items-center gap-2 bg-foreground/10 rounded-full pl-1.5 pr-2.5 py-1.5 active:scale-95 transition"
+                >
+                  <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
+                    {meta.flag}
+                  </span>
+                  <span className="text-sm font-bold">{srcCurrency}</span>
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
                 <div className="flex-1 text-right">
                   <p className="font-display text-3xl font-bold tabular-nums leading-none">
                     {meta.symbol}
@@ -473,6 +454,15 @@ function TopupFlow() {
       </AnimatePresence>
     </div>
     {pinGate}
+    <CurrencySheet
+      open={ccyOpen}
+      onClose={() => setCcyOpen(false)}
+      value={srcCurrency}
+      onChange={(c) => {
+        setSrcCurrency(c);
+        setAmount("");
+      }}
+    />
     </PhoneFrame>
   );
 }
@@ -529,5 +519,110 @@ function Keypad({ onPress }: { onPress: (key: string) => void }) {
         </button>
       ))}
     </div>
+  );
+}
+
+function CurrencySheet({
+  open,
+  onClose,
+  value,
+  onChange,
+}: {
+  open: boolean;
+  onClose: () => void;
+  value: string;
+  onChange: (code: string) => void;
+}) {
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return CURRENCIES;
+    return CURRENCIES.filter((c) => {
+      const m = CURRENCY_META[c];
+      return c.toLowerCase().includes(q) || m.name.toLowerCase().includes(q);
+    });
+  }, [search]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 z-40 bg-black/70 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", stiffness: 320, damping: 34 }}
+            className="absolute inset-x-0 bottom-0 z-50 bg-card text-card-foreground rounded-t-[2rem] flex flex-col max-h-[85%]"
+          >
+            <div className="pt-3 flex justify-center">
+              <div className="h-1 w-10 rounded-full bg-card-foreground/15" />
+            </div>
+            <div className="px-6 pt-4 pb-3 flex items-center justify-between">
+              <h2 className="font-display text-xl font-bold">Select currency</h2>
+              <button
+                onClick={onClose}
+                className="w-9 h-9 rounded-full bg-muted flex items-center justify-center hover:bg-muted/70 transition"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="px-6 pb-3">
+              <div className="relative">
+                <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-card-foreground/40" />
+                <input
+                  autoFocus
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search currency"
+                  className="w-full h-12 pl-11 pr-4 rounded-2xl bg-muted text-[14px] text-card-foreground placeholder:text-card-foreground/40 focus:outline-none focus:border-primary/40 border border-transparent"
+                />
+              </div>
+            </div>
+            <div className="flex-1 overflow-y-auto px-3 pb-6">
+              {filtered.map((c) => {
+                const m = CURRENCY_META[c];
+                const selected = c === value;
+                return (
+                  <button
+                    key={c}
+                    onClick={() => {
+                      onChange(c);
+                      setSearch("");
+                      onClose();
+                    }}
+                    className={`w-full px-3 py-3 rounded-xl flex items-center gap-3 text-left transition ${
+                      selected ? "bg-primary/10" : "hover:bg-muted"
+                    }`}
+                  >
+                    <span className="text-2xl">{m.flag}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[14.5px] font-bold">{c}</p>
+                      <p className="text-[12px] text-card-foreground/55 truncate">{m.name}</p>
+                    </div>
+                    <span className="text-[12px] text-card-foreground/55 tabular-nums">
+                      {c === "NGN" ? "Base" : `₦${m.rate.toLocaleString()}`}
+                    </span>
+                    {selected && <Check className="w-4 h-4 text-primary" />}
+                  </button>
+                );
+              })}
+              {filtered.length === 0 && (
+                <p className="text-center text-[13px] text-card-foreground/50 py-8">
+                  No currency found
+                </p>
+              )}
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
