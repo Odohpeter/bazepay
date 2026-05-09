@@ -8,11 +8,14 @@ import {
   Building2,
   Banknote,
   Check,
+  ChevronDown,
   ChevronRight,
   Delete,
   ShieldCheck,
   Copy,
   Sparkles,
+  Search,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { usePinGate } from "@/components/pin-prompt";
