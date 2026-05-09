@@ -454,6 +454,15 @@ function TopupFlow() {
       </AnimatePresence>
     </div>
     {pinGate}
+    <CurrencySheet
+      open={ccyOpen}
+      onClose={() => setCcyOpen(false)}
+      value={srcCurrency}
+      onChange={(c) => {
+        setSrcCurrency(c);
+        setAmount("");
+      }}
+    />
     </PhoneFrame>
   );
 }
