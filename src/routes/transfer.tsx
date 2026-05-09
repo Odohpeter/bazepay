@@ -260,29 +260,20 @@ function TransferFlow() {
               </h1>
             </div>
 
-            {/* Balance hero */}
-            <div className="px-6 mt-5">
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground p-4 shadow-lg shadow-primary/20">
-                <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-lime/30 blur-2xl" />
-                <div className="absolute -bottom-12 -left-6 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
-                <div className="relative flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
-                    <Wallet className="w-4 h-4" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold opacity-70">
-                      Available to send
-                    </p>
-                    <p className="font-display text-xl font-bold tabular-nums">
-                      ₦{wallets.NGN.whole}
-                      <span className="opacity-60">{wallets.NGN.decimals}</span>
-                    </p>
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-lime/30 text-lime-foreground rounded-full px-2 py-1">
-                    <Zap className="w-3 h-3" /> Instant
-                  </span>
-                </div>
+            {/* Balance — minimal & prominent */}
+            <div className="px-6 mt-5 flex items-baseline justify-between">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.18em] font-bold text-foreground/45">
+                  Available balance
+                </p>
+                <p className="font-display text-3xl font-bold tabular-nums mt-0.5">
+                  ₦{wallets.NGN.whole}
+                  <span className="text-foreground/40">{wallets.NGN.decimals}</span>
+                </p>
               </div>
+              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-lime bg-lime/15 rounded-full px-2 py-1">
+                <Zap className="w-3 h-3" /> Instant
+              </span>
             </div>
 
             <div className="px-6 mt-4">
