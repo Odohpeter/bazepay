@@ -424,6 +424,23 @@ function TopupFlow() {
   );
 }
 
+function SummaryRow({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className={`text-[12px] ${bold ? "font-bold text-card-foreground" : "text-card-foreground/65"}`}>
+        {label}
+      </span>
+      <span
+        className={`tabular-nums text-card-foreground text-right ${
+          bold ? "font-display font-bold text-base" : "text-sm font-semibold"
+        }`}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
 function Row({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
   return (
     <div className="flex items-center justify-between">
