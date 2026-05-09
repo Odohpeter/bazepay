@@ -255,11 +255,37 @@ function TransferFlow() {
             className="flex-1 flex flex-col"
           >
             <div className="px-6 mt-6">
-              <h1 className="font-display text-2xl font-bold tracking-tight">Who are you paying?</h1>
-              <p className="text-sm text-foreground/55 mt-1">Pick a recent contact or add new.</p>
+              <h1 className="font-display text-[26px] leading-tight font-bold tracking-tight">
+                Who are you<br />paying today?
+              </h1>
             </div>
 
+            {/* Balance hero */}
             <div className="px-6 mt-5">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground p-4 shadow-lg shadow-primary/20">
+                <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-lime/30 blur-2xl" />
+                <div className="absolute -bottom-12 -left-6 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
+                <div className="relative flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center">
+                    <Wallet className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold opacity-70">
+                      Available to send
+                    </p>
+                    <p className="font-display text-xl font-bold tabular-nums">
+                      ₦{wallets.NGN.whole}
+                      <span className="opacity-60">{wallets.NGN.decimals}</span>
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-lime/30 text-lime-foreground rounded-full px-2 py-1">
+                    <Zap className="w-3 h-3" /> Instant
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 mt-4">
               <div className="flex items-center gap-2 bg-foreground/10 rounded-full px-4 h-11">
                 <Search className="w-4 h-4 text-foreground/45" />
                 <input
@@ -271,21 +297,29 @@ function TransferFlow() {
               </div>
             </div>
 
-            <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mb-3 px-1">
-                Favorites
-              </p>
+            <div className="flex-1 mt-5 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
+              <div className="flex items-center justify-between mb-3 px-1">
+                <p className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-card-foreground/55 font-bold">
+                  <Star className="w-3 h-3 text-lime fill-lime" /> Favorites
+                </p>
+                <button
+                  onClick={() => setStep("new-recipient")}
+                  className="text-[11px] font-bold text-primary inline-flex items-center gap-0.5"
+                >
+                  Add new <ChevronRight className="w-3 h-3" />
+                </button>
+              </div>
               <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-6 px-6 pb-1">
                 <button
                   onClick={() => setStep("new-recipient")}
                   className="flex flex-col items-center gap-1.5 shrink-0 w-16"
                 >
-                  <div className="w-14 h-14 rounded-full bg-primary/10 border-2 border-dashed border-primary/40 text-primary flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 border-2 border-dashed border-primary/40 text-primary flex items-center justify-center">
                     <Plus className="w-5 h-5" />
                   </div>
                   <span className="text-[10.5px] font-bold leading-tight text-center">New</span>
                 </button>
-                {RECENTS.map((r) => (
+                {RECENTS.map((r, idx) => (
                   <button
                     key={r.id}
                     onClick={() => {
@@ -294,11 +328,18 @@ function TransferFlow() {
                     }}
                     className="flex flex-col items-center gap-1.5 shrink-0 w-16 active:scale-95 transition"
                   >
-                    <div
-                      className="w-14 h-14 rounded-full flex items-center justify-center text-sm font-bold ring-2 ring-card"
-                      style={{ background: r.color, color: "#1a1335" }}
-                    >
-                      {r.initials}
+                    <div className="relative">
+                      <div
+                        className="w-14 h-14 rounded-2xl flex items-center justify-center text-sm font-bold ring-2 ring-card"
+                        style={{ background: r.color, color: "#1a1335" }}
+                      >
+                        {r.initials}
+                      </div>
+                      {idx === 0 && (
+                        <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-lime ring-2 ring-card flex items-center justify-center">
+                          <Sparkles className="w-2.5 h-2.5 text-lime-foreground" />
+                        </span>
+                      )}
                     </div>
                     <span className="text-[10.5px] font-semibold leading-tight text-center truncate w-full">
                       {r.name.split(" ")[0]}
@@ -307,34 +348,50 @@ function TransferFlow() {
                 ))}
               </div>
 
-              <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mt-7 mb-3 px-1">
-                Recent transfers
-              </p>
-              <div className="space-y-1">
-                {filtered.map((r) => (
-                  <button
-                    key={r.id}
-                    onClick={() => {
-                      setRecipient(r);
-                      setStep("amount");
-                    }}
-                    className="w-full flex items-center gap-3 -mx-2 px-2 py-2.5 rounded-xl active:bg-card-foreground/[0.04] transition text-left"
-                  >
-                    <div
-                      className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                      style={{ background: r.color, color: "#1a1335" }}
+              <div className="flex items-center justify-between mt-7 mb-3 px-1">
+                <p className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-card-foreground/55 font-bold">
+                  <Clock className="w-3 h-3" /> Recent transfers
+                </p>
+                <span className="text-[10px] font-semibold text-card-foreground/45">
+                  Last 30 days
+                </span>
+              </div>
+              <div className="space-y-2">
+                {filtered.map((r, idx) => {
+                  const lastAmount = [12500, 5000, 25000, 8400][idx % 4];
+                  return (
+                    <button
+                      key={r.id}
+                      onClick={() => {
+                        setRecipient(r);
+                        setStep("amount");
+                      }}
+                      className="w-full flex items-center gap-3 px-3 py-3 rounded-2xl bg-card-foreground/[0.03] hover:bg-card-foreground/[0.05] active:scale-[0.99] transition text-left"
                     >
-                      {r.initials}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm truncate">{r.name}</p>
-                      <p className="text-[11px] text-card-foreground/55 truncate">
-                        {r.bank} · {r.account}
-                      </p>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-card-foreground/30" />
-                  </button>
-                ))}
+                      <div
+                        className="w-11 h-11 rounded-2xl flex items-center justify-center text-sm font-bold shrink-0"
+                        style={{ background: r.color, color: "#1a1335" }}
+                      >
+                        {r.initials}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-sm truncate">{r.name}</p>
+                        <p className="text-[11px] text-card-foreground/55 truncate flex items-center gap-1">
+                          <Building2 className="w-3 h-3" />
+                          {r.bank} · {r.account}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[11px] font-bold tabular-nums">
+                          ₦{lastAmount.toLocaleString()}
+                        </p>
+                        <p className="text-[9px] text-card-foreground/45 uppercase tracking-wider font-semibold">
+                          last sent
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
                 {filtered.length === 0 && (
                   <p className="text-center text-sm text-card-foreground/40 py-8">No matches.</p>
                 )}
