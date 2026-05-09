@@ -409,56 +409,110 @@ function TransferFlow() {
           >
             <div className="px-6 mt-6">
               <h1 className="font-display text-2xl font-bold tracking-tight">New recipient</h1>
-              <p className="text-sm text-foreground/55 mt-1">We'll verify the account name automatically.</p>
+              <p className="text-sm text-foreground/55 mt-1">We'll verify the account name instantly.</p>
             </div>
 
-            <div className="flex-1 mt-7 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <label className="block">
-                <span className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold">
-                  Account number
-                </span>
+            <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
+              {/* Account number — premium input card */}
+              <div className="relative rounded-3xl bg-gradient-to-br from-primary/10 via-card-foreground/[0.03] to-lime/10 border border-card-foreground/[0.06] p-4">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] font-bold text-card-foreground/55">
+                    <Building2 className="w-3 h-3" /> Account number
+                  </span>
+                  <span className={`text-[10px] font-bold tabular-nums ${newAccount.length === 10 ? "text-primary" : "text-card-foreground/40"}`}>
+                    {newAccount.length}/10
+                  </span>
+                </div>
                 <input
                   inputMode="numeric"
                   maxLength={10}
                   value={newAccount}
                   onChange={(e) => setNewAccount(e.target.value.replace(/\D/g, ""))}
-                  placeholder="0000000000"
-                  className="mt-1.5 w-full h-12 px-4 rounded-2xl bg-card-foreground/[0.04] text-base font-semibold tabular-nums tracking-wider outline-none focus:bg-card-foreground/[0.08]"
+                  placeholder="0 0 0 0 0 0 0 0 0 0"
+                  className="mt-2 w-full bg-transparent font-display text-[28px] font-bold tabular-nums tracking-[0.18em] outline-none placeholder:text-card-foreground/20"
                 />
-              </label>
-
-              <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mt-6 mb-2">
-                Bank
-              </p>
-              <div className="flex items-center gap-2 bg-card-foreground/[0.04] rounded-2xl px-4 h-10 mb-2">
-                <Search className="w-4 h-4 text-card-foreground/40" />
-                <input
-                  value={bankQuery}
-                  onChange={(e) => setBankQuery(e.target.value)}
-                  placeholder="Search bank"
-                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-card-foreground/40"
-                />
+                {/* progress dots */}
+                <div className="mt-2 flex gap-1">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`flex-1 h-1 rounded-full transition ${
+                        i < newAccount.length ? "bg-primary" : "bg-card-foreground/10"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="rounded-2xl bg-card-foreground/[0.04] max-h-[220px] overflow-y-auto no-scrollbar divide-y divide-card-foreground/[0.06]">
-                {filteredBanks.map((b) => {
-                  const selected = newBank === b;
+
+              {/* Bank section */}
+              <div className="mt-5 flex items-center justify-between px-1">
+                <p className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-card-foreground/55 font-bold">
+                  <Building2 className="w-3 h-3" /> Choose bank
+                </p>
+                {newBank && (
+                  <button
+                    onClick={() => setNewBank(null)}
+                    className="text-[10px] font-bold text-primary"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+
+              {/* Popular banks chips */}
+              <div className="mt-2 flex gap-2 overflow-x-auto no-scrollbar -mx-6 px-6 pb-1">
+                {["GTBank", "Access Bank", "Opay", "Kuda", "Moniepoint", "UBA", "Zenith Bank"].map((b) => {
+                  const sel = newBank === b;
                   return (
                     <button
                       key={b}
                       onClick={() => setNewBank(b)}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-left active:bg-card-foreground/[0.04]"
+                      className={`shrink-0 px-3 h-9 rounded-full text-[11px] font-bold transition ${
+                        sel
+                          ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
+                          : "bg-card-foreground/[0.05] text-card-foreground/80"
+                      }`}
                     >
-                      <div className="w-9 h-9 rounded-lg bg-primary/15 text-primary flex items-center justify-center shrink-0">
-                        <Building2 className="w-4 h-4" />
-                      </div>
-                      <span className="flex-1 text-sm font-semibold">{b}</span>
+                      {b}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-3 flex items-center gap-2 bg-card-foreground/[0.04] rounded-2xl px-4 h-10">
+                <Search className="w-4 h-4 text-card-foreground/40" />
+                <input
+                  value={bankQuery}
+                  onChange={(e) => setBankQuery(e.target.value)}
+                  placeholder="Search all banks"
+                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-card-foreground/40"
+                />
+              </div>
+              <div className="mt-2 rounded-2xl bg-card-foreground/[0.03] max-h-[200px] overflow-y-auto no-scrollbar">
+                {filteredBanks.map((b) => {
+                  const selected = newBank === b;
+                  const palette = ["#FFE4D6", "#E0E7FF", "#FCE7F3", "#D1FAE5", "#FEF3C7", "#E0F2FE", "#FDE2E2"];
+                  const color = palette[b.length % palette.length];
+                  return (
+                    <button
+                      key={b}
+                      onClick={() => setNewBank(b)}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 text-left transition ${
+                        selected ? "bg-primary/10" : "active:bg-card-foreground/[0.04]"
+                      }`}
+                    >
                       <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition ${
-                          selected ? "border-primary bg-primary" : "border-card-foreground/20"
-                        }`}
+                        className="w-9 h-9 rounded-xl flex items-center justify-center text-[12px] font-bold shrink-0"
+                        style={{ background: color, color: "#1a1335" }}
                       >
-                        {selected && <Check className="w-3 h-3 text-primary-foreground" strokeWidth={3} />}
+                        {b.slice(0, 2).toUpperCase()}
                       </div>
+                      <span className="flex-1 text-sm font-semibold truncate">{b}</span>
+                      {selected && (
+                        <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                          <Check className="w-3 h-3 text-primary-foreground" strokeWidth={3} />
+                        </div>
+                      )}
                     </button>
                   );
                 })}
@@ -469,32 +523,48 @@ function TransferFlow() {
 
               {/* verification status */}
               {newAccount.length === 10 && newBank && (
-                <div className="mt-4 rounded-2xl bg-primary/5 border border-primary/15 p-3 flex items-center gap-3">
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-4 rounded-2xl bg-gradient-to-r from-primary/10 to-lime/15 border border-primary/20 p-3.5 flex items-center gap-3"
+                >
                   {verifying ? (
                     <>
-                      <Loader2 className="w-4 h-4 text-primary animate-spin" />
-                      <p className="text-xs font-semibold">Verifying account…</p>
+                      <div className="w-10 h-10 rounded-2xl bg-primary/15 flex items-center justify-center">
+                        <Loader2 className="w-4 h-4 text-primary animate-spin" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] uppercase tracking-wider font-bold text-card-foreground/55">
+                          Verifying
+                        </p>
+                        <p className="text-sm font-bold">Checking account…</p>
+                      </div>
                     </>
                   ) : verifiedName ? (
                     <>
-                      <Check className="w-4 h-4 text-primary" />
+                      <div className="w-10 h-10 rounded-2xl bg-lime flex items-center justify-center">
+                        <Check className="w-5 h-5 text-lime-foreground" strokeWidth={3} />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[10px] uppercase tracking-wider font-bold text-card-foreground/55">
-                          Account name
+                          Account verified
                         </p>
                         <p className="text-sm font-bold truncate">{verifiedName}</p>
+                        <p className="text-[10.5px] text-card-foreground/55 truncate">
+                          {newBank} · {newAccount}
+                        </p>
                       </div>
                     </>
                   ) : null}
-                </div>
+                </motion.div>
               )}
 
               <button
                 onClick={confirmNewRecipient}
                 disabled={!verifiedName || verifying}
-                className="mt-6 w-full h-12 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition"
+                className="mt-5 w-full h-12 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition flex items-center justify-center gap-2"
               >
-                Continue
+                Continue <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </motion.div>
