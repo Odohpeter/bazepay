@@ -487,8 +487,8 @@ function TopupFlow() {
 function Row({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
   return (
     <div className="flex items-center justify-between">
-      <span className={`text-[12px] ${bold ? "font-bold" : "text-card-foreground/65"}`}>{label}</span>
-      <span className={`tabular-nums ${bold ? "font-display font-bold text-base" : "text-sm font-semibold"}`}>
+      <span className={`text-[12px] ${bold ? "font-bold text-foreground" : "text-foreground/65"}`}>{label}</span>
+      <span className={`tabular-nums text-foreground ${bold ? "font-display font-bold text-base" : "text-sm font-semibold"}`}>
         {value}
       </span>
     </div>
