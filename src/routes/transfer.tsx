@@ -394,7 +394,7 @@ function TransferFlow() {
 
             <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
               {/* Account number — premium input card */}
-              <div className="relative rounded-3xl bg-gradient-to-br from-primary/10 via-card-foreground/[0.03] to-lime/10 border border-card-foreground/[0.06] p-4">
+              <div className="relative rounded-3xl bg-card-foreground/[0.04] border border-card-foreground/[0.06] p-4">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] font-bold text-card-foreground/55">
                     <Building2 className="w-3 h-3" /> Account number
@@ -439,25 +439,7 @@ function TransferFlow() {
                 )}
               </div>
 
-              {/* Popular banks chips */}
-              <div className="mt-2 flex gap-2 overflow-x-auto no-scrollbar -mx-6 px-6 pb-1">
-                {["GTBank", "Access Bank", "Opay", "Kuda", "Moniepoint", "UBA", "Zenith Bank"].map((b) => {
-                  const sel = newBank === b;
-                  return (
-                    <button
-                      key={b}
-                      onClick={() => setNewBank(b)}
-                      className={`shrink-0 px-3 h-9 rounded-full text-[11px] font-bold transition ${
-                        sel
-                          ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
-                          : "bg-card-foreground/[0.05] text-card-foreground/80"
-                      }`}
-                    >
-                      {b}
-                    </button>
-                  );
-                })}
-              </div>
+
 
               <div className="mt-3 flex items-center gap-2 bg-card-foreground/[0.04] rounded-2xl px-4 h-10">
                 <Search className="w-4 h-4 text-card-foreground/40" />
