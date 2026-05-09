@@ -255,8 +255,8 @@ function TransferFlow() {
             className="flex-1 flex flex-col"
           >
             <div className="px-6 mt-6">
-              <h1 className="font-display text-[26px] leading-tight font-bold tracking-tight">
-                Who are you<br />paying today?
+              <h1 className="font-display text-2xl font-bold tracking-tight whitespace-nowrap">
+                Who are you paying?
               </h1>
             </div>
 
