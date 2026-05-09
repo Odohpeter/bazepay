@@ -394,7 +394,7 @@ function TransferFlow() {
 
             <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
               {/* Account number — premium input card */}
-              <div className="relative rounded-3xl bg-gradient-to-br from-primary/10 via-card-foreground/[0.03] to-lime/10 border border-card-foreground/[0.06] p-4">
+              <div className="relative rounded-3xl bg-card-foreground/[0.04] border border-card-foreground/[0.06] p-4">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] font-bold text-card-foreground/55">
                     <Building2 className="w-3 h-3" /> Account number
