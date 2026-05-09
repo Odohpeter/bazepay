@@ -220,9 +220,7 @@ function TopupFlow() {
               </p>
               <div className="mt-2 rounded-3xl bg-primary/5 border border-primary/20 p-4 flex items-center gap-3">
                 <div className="flex items-center gap-2 bg-foreground/5 rounded-full pl-1.5 pr-2.5 py-1.5">
-                  <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
-                    🇳🇬
-                  </span>
+                  <Flag code="ng" className="w-7 h-5" />
                   <span className="text-sm font-bold">NGN</span>
                 </div>
                 <div className="flex-1 text-right">
