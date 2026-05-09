@@ -298,27 +298,25 @@ function TransferFlow() {
             </div>
 
             <div className="flex-1 mt-5 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <div className="flex items-center justify-between mb-3 px-1">
-                <p className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-card-foreground/55 font-bold">
-                  <Star className="w-3 h-3 text-lime fill-lime" /> Favorites
-                </p>
-                <button
-                  onClick={() => setStep("new-recipient")}
-                  className="text-[11px] font-bold text-primary inline-flex items-center gap-0.5"
-                >
-                  Add new <ChevronRight className="w-3 h-3" />
-                </button>
-              </div>
+              <button
+                onClick={() => setStep("new-recipient")}
+                className="w-full flex items-center gap-3 rounded-2xl bg-gradient-to-r from-primary to-primary/85 text-primary-foreground p-3.5 shadow-md shadow-primary/20 active:scale-[0.99] transition"
+              >
+                <div className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center">
+                  <Plus className="w-5 h-5" strokeWidth={2.5} />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-sm font-bold">Send to a new account</p>
+                  <p className="text-[11px] opacity-80">Any Nigerian bank · Verified instantly</p>
+                </div>
+                <ChevronRight className="w-4 h-4 opacity-80" />
+              </button>
+
+              <p className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-card-foreground/55 font-bold mt-6 mb-3 px-1">
+                <Star className="w-3 h-3 text-lime fill-lime" /> Favorites
+              </p>
               <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-6 px-6 pb-1">
-                <button
-                  onClick={() => setStep("new-recipient")}
-                  className="flex flex-col items-center gap-1.5 shrink-0 w-16"
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 border-2 border-dashed border-primary/40 text-primary flex items-center justify-center">
-                    <Plus className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10.5px] font-bold leading-tight text-center">New</span>
-                </button>
+
                 {RECENTS.map((r, idx) => (
                   <button
                     key={r.id}
