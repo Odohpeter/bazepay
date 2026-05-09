@@ -439,25 +439,7 @@ function TransferFlow() {
                 )}
               </div>
 
-              {/* Popular banks chips */}
-              <div className="mt-2 flex gap-2 overflow-x-auto no-scrollbar -mx-6 px-6 pb-1">
-                {["GTBank", "Access Bank", "Opay", "Kuda", "Moniepoint", "UBA", "Zenith Bank"].map((b) => {
-                  const sel = newBank === b;
-                  return (
-                    <button
-                      key={b}
-                      onClick={() => setNewBank(b)}
-                      className={`shrink-0 px-3 h-9 rounded-full text-[11px] font-bold transition ${
-                        sel
-                          ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
-                          : "bg-card-foreground/[0.05] text-card-foreground/80"
-                      }`}
-                    >
-                      {b}
-                    </button>
-                  );
-                })}
-              </div>
+
 
               <div className="mt-3 flex items-center gap-2 bg-card-foreground/[0.04] rounded-2xl px-4 h-10">
                 <Search className="w-4 h-4 text-card-foreground/40" />
