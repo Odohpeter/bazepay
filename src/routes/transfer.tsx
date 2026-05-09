@@ -267,22 +267,43 @@ function TransferFlow() {
             </div>
 
             <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
-              <button
-                onClick={() => setStep("new-recipient")}
-                className="w-full flex items-center gap-3 p-4 rounded-2xl border-2 border-dashed border-card-foreground/15 active:bg-card-foreground/[0.04] transition"
-              >
-                <div className="w-11 h-11 rounded-full bg-primary/15 text-primary flex items-center justify-center">
-                  <Plus className="w-5 h-5" />
-                </div>
-                <div className="flex-1 text-left">
-                  <p className="font-bold text-sm">Add new recipient</p>
-                  <p className="text-[11px] text-card-foreground/55 mt-0.5">Bank account · Nigeria</p>
-                </div>
-                <ChevronRight className="w-4 h-4 text-card-foreground/40" />
-              </button>
+              <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mb-3 px-1">
+                Favorites
+              </p>
+              <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-6 px-6 pb-1">
+                <button
+                  onClick={() => setStep("new-recipient")}
+                  className="flex flex-col items-center gap-1.5 shrink-0 w-16"
+                >
+                  <div className="w-14 h-14 rounded-full bg-primary/10 border-2 border-dashed border-primary/40 text-primary flex items-center justify-center">
+                    <Plus className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10.5px] font-bold leading-tight text-center">New</span>
+                </button>
+                {RECENTS.map((r) => (
+                  <button
+                    key={r.id}
+                    onClick={() => {
+                      setRecipient(r);
+                      setStep("amount");
+                    }}
+                    className="flex flex-col items-center gap-1.5 shrink-0 w-16 active:scale-95 transition"
+                  >
+                    <div
+                      className="w-14 h-14 rounded-full flex items-center justify-center text-sm font-bold ring-2 ring-card"
+                      style={{ background: r.color, color: "#1a1335" }}
+                    >
+                      {r.initials}
+                    </div>
+                    <span className="text-[10.5px] font-semibold leading-tight text-center truncate w-full">
+                      {r.name.split(" ")[0]}
+                    </span>
+                  </button>
+                ))}
+              </div>
 
               <p className="text-[11px] uppercase tracking-widest text-card-foreground/50 font-semibold mt-7 mb-3 px-1">
-                Recent
+                Recent transfers
               </p>
               <div className="space-y-1">
                 {filtered.map((r) => (
