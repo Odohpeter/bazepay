@@ -42,7 +42,23 @@ const METHODS: Method[] = [
   { id: "ussd", label: "USSD", sub: "Pay with bank shortcode", icon: Banknote, fee: "Free", arrival: "Instant" },
 ];
 
-const QUICK = [10000, 25000, 50000, 100000];
+type SrcCurrency = "NGN" | "USD" | "EUR" | "GBP";
+
+const CURRENCY_META: Record<SrcCurrency, { symbol: string; flag: string; rate: number; min: number }> = {
+  NGN: { symbol: "₦", flag: "🇳🇬", rate: 1, min: 100 },
+  USD: { symbol: "$", flag: "🇺🇸", rate: 1542, min: 1 },
+  EUR: { symbol: "€", flag: "🇪🇺", rate: 1540, min: 1 },
+  GBP: { symbol: "£", flag: "🇬🇧", rate: 1952, min: 1 },
+};
+
+const CURRENCIES: SrcCurrency[] = ["NGN", "USD", "EUR", "GBP"];
+
+const QUICK_BY_CCY: Record<SrcCurrency, number[]> = {
+  NGN: [10000, 25000, 50000, 100000],
+  USD: [10, 50, 100, 500],
+  EUR: [10, 50, 100, 500],
+  GBP: [10, 50, 100, 500],
+};
 
 type Step = "amount" | "method" | "success" | "transfer-details";
 
@@ -50,9 +66,16 @@ function TopupFlow() {
   const navigate = useNavigate();
   const [step, setStep] = useState<Step>("amount");
   const [amount, setAmount] = useState("");
+  const [srcCurrency, setSrcCurrency] = useState<SrcCurrency>("NGN");
+  const [ccyOpen, setCcyOpen] = useState(false);
   const [method, setMethod] = useState<Method | null>(null);
 
-  const numeric = Number(amount.replace(/,/g, "")) || 0;
+  const meta = CURRENCY_META[srcCurrency];
+  const srcAmount = Number(amount.replace(/,/g, "")) || 0;
+  const srcFormatted = srcAmount
+    ? srcAmount.toLocaleString("en-US", { maximumFractionDigits: 2 })
+    : "0";
+  const numeric = Math.round(srcAmount * meta.rate); // NGN equivalent
   const formatted = numeric ? numeric.toLocaleString("en-US") : "0";
   const fee = method?.id === "card" ? Math.round(numeric * 0.015) : 0;
   const total = numeric + fee;
@@ -68,8 +91,8 @@ function TopupFlow() {
   };
 
   const onContinue = () => {
-    if (!numeric || numeric < 100) {
-      toast.error("Enter at least ₦100");
+    if (srcAmount < meta.min) {
+      toast.error(`Enter at least ${meta.symbol}${meta.min}`);
       return;
     }
     setStep("method");
@@ -119,31 +142,110 @@ function TopupFlow() {
             transition={{ duration: 0.25 }}
             className="flex-1 flex flex-col"
           >
-            <div className="flex-1 flex flex-col items-center justify-center px-6">
-              <p className="text-xs text-foreground/55 font-semibold">You are adding</p>
-              <p className="font-display text-6xl font-bold tracking-tight mt-3 tabular-nums">
-                <span className="text-foreground/40">₦</span>
-                {formatted}
+            <div className="flex-1 flex flex-col px-6 pt-4">
+              <p className="text-[11px] uppercase tracking-widest text-foreground/55 font-bold">
+                You pay
               </p>
-              <div className="mt-6 flex gap-1.5 justify-center w-full px-1">
-                {QUICK.map((q) => (
+
+              <div className="mt-2 rounded-3xl bg-foreground/5 border border-foreground/10 p-4 flex items-center gap-3">
+                <div className="relative">
+                  <button
+                    onClick={() => setCcyOpen((v) => !v)}
+                    className="flex items-center gap-2 bg-foreground/10 rounded-full pl-1.5 pr-2.5 py-1.5"
+                  >
+                    <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
+                      {meta.flag}
+                    </span>
+                    <span className="text-sm font-bold">{srcCurrency}</span>
+                    <ChevronRight className={`w-3.5 h-3.5 transition ${ccyOpen ? "rotate-90" : "rotate-90"}`} />
+                  </button>
+                  {ccyOpen && (
+                    <div className="absolute left-0 top-full mt-2 w-40 bg-card border border-foreground/10 rounded-2xl p-1.5 shadow-xl z-30">
+                      {CURRENCIES.map((c) => (
+                        <button
+                          key={c}
+                          onClick={() => {
+                            setSrcCurrency(c);
+                            setCcyOpen(false);
+                            setAmount("");
+                          }}
+                          className="w-full flex items-center gap-2 px-2.5 py-2 rounded-xl hover:bg-foreground/5 text-xs font-semibold"
+                        >
+                          <span className="text-base">{CURRENCY_META[c].flag}</span>
+                          <span className="flex-1 text-left">{c}</span>
+                          {srcCurrency === c && <Check className="w-3.5 h-3.5 text-primary" />}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 text-right">
+                  <p className="font-display text-3xl font-bold tabular-nums leading-none">
+                    {meta.symbol}
+                    {srcFormatted}
+                  </p>
+                </div>
+              </div>
+
+              <div className="my-2 flex justify-center">
+                <div className="w-9 h-9 rounded-full bg-primary/15 border border-background flex items-center justify-center">
+                  <ChevronRight className="w-4 h-4 text-primary rotate-90" />
+                </div>
+              </div>
+
+              <p className="text-[11px] uppercase tracking-widest text-foreground/55 font-bold">
+                You receive
+              </p>
+              <div className="mt-2 rounded-3xl bg-primary/5 border border-primary/20 p-4 flex items-center gap-3">
+                <div className="flex items-center gap-2 bg-foreground/5 rounded-full pl-1.5 pr-2.5 py-1.5">
+                  <span className="w-7 h-7 rounded-full bg-background flex items-center justify-center text-base">
+                    🇳🇬
+                  </span>
+                  <span className="text-sm font-bold">NGN</span>
+                </div>
+                <div className="flex-1 text-right">
+                  <p className="font-display text-3xl font-bold tabular-nums leading-none">
+                    ₦{formatted}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-2xl bg-foreground/5 p-3.5 space-y-2">
+                <Row
+                  label="Exchange rate"
+                  value={
+                    srcCurrency === "NGN"
+                      ? "Base currency"
+                      : `1 ${srcCurrency} = ₦${meta.rate.toLocaleString()}`
+                  }
+                />
+                <Row
+                  label="Processing fee"
+                  value={method?.id === "card" ? "1.5%" : "Free"}
+                />
+                <Row label="Arrives" value="Instantly" />
+              </div>
+
+              <div className="mt-3 flex gap-1.5 w-full">
+                {QUICK_BY_CCY[srcCurrency].map((q) => (
                   <button
                     key={q}
                     onClick={() => setAmount(String(q))}
                     className="flex-1 min-w-0 px-2 h-9 rounded-full bg-foreground/10 text-[11px] font-bold active:scale-95 transition whitespace-nowrap"
                   >
-                    ₦{q.toLocaleString()}
+                    {meta.symbol}
+                    {q.toLocaleString()}
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-8">
+            <div className="bg-card text-card-foreground rounded-t-[2rem] px-6 pt-5 pb-7 mt-4">
               <Keypad onPress={press} />
               <button
                 onClick={onContinue}
-                disabled={!numeric}
-                className="mt-5 w-full h-13 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition"
+                disabled={!srcAmount}
+                className="mt-4 w-full h-13 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 active:scale-[0.99] transition"
               >
                 Continue
               </button>
