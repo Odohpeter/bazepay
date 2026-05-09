@@ -268,7 +268,7 @@ function TopupFlow() {
               </div>
 
               <div className="mt-3 flex gap-1.5 w-full">
-                {QUICK_BY_CCY[srcCurrency].map((q) => (
+                {quickAmounts(meta.rate).map((q: number) => (
                   <button
                     key={q}
                     onClick={() => setAmount(String(q))}
