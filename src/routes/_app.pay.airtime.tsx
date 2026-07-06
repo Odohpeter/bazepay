@@ -34,7 +34,7 @@ const presets = [100, 200, 500, 1000, 2000, 5000];
 const recents = [
   { name: "Mum", phone: "0803 555 0142", network: "mtn", initials: "M", bg: "#FFE4D6", color: "#E07A4F" },
   { name: "Tunde", phone: "0809 221 9087", network: "9mobile", initials: "T", bg: "#D6F5E3", color: "#0F8C5A" },
-  { name: "Self", phone: "0805 117 3344", network: "glo", initials: "Y", bg: "#E0E7FF", color: "#5B4DFF" },
+  { name: "Self", phone: "0805 117 3344", network: "glo", initials: "Y", bg: "#E0E7FF", color: "#5C4DFB" },
 ];
 
 function detectNetwork(phone: string): string | null {

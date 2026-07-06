@@ -28,7 +28,7 @@ const services = [
 ] as const;
 
 const txns = [
-  { id: "t1", name: "Top up · Visa •• 4421", time: "Today · 09:14", amount: "+₦250,000.00", action: "Top up", initials: "TU", avatarBg: "#E0E7FF", avatarColor: "#5B4DFF", isDebit: false },
+  { id: "t1", name: "Top up · Visa •• 4421", time: "Today · 09:14", amount: "+₦250,000.00", action: "Top up", initials: "TU", avatarBg: "#E0E7FF", avatarColor: "#5C4DFB", isDebit: false },
   { id: "t2", name: "MTN Airtime", time: "Today · 08:02", amount: "-₦5,000.00", action: "Airtime", initials: "MT", avatarBg: "#FFE4D6", avatarColor: "#E07A4F", isDebit: true },
   { id: "t3", name: "Spotify", time: "Yesterday · 19:40", amount: "-₦1,900.00", action: "Card", initials: "SP", avatarBg: "#D6F5E3", avatarColor: "#1DB954", isDebit: true },
 ];
