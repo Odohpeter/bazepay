@@ -10,8 +10,6 @@ import {
   Wifi,
   Phone,
   Tv,
-  Plus,
-  ArrowLeftRight,
 } from "lucide-react";
 import phoneAsset from "@/assets/baze-phone.png.asset.json";
 
