@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as TopupRouteImport } from './routes/topup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as LandingRouteImport } from './routes/landing'
 import { Route as KycRouteImport } from './routes/kyc'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
@@ -60,6 +61,11 @@ const TopupRoute = TopupRouteImport.update({
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandingRoute = LandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KycRoute = KycRouteImport.update({
@@ -235,6 +241,7 @@ const AppCardsIdTxnTxnIdRoute = AppCardsIdTxnTxnIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/kyc': typeof KycRoute
+  '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
@@ -273,6 +280,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/kyc': typeof KycRoute
+  '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
@@ -312,6 +320,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/kyc': typeof KycRoute
+  '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
@@ -352,6 +361,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/kyc'
+    | '/landing'
     | '/onboarding'
     | '/topup'
     | '/transfer'
@@ -390,6 +400,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/kyc'
+    | '/landing'
     | '/onboarding'
     | '/topup'
     | '/transfer'
@@ -428,6 +439,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_app'
     | '/kyc'
+    | '/landing'
     | '/onboarding'
     | '/topup'
     | '/transfer'
@@ -468,6 +480,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
   KycRoute: typeof KycRoute
+  LandingRoute: typeof LandingRoute
   OnboardingRoute: typeof OnboardingRoute
   TopupRoute: typeof TopupRoute
   TransferRoute: typeof TransferRoute
@@ -497,6 +510,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/landing': {
+      id: '/landing'
+      path: '/landing'
+      fullPath: '/landing'
+      preLoaderRoute: typeof LandingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kyc': {
@@ -817,6 +837,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   KycRoute: KycRoute,
+  LandingRoute: LandingRoute,
   OnboardingRoute: OnboardingRoute,
   TopupRoute: TopupRoute,
   TransferRoute: TransferRoute,
