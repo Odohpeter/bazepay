@@ -158,7 +158,7 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="font-display font-bold tracking-[-0.04em] leading-[0.92] mt-6 text-[52px] sm:text-[72px] md:text-[92px]"
+            className="font-display font-bold tracking-[-0.04em] leading-[0.92] mt-6 text-[44px] sm:text-[60px] md:text-[78px]"
           >
             Spend Naira.
             <br />
