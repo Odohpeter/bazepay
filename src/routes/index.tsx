@@ -13,7 +13,6 @@ import {
   Plus,
   ArrowLeftRight,
   Apple,
-  PlayCircle,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -87,6 +86,14 @@ function BrandMark() {
   );
 }
 
+function GooglePlayIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.366l2.807 1.626a1 1 0 0 1 0 1.738l-2.808 1.626L15.206 12l2.492-2.659zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
+    </svg>
+  );
+}
+
 /* ------------------------- STORE BUTTONS ------------------------- */
 function StoreButtons({ variant = "dark" }: { variant?: "dark" | "light" }) {
   const isDark = variant === "dark";
@@ -95,25 +102,25 @@ function StoreButtons({ variant = "dark" }: { variant?: "dark" | "light" }) {
     : "bg-lime-foreground text-lime hover:bg-lime-foreground/90";
   const subColor = isDark ? "text-background/60" : "text-lime/70";
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex items-center gap-3">
       <a
         href="#"
-        className={`group inline-flex items-center gap-3 h-14 pl-4 pr-6 rounded-2xl font-semibold transition ${base}`}
+        className={`group inline-flex items-center gap-2.5 h-12 pl-3.5 pr-5 rounded-2xl font-semibold transition ${base}`}
       >
         <Apple className="w-6 h-6" fill="currentColor" />
         <div className="text-left leading-none">
           <p className={`text-[10px] font-medium ${subColor}`}>Download on the</p>
-          <p className="text-base font-bold mt-0.5">App Store</p>
+          <p className="text-sm font-bold mt-0.5">App Store</p>
         </div>
       </a>
       <a
         href="#"
-        className={`group inline-flex items-center gap-3 h-14 pl-4 pr-6 rounded-2xl font-semibold transition ${base}`}
+        className={`group inline-flex items-center gap-2.5 h-12 pl-3.5 pr-5 rounded-2xl font-semibold transition ${base}`}
       >
-        <PlayCircle className="w-6 h-6" />
+        <GooglePlayIcon className="w-6 h-6" />
         <div className="text-left leading-none">
           <p className={`text-[10px] font-medium ${subColor}`}>Get it on</p>
-          <p className="text-base font-bold mt-0.5">Google Play</p>
+          <p className="text-sm font-bold mt-0.5">Google Play</p>
         </div>
       </a>
     </div>
