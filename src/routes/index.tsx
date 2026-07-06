@@ -114,7 +114,7 @@ function StoreButtons({ variant = "dark" }: { variant?: "dark" | "light" }) {
         href="#"
         className={`group inline-flex items-center gap-2.5 h-12 pl-3.5 pr-5 rounded-2xl font-semibold transition ${base}`}
       >
-        <Apple className="w-6 h-6" fill="currentColor" />
+        <AppStoreIcon className="w-6 h-6" />
         <div className="text-left leading-none">
           <p className={`text-[10px] font-medium ${subColor}`}>Download on the</p>
           <p className="text-sm font-bold mt-0.5">App Store</p>
