@@ -13,6 +13,7 @@ import {
   Plus,
   ArrowLeftRight,
 } from "lucide-react";
+import phoneAsset from "@/assets/baze-phone.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
