@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as V2RouteImport } from './routes/v2'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as TopupRouteImport } from './routes/topup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
@@ -47,6 +48,11 @@ import { Route as AppProfileSecurityPinRouteImport } from './routes/_app.profile
 import { Route as AppProfileHelpChatRouteImport } from './routes/_app.profile_.help_.chat'
 import { Route as AppCardsIdTxnTxnIdRouteImport } from './routes/_app.cards.$id_.txn.$txnId'
 
+const V2Route = V2RouteImport.update({
+  id: '/v2',
+  path: '/v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TransferRoute = TransferRouteImport.update({
   id: '/transfer',
   path: '/transfer',
@@ -238,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
+  '/v2': typeof V2Route
   '/home': typeof AppHomeRoute
   '/pay': typeof AppPayRouteWithChildren
   '/profile': typeof AppProfileRoute
@@ -276,6 +283,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
+  '/v2': typeof V2Route
   '/home': typeof AppHomeRoute
   '/profile': typeof AppProfileRoute
   '/wallet': typeof AppWalletRoute
@@ -315,6 +323,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
+  '/v2': typeof V2Route
   '/_app/home': typeof AppHomeRoute
   '/_app/pay': typeof AppPayRouteWithChildren
   '/_app/profile': typeof AppProfileRoute
@@ -355,6 +364,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/topup'
     | '/transfer'
+    | '/v2'
     | '/home'
     | '/pay'
     | '/profile'
@@ -393,6 +403,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/topup'
     | '/transfer'
+    | '/v2'
     | '/home'
     | '/profile'
     | '/wallet'
@@ -431,6 +442,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/topup'
     | '/transfer'
+    | '/v2'
     | '/_app/home'
     | '/_app/pay'
     | '/_app/profile'
@@ -471,6 +483,7 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   TopupRoute: typeof TopupRoute
   TransferRoute: typeof TransferRoute
+  V2Route: typeof V2Route
   AuthLoginRoute: typeof AuthLoginRoute
   AuthPinSetupRoute: typeof AuthPinSetupRoute
   AuthSignupRoute: typeof AuthSignupRoute
@@ -478,6 +491,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/v2': {
+      id: '/v2'
+      path: '/v2'
+      fullPath: '/v2'
+      preLoaderRoute: typeof V2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/transfer': {
       id: '/transfer'
       path: '/transfer'
@@ -820,6 +840,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   TopupRoute: TopupRoute,
   TransferRoute: TransferRoute,
+  V2Route: V2Route,
   AuthLoginRoute: AuthLoginRoute,
   AuthPinSetupRoute: AuthPinSetupRoute,
   AuthSignupRoute: AuthSignupRoute,
