@@ -296,7 +296,7 @@ function Bento() {
       <div className="flex items-end justify-between gap-6 mb-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-lime">Built for travelers</p>
-          <h2 className="font-display font-bold text-xl sm:text-2xl md:text-3xl tracking-[-0.03em] mt-3 max-w-2xl leading-[1.05]">
+          <h2 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl tracking-[-0.03em] mt-3 max-w-2xl leading-[1.05]">
             Everything you need in Nigeria — none of the paperwork.
           </h2>
         </div>
