@@ -297,7 +297,7 @@ function Bento() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-lime">Built for travelers</p>
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-6xl tracking-[-0.03em] mt-3 max-w-2xl leading-[1.05]">
-            Everything you need in Nigeria — none of the paperwork.
+            Everything for Nigeria.<br className="hidden sm:inline" /> No paperwork.
           </h2>
         </div>
         <p className="hidden md:block max-w-xs text-sm text-foreground/60">
