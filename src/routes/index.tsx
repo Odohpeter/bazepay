@@ -12,7 +12,6 @@ import {
   Tv,
   Plus,
   ArrowLeftRight,
-  Apple,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
