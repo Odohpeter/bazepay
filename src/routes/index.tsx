@@ -13,6 +13,7 @@ import {
   Plus,
   ArrowLeftRight,
 } from "lucide-react";
+import heroAppHome from "@/assets/hero-app-home.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
