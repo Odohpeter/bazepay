@@ -15,7 +15,7 @@ import {
   ArrowLeftRight,
 } from "lucide-react";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/landing")({
   head: () => ({
     meta: [
       { title: "BazePay — Bank without borders" },

@@ -12,9 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as TopupRouteImport } from './routes/topup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as LandingRouteImport } from './routes/landing'
 import { Route as KycRouteImport } from './routes/kyc'
 import { Route as AppRouteImport } from './routes/_app'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthPinSetupRouteImport } from './routes/auth.pin-setup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
@@ -62,6 +62,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LandingRoute = LandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KycRoute = KycRouteImport.update({
   id: '/kyc',
   path: '/kyc',
@@ -69,11 +74,6 @@ const KycRoute = KycRouteImport.update({
 } as any)
 const AppRoute = AppRouteImport.update({
   id: '/_app',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
@@ -233,8 +233,9 @@ const AppCardsIdTxnTxnIdRoute = AppCardsIdTxnTxnIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof AppRouteWithChildren
   '/kyc': typeof KycRoute
+  '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
@@ -271,8 +272,9 @@ export interface FileRoutesByFullPath {
   '/cards/$id/txn/$txnId': typeof AppCardsIdTxnTxnIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof AppRouteWithChildren
   '/kyc': typeof KycRoute
+  '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
@@ -309,9 +311,9 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/kyc': typeof KycRoute
+  '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
@@ -352,6 +354,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/kyc'
+    | '/landing'
     | '/onboarding'
     | '/topup'
     | '/transfer'
@@ -390,6 +393,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/kyc'
+    | '/landing'
     | '/onboarding'
     | '/topup'
     | '/transfer'
@@ -425,9 +429,9 @@ export interface FileRouteTypes {
     | '/cards/$id/txn/$txnId'
   id:
     | '__root__'
-    | '/'
     | '/_app'
     | '/kyc'
+    | '/landing'
     | '/onboarding'
     | '/topup'
     | '/transfer'
@@ -465,9 +469,9 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
   KycRoute: typeof KycRoute
+  LandingRoute: typeof LandingRoute
   OnboardingRoute: typeof OnboardingRoute
   TopupRoute: typeof TopupRoute
   TransferRoute: typeof TransferRoute
@@ -499,6 +503,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/landing': {
+      id: '/landing'
+      path: '/landing'
+      fullPath: '/landing'
+      preLoaderRoute: typeof LandingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/kyc': {
       id: '/kyc'
       path: '/kyc'
@@ -511,13 +522,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/signup': {
@@ -814,9 +818,9 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   KycRoute: KycRoute,
+  LandingRoute: LandingRoute,
   OnboardingRoute: OnboardingRoute,
   TopupRoute: TopupRoute,
   TransferRoute: TransferRoute,
