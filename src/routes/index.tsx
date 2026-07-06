@@ -13,6 +13,7 @@ import {
   Plus,
   ArrowLeftRight,
 } from "lucide-react";
+import heroAppHome from "@/assets/hero-app-home.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -220,80 +221,13 @@ function PhoneMock() {
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-10" />
 
-      <div className="absolute inset-0 rounded-[2.2rem] overflow-hidden">
-        <div className="pt-10 px-5">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-foreground/45">Naira balance</p>
-              <p className="font-display text-4xl font-bold mt-1.5">
-                ₦845,320<span className="text-foreground/40">.50</span>
-              </p>
-              <p className="text-[10px] text-foreground/45 mt-1">Funded via •• 4421</p>
-            </div>
-            <div className="h-7 px-2.5 rounded-full bg-white/10 flex items-center gap-1.5 text-[10px] font-semibold">
-              <span className="w-4 h-4 rounded-full bg-lime" />
-              NGN
-            </div>
-          </div>
-
-          <div className="mt-5 grid grid-cols-2 gap-2">
-            <div className="h-10 rounded-full bg-lime text-lime-foreground flex items-center justify-center gap-1.5 text-xs font-semibold">
-              <Plus className="w-3.5 h-3.5" /> Top up
-            </div>
-            <div className="h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center gap-1.5 text-xs font-semibold">
-              <ArrowLeftRight className="w-3.5 h-3.5" /> Transfer
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-5 bg-card text-card-foreground rounded-t-[2rem] px-5 pt-5 pb-6 h-[340px]">
-          <p className="font-display font-bold text-sm">Quick pay</p>
-          <div className="mt-3 grid grid-cols-4 gap-2">
-            {[
-              { i: Wifi, c: "var(--service-esim)", l: "eSIM" },
-              { i: Phone, c: "var(--service-airtime)", l: "Airtime" },
-              { i: Zap, c: "var(--service-electricity)", l: "Power" },
-              { i: Tv, c: "var(--service-cable)", l: "Cable" },
-            ].map((s, idx) => {
-              const Icon = s.i;
-              return (
-                <div key={idx} className="flex flex-col items-center gap-1.5">
-                  <div
-                    className="w-full aspect-square rounded-xl flex items-center justify-center"
-                    style={{ background: `color-mix(in oklab, ${s.c} 14%, transparent)` }}
-                  >
-                    <Icon className="w-4 h-4" style={{ color: s.c }} strokeWidth={2.2} />
-                  </div>
-                  <span className="text-[9px] font-medium">{s.l}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          <p className="font-display font-bold text-sm mt-5">Recent</p>
-          <div className="mt-2.5 space-y-2.5">
-            {[
-              { n: "Top up · Visa •• 4421", t: "09:14", a: "+₦250,000", bg: "#E0E7FF", fg: "#5C4DFB", ini: "TU", pos: true },
-              { n: "MTN Airtime", t: "08:02", a: "-₦5,000", bg: "#FFE4D6", fg: "#E07A4F", ini: "MT", pos: false },
-            ].map((t) => (
-              <div key={t.n} className="flex items-center gap-2.5">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold"
-                  style={{ background: t.bg, color: t.fg }}
-                >
-                  {t.ini}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] font-semibold truncate">{t.n}</p>
-                  <p className="text-[9px] text-card-foreground/50">{t.t}</p>
-                </div>
-                <p className={`text-[11px] font-bold ${t.pos ? "text-primary" : ""}`}>
-                  {t.a}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="absolute inset-0 rounded-[2.2rem] overflow-hidden bg-background">
+        <img
+          src={heroAppHome}
+          alt="BazePay app home screen showing Naira balance, quick pay tiles and transaction history"
+          className="w-full h-full object-cover object-top select-none pointer-events-none"
+          draggable={false}
+        />
       </div>
 
       <motion.div
