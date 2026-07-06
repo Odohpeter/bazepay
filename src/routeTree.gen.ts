@@ -15,6 +15,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LandingRouteImport } from './routes/landing'
 import { Route as KycRouteImport } from './routes/kyc'
 import { Route as AppRouteImport } from './routes/_app'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthPinSetupRouteImport } from './routes/auth.pin-setup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
@@ -74,6 +75,11 @@ const KycRoute = KycRouteImport.update({
 } as any)
 const AppRoute = AppRouteImport.update({
   id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
@@ -233,7 +239,7 @@ const AppCardsIdTxnTxnIdRoute = AppCardsIdTxnTxnIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppRouteWithChildren
+  '/': typeof IndexRoute
   '/kyc': typeof KycRoute
   '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
@@ -272,7 +278,7 @@ export interface FileRoutesByFullPath {
   '/cards/$id/txn/$txnId': typeof AppCardsIdTxnTxnIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof AppRouteWithChildren
+  '/': typeof IndexRoute
   '/kyc': typeof KycRoute
   '/landing': typeof LandingRoute
   '/onboarding': typeof OnboardingRoute
@@ -311,6 +317,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/kyc': typeof KycRoute
   '/landing': typeof LandingRoute
@@ -429,6 +436,7 @@ export interface FileRouteTypes {
     | '/cards/$id/txn/$txnId'
   id:
     | '__root__'
+    | '/'
     | '/_app'
     | '/kyc'
     | '/landing'
@@ -469,6 +477,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
   KycRoute: typeof KycRoute
   LandingRoute: typeof LandingRoute
@@ -522,6 +531,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/signup': {
@@ -818,6 +834,7 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   KycRoute: KycRoute,
   LandingRoute: LandingRoute,
