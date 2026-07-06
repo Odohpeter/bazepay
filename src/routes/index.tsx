@@ -13,7 +13,6 @@ import {
   Plus,
   ArrowLeftRight,
   Apple,
-  PlayCircle,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
