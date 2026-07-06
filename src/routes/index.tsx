@@ -143,7 +143,7 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="font-display font-bold tracking-[-0.04em] leading-[0.92] mt-6 text-[15vw] md:text-[92px]"
+            className="font-display font-bold tracking-[-0.04em] leading-[0.92] mt-6 text-[52px] sm:text-[72px] md:text-[92px]"
           >
             Spend Naira.
             <br />
@@ -348,7 +348,7 @@ function Bento() {
       <div className="flex items-end justify-between gap-6 mb-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-lime">Built for travelers</p>
-          <h2 className="font-display font-bold text-4xl md:text-6xl tracking-[-0.03em] mt-3 max-w-2xl leading-[1]">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-6xl tracking-[-0.03em] mt-3 max-w-2xl leading-[1.05]">
             Everything you need in Nigeria — none of the paperwork.
           </h2>
         </div>
@@ -363,7 +363,7 @@ function Bento() {
           <span className="text-[11px] font-semibold uppercase tracking-widest text-primary-foreground/70">
             No Nigerian bank required
           </span>
-          <h3 className="font-display font-bold text-3xl md:text-4xl mt-3 text-primary-foreground leading-tight max-w-md">
+          <h3 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl mt-3 text-primary-foreground leading-tight max-w-md">
             Top up in your currency. Spend in Naira instantly.
           </h3>
           <div className="mt-8 flex flex-wrap gap-2">
@@ -431,7 +431,7 @@ function Fund() {
       <div className="grid md:grid-cols-2 gap-16 items-center">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-lime">Foreign card in, Naira out</p>
-          <h2 className="font-display font-bold text-4xl md:text-6xl tracking-[-0.03em] mt-3 leading-[1]">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-6xl tracking-[-0.03em] mt-3 leading-[1.05]">
             Load your wallet
             <br />
             <span className="italic font-medium text-lime">from anywhere.</span>
@@ -518,7 +518,7 @@ function QuickPay() {
     <section id="pay" className="max-w-7xl mx-auto px-5 md:px-10 py-24">
       <div className="max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-lime">Bills, sorted</p>
-        <h2 className="font-display font-bold text-4xl md:text-6xl tracking-[-0.03em] mt-3 leading-[1]">
+        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-6xl tracking-[-0.03em] mt-3 leading-[1.05]">
           Pay every bill in Nigeria — in one tap.
         </h2>
       </div>
@@ -562,14 +562,14 @@ function Stats() {
       <div className="rounded-[2.5rem] bg-gradient-primary p-10 md:p-16 relative overflow-hidden">
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-lime/20 blur-3xl" />
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/70">By the numbers</p>
-        <h2 className="font-display font-bold text-primary-foreground text-4xl md:text-6xl tracking-[-0.03em] mt-3 max-w-2xl leading-[1]">
+        <h2 className="font-display font-bold text-primary-foreground text-3xl sm:text-4xl md:text-6xl tracking-[-0.03em] mt-3 max-w-2xl leading-[1.05]">
           Trusted by travelers, tourists and diaspora.
         </h2>
 
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map(([n, l]) => (
             <div key={l}>
-              <p className="font-display font-bold text-primary-foreground text-5xl md:text-6xl tracking-[-0.04em]">
+              <p className="font-display font-bold text-primary-foreground text-4xl sm:text-5xl md:text-6xl tracking-[-0.04em]">
                 {n}
               </p>
               <p className="text-primary-foreground/70 text-sm mt-2">{l}</p>
@@ -590,7 +590,7 @@ function FinalCta() {
         <p className="relative text-xs font-semibold uppercase tracking-[0.3em] text-lime-foreground/60">
           Ready?
         </p>
-        <h2 className="relative font-display font-bold text-5xl md:text-8xl tracking-[-0.04em] mt-4 leading-[0.95]">
+        <h2 className="relative font-display font-bold text-3xl sm:text-5xl md:text-7xl tracking-[-0.04em] mt-4 leading-[1]">
           Download BazePay.
           <br />
           Live in three minutes.
