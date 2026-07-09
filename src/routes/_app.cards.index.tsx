@@ -22,8 +22,10 @@ function CardsPage() {
   const navigate = useNavigate();
   const { cards, txns: allTxns } = useCardsStore();
   const [activeIdx, setActiveIdx] = useState(0);
+  const [chooserOpen, setChooserOpen] = useState(false);
   const safeIdx = Math.min(activeIdx, Math.max(0, cards.length - 1));
   const totalNgn = cards.reduce((s, c) => s + c.balanceNgn, 0);
+
 
   if (cards.length === 0) {
     return (
