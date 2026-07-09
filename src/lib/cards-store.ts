@@ -5,7 +5,10 @@ import {
   type VirtualCard,
   type CardTxn,
   type CardBrand,
+  type PhysicalMeta,
+  type ShippingStage,
 } from "./cards";
+
 
 type State = {
   cards: VirtualCard[];
