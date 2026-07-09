@@ -323,6 +323,20 @@ function CardDetail() {
           onClose={() => setShowCancel(false)}
         />
       )}
+      {showActivate && card.physical && (
+        <ActivationSheet
+          card={card}
+          onClose={() => setShowActivate(false)}
+          onSuccess={() => {
+            setShowActivate(false);
+            toast.success("Card activated");
+          }}
+        />
+      )}
+      {showTracking && card.physical && (
+        <TrackingSheet card={card} onClose={() => setShowTracking(false)} />
+      )}
+
     </div>
   );
 }
