@@ -71,6 +71,9 @@ function CardDetail() {
   const [showFund, setShowFund] = useState(false);
   const [showCancel, setShowCancel] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
+  const [showActivate, setShowActivate] = useState(false);
+  const [showTracking, setShowTracking] = useState(false);
+
 
   const txns = useMemo(
     () =>
