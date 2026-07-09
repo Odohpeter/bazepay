@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   Check,
@@ -14,12 +15,18 @@ import {
   ShieldCheck,
   Receipt,
   ChevronRight,
+  Truck,
+  Sparkles,
+  AlertTriangle,
 } from "lucide-react";
 import { VirtualCardArt, RevealToggle } from "@/components/virtual-card";
 import {
   formatNgn,
   relativeDay,
   merchantCategories,
+  SHIPPING_STAGES,
+  SHIPPING_LABEL,
+  type ShippingStage,
 } from "@/lib/cards";
 import {
   useCardsStore,
@@ -28,7 +35,11 @@ import {
   cancelCard,
   setLimit as setLimitStore,
   setBlocked as setBlockedStore,
+  advanceShipping,
+  activatePhysicalCard,
+  reportCardLostOrStolen,
 } from "@/lib/cards-store";
+
 
 export const Route = createFileRoute("/_app/cards/$id")({
   head: ({ params }) => ({
