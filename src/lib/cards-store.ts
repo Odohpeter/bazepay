@@ -111,6 +111,7 @@ export function issueCard(input: {
     label: input.label,
     holder: "TUNDE OKE",
     brand: input.brand,
+    type: "virtual",
     pan: makePan(input.brand),
     cvv: randomDigits(3),
     expiry: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, "0")}/${String(yr).slice(-2)}`,
@@ -126,3 +127,86 @@ export function issueCard(input: {
   emit();
   return card;
 }
+
+function makeTrackingCode() {
+  const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  let s = "BZP-";
+  for (let i = 0; i < 3; i++) s += letters[Math.floor(Math.random() * letters.length)];
+  s += "-";
+  for (let i = 0; i < 6; i++) s += Math.floor(Math.random() * 10);
+  return s;
+}
+
+export function issuePhysicalCard(input: {
+  label: string;
+  brand: CardBrand;
+  gradient: { from: string; to: string };
+  address: PhysicalMeta["address"];
+  deliverySpeed: PhysicalMeta["deliverySpeed"];
+}): VirtualCard {
+  const yr = new Date().getFullYear() + 4;
+  const now = new Date();
+  const etaDays = input.deliverySpeed === "express" ? 3 : 7;
+  const eta = new Date(now.getTime() + etaDays * 86400000).toISOString();
+  const physical: PhysicalMeta = {
+    address: input.address,
+    deliverySpeed: input.deliverySpeed,
+    shippingStage: "processing",
+    trackingCode: makeTrackingCode(),
+    courier: input.deliverySpeed === "express" ? "DHL Express" : "GIG Logistics",
+    requestedAt: now.toISOString(),
+    eta,
+    events: [{ stage: "processing", at: now.toISOString(), note: "Payment confirmed — printing queued" }],
+  };
+  const card: VirtualCard = {
+    id: `pc-${Date.now()}`,
+    label: input.label,
+    holder: "TUNDE OKE",
+    brand: input.brand,
+    type: "physical",
+    pan: makePan(input.brand),
+    cvv: randomDigits(3),
+    expiry: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, "0")}/${String(yr).slice(-2)}`,
+    balanceNgn: 0,
+    monthlyLimitNgn: 500_000,
+    monthlySpentNgn: 0,
+    status: "frozen", // inactive until activated
+    blockedCategories: [],
+    gradient: input.gradient,
+    createdAt: now.toISOString(),
+    physical,
+  };
+  state = { ...state, cards: [card, ...state.cards] };
+  emit();
+  return card;
+}
+
+export function advanceShipping(id: string, stage: ShippingStage, note?: string) {
+  const c = getCard(id);
+  if (!c || !c.physical) return;
+  const at = new Date().toISOString();
+  const nextPhys: PhysicalMeta = {
+    ...c.physical,
+    shippingStage: stage,
+    deliveredAt: stage === "delivered" ? at : c.physical.deliveredAt,
+    events: [...c.physical.events, { stage, at, note }],
+  };
+  updateCard(id, { physical: nextPhys });
+}
+
+export function activatePhysicalCard(id: string, last4: string, cvv: string): boolean {
+  const c = getCard(id);
+  if (!c || !c.physical) return false;
+  const panDigits = c.pan.replace(/\s/g, "");
+  if (panDigits.slice(-4) !== last4 || c.cvv !== cvv) return false;
+  updateCard(id, {
+    status: "active",
+    physical: { ...c.physical, activatedAt: new Date().toISOString() },
+  });
+  return true;
+}
+
+export function reportCardLostOrStolen(id: string) {
+  updateCard(id, { status: "frozen" });
+}
+
