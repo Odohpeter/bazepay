@@ -1,10 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Plus, ShieldCheck, CreditCard, Sparkles, ArrowUpRight, Snowflake, Eye, Layers } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Plus, ShieldCheck, CreditCard, Sparkles, ArrowUpRight, Snowflake, Eye, Layers, Truck, Package, X, Zap, Check } from "lucide-react";
 import { BottomNav } from "@/components/bottom-nav";
 import { VirtualCardArt } from "@/components/virtual-card";
-import { formatNgn, ISSUE_FEE_NGN, relativeDay } from "@/lib/cards";
+import { formatNgn, ISSUE_FEE_NGN, PHYSICAL_ISSUE_FEE_NGN, PHYSICAL_SHIPPING_FEE_NGN, relativeDay, SHIPPING_LABEL, SHIPPING_STAGES } from "@/lib/cards";
 import { useCardsStore } from "@/lib/cards-store";
+
 
 export const Route = createFileRoute("/_app/cards/")({
   head: () => ({
