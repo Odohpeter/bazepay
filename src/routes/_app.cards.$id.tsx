@@ -819,6 +819,9 @@ function ActivationSheet({
           <p className="text-[12.5px] text-card-foreground/65 leading-relaxed">
             Enter the last 4 digits printed on the card and the 3-digit CVV on the back to activate.
           </p>
+          <div className="rounded-xl bg-primary/10 text-primary text-[11.5px] px-3 py-2 font-medium leading-relaxed">
+            Demo hint — Last 4: <span className="font-bold tabular-nums">{card.pan.replace(/\s/g, "").slice(-4)}</span> · CVV: <span className="font-bold tabular-nums">{card.cvv}</span>
+          </div>
 
           <div>
             <p className="text-[11px] font-bold uppercase tracking-wider text-card-foreground/50 mb-1.5 px-1">Last 4 digits</p>
