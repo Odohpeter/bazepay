@@ -190,7 +190,20 @@ function CardDetail() {
       </div>
 
       <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-28 space-y-6">
+        {card.type === "physical" && card.physical && (
+          <PhysicalStatusPanel
+            card={card}
+            onOpenTracking={() => setShowTracking(true)}
+            onActivate={() => setShowActivate(true)}
+            onReportLost={() => {
+              reportCardLostOrStolen(card.id);
+              toast.success("Card frozen. A replacement request has been logged.");
+            }}
+          />
+        )}
+
         {/* Spend */}
+
         <div className="rounded-2xl bg-card-foreground/[0.04] p-4">
           <div className="flex items-center justify-between">
             <p className="text-[11px] font-bold uppercase tracking-wider text-card-foreground/55">
