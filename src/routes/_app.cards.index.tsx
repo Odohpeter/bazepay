@@ -58,7 +58,7 @@ function CardsPage() {
   return (
     <div className="min-h-full bg-background text-foreground flex flex-col">
       <div className="h-10" />
-      <Header count={cards.length} total={totalNgn} />
+      <Header count={cards.length} total={totalNgn} onIssue={() => setChooserOpen(true)} />
 
       {/* Stacked wallet */}
       <div className="px-6 mt-8">
