@@ -127,6 +127,10 @@ function CardsPage() {
           </div>
         </div>
 
+        {active.type === "physical" && active.physical && (
+          <PhysicalTracker card={active} />
+        )}
+
         <div className="mt-4">
           <div className="flex items-center justify-between text-[11px] text-card-foreground/55 mb-1.5 tabular-nums">
             <span className="font-bold uppercase tracking-wider text-[10px]">This month</span>
