@@ -31,16 +31,18 @@ function CardsPage() {
     return (
       <div className="min-h-full bg-background text-foreground flex flex-col">
         <div className="h-10" />
-        <Header count={0} total={0} />
+        <Header count={0} total={0} onIssue={() => setChooserOpen(true)} />
         <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-32">
-          <EmptyState />
+          <EmptyState onIssue={() => setChooserOpen(true)} />
         </div>
+        <IssueChooserSheet open={chooserOpen} onClose={() => setChooserOpen(false)} />
         <BottomNav />
       </div>
     );
   }
 
   const active = cards[safeIdx];
+
   const txns = allTxns
     .filter((t) => t.cardId === active.id)
     .sort((a, b) => +new Date(b.at) - +new Date(a.at))
