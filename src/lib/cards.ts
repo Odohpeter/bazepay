@@ -1,11 +1,56 @@
 export type CardBrand = "Visa" | "Mastercard";
 export type CardStatus = "active" | "frozen" | "expired";
+export type CardType = "virtual" | "physical";
+
+export type ShippingStage =
+  | "processing"
+  | "printed"
+  | "shipped"
+  | "out_for_delivery"
+  | "delivered";
+
+export const SHIPPING_STAGES: ShippingStage[] = [
+  "processing",
+  "printed",
+  "shipped",
+  "out_for_delivery",
+  "delivered",
+];
+
+export const SHIPPING_LABEL: Record<ShippingStage, string> = {
+  processing: "Payment confirmed",
+  printed: "Card printed",
+  shipped: "Shipped from Lagos hub",
+  out_for_delivery: "Out for delivery",
+  delivered: "Delivered",
+};
+
+export type PhysicalMeta = {
+  address: {
+    fullName: string;
+    line1: string;
+    line2?: string;
+    city: string;
+    state: string;
+    phone: string;
+  };
+  deliverySpeed: "standard" | "express";
+  shippingStage: ShippingStage;
+  trackingCode: string;
+  courier: string;
+  requestedAt: string;
+  eta: string;
+  deliveredAt?: string;
+  activatedAt?: string;
+  events: { stage: ShippingStage; at: string; note?: string }[];
+};
 
 export type VirtualCard = {
   id: string;
   label: string;
   holder: string;
   brand: CardBrand;
+  type: CardType;
   pan: string;
   cvv: string;
   expiry: string; // MM/YY
@@ -16,6 +61,7 @@ export type VirtualCard = {
   blockedCategories: string[];
   gradient: { from: string; to: string };
   createdAt: string;
+  physical?: PhysicalMeta;
 };
 
 export type CardTxn = {
