@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   Check,
@@ -14,12 +15,18 @@ import {
   ShieldCheck,
   Receipt,
   ChevronRight,
+  Truck,
+  Sparkles,
+  AlertTriangle,
 } from "lucide-react";
 import { VirtualCardArt, RevealToggle } from "@/components/virtual-card";
 import {
   formatNgn,
   relativeDay,
   merchantCategories,
+  SHIPPING_STAGES,
+  SHIPPING_LABEL,
+  type ShippingStage,
 } from "@/lib/cards";
 import {
   useCardsStore,
@@ -28,7 +35,11 @@ import {
   cancelCard,
   setLimit as setLimitStore,
   setBlocked as setBlockedStore,
+  advanceShipping,
+  activatePhysicalCard,
+  reportCardLostOrStolen,
 } from "@/lib/cards-store";
+
 
 export const Route = createFileRoute("/_app/cards/$id")({
   head: ({ params }) => ({
@@ -60,6 +71,9 @@ function CardDetail() {
   const [showFund, setShowFund] = useState(false);
   const [showCancel, setShowCancel] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
+  const [showActivate, setShowActivate] = useState(false);
+  const [showTracking, setShowTracking] = useState(false);
+
 
   const txns = useMemo(
     () =>
@@ -176,7 +190,20 @@ function CardDetail() {
       </div>
 
       <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-28 space-y-6">
+        {card.type === "physical" && card.physical && (
+          <PhysicalStatusPanel
+            card={card}
+            onOpenTracking={() => setShowTracking(true)}
+            onActivate={() => setShowActivate(true)}
+            onReportLost={() => {
+              reportCardLostOrStolen(card.id);
+              toast.success("Card frozen. A replacement request has been logged.");
+            }}
+          />
+        )}
+
         {/* Spend */}
+
         <div className="rounded-2xl bg-card-foreground/[0.04] p-4">
           <div className="flex items-center justify-between">
             <p className="text-[11px] font-bold uppercase tracking-wider text-card-foreground/55">
@@ -296,6 +323,20 @@ function CardDetail() {
           onClose={() => setShowCancel(false)}
         />
       )}
+      {showActivate && card.physical && (
+        <ActivationSheet
+          card={card}
+          onClose={() => setShowActivate(false)}
+          onSuccess={() => {
+            setShowActivate(false);
+            toast.success("Card activated");
+          }}
+        />
+      )}
+      {showTracking && card.physical && (
+        <TrackingSheet card={card} onClose={() => setShowTracking(false)} />
+      )}
+
     </div>
   );
 }
@@ -539,5 +580,282 @@ function ConfirmCancelSheet({
         </div>
       </div>
     </div>
+  );
+}
+
+function PhysicalStatusPanel({
+  card,
+  onOpenTracking,
+  onActivate,
+  onReportLost,
+}: {
+  card: ReturnType<typeof useCardsStore>["cards"][number];
+  onOpenTracking: () => void;
+  onActivate: () => void;
+  onReportLost: () => void;
+}) {
+  if (!card.physical) return null;
+  const stage = card.physical.shippingStage;
+  const stages = SHIPPING_STAGES;
+  const currentIdx = stages.indexOf(stage);
+  const isDelivered = stage === "delivered";
+  const isActive = card.status === "active";
+  const eta = new Date(card.physical.eta).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+
+  return (
+    <div className="rounded-2xl bg-card-foreground/[0.04] p-4">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-2xl bg-primary/15 text-primary flex items-center justify-center shrink-0">
+          {isDelivered ? <Sparkles className="w-4 h-4" /> : <Truck className="w-4 h-4" />}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[13px] font-bold">
+            {isDelivered && isActive
+              ? "Card active"
+              : isDelivered
+                ? "Delivered — ready to activate"
+                : SHIPPING_LABEL[stage]}
+          </p>
+          <p className="text-[11px] text-card-foreground/55">
+            {card.physical.courier} · {isDelivered ? `Delivered on ${eta}` : `ETA ${eta}`}
+          </p>
+        </div>
+        <button
+          onClick={onOpenTracking}
+          className="text-[11px] font-bold text-primary flex items-center gap-0.5"
+        >
+          Track <ChevronRight className="w-3 h-3" />
+        </button>
+      </div>
+
+      <div className="mt-3 flex items-center gap-1">
+        {stages.map((s, i) => (
+          <div
+            key={s}
+            className={`h-1.5 flex-1 rounded-full transition-colors ${
+              i <= currentIdx ? "bg-primary" : "bg-card-foreground/10"
+            }`}
+          />
+        ))}
+      </div>
+
+      {isDelivered && !isActive && (
+        <button
+          onClick={onActivate}
+          className="mt-4 w-full h-11 rounded-full bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center gap-2"
+        >
+          <Sparkles className="w-4 h-4" /> Activate card
+        </button>
+      )}
+      {isDelivered && isActive && (
+        <button
+          onClick={onReportLost}
+          className="mt-4 w-full h-11 rounded-full bg-destructive/10 text-destructive font-bold text-sm flex items-center justify-center gap-2"
+        >
+          <AlertTriangle className="w-4 h-4" /> Report lost or stolen
+        </button>
+      )}
+    </div>
+  );
+}
+
+function TrackingSheet({
+  card,
+  onClose,
+}: {
+  card: ReturnType<typeof useCardsStore>["cards"][number];
+  onClose: () => void;
+}) {
+  if (!card.physical) return null;
+  const stages = SHIPPING_STAGES;
+  const currentIdx = stages.indexOf(card.physical.shippingStage);
+
+  // Demo helper — advance stage manually for prototype
+  const nextStage: ShippingStage | null =
+    currentIdx < stages.length - 1 ? stages[currentIdx + 1] : null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="absolute inset-0 z-40 bg-black/70 backdrop-blur-sm"
+      />
+      <motion.div
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", stiffness: 320, damping: 34 }}
+        className="absolute inset-x-0 bottom-0 z-50 bg-card text-card-foreground rounded-t-[2rem] max-h-[85%] flex flex-col"
+      >
+        <div className="pt-3 flex justify-center">
+          <div className="h-1 w-10 rounded-full bg-card-foreground/15" />
+        </div>
+        <div className="px-6 pt-4 pb-2 flex items-center justify-between">
+          <div>
+            <h2 className="font-display text-xl font-bold">Delivery tracking</h2>
+            <p className="text-[11px] text-card-foreground/55 mt-0.5">
+              {card.physical.courier} · {card.physical.trackingCode}
+            </p>
+          </div>
+          <button onClick={onClose} className="w-9 h-9 rounded-full bg-card-foreground/[0.06] flex items-center justify-center">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto px-6 py-4">
+          <div className="rounded-2xl bg-card-foreground/[0.04] p-4 mb-4">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-card-foreground/50">Shipping to</p>
+            <p className="text-sm font-bold mt-1">{card.physical.address.fullName}</p>
+            <p className="text-[12px] text-card-foreground/65 mt-0.5 leading-relaxed">
+              {card.physical.address.line1}
+              {card.physical.address.line2 ? `, ${card.physical.address.line2}` : ""}
+              <br />
+              {card.physical.address.city}, {card.physical.address.state}
+            </p>
+          </div>
+
+          <ol className="relative border-l border-card-foreground/10 ml-4 space-y-5 py-2">
+            {stages.map((s, i) => {
+              const done = i <= currentIdx;
+              const event = card.physical!.events.find((e) => e.stage === s);
+              return (
+                <li key={s} className="pl-6 relative">
+                  <span
+                    className={`absolute -left-[9px] top-0.5 w-4 h-4 rounded-full border-2 ${
+                      done
+                        ? "bg-primary border-primary"
+                        : "bg-card border-card-foreground/20"
+                    } flex items-center justify-center`}
+                  >
+                    {done && <Check className="w-2.5 h-2.5 text-primary-foreground" strokeWidth={4} />}
+                  </span>
+                  <p className={`text-[13px] font-bold ${done ? "" : "text-card-foreground/50"}`}>
+                    {SHIPPING_LABEL[s]}
+                  </p>
+                  <p className="text-[11px] text-card-foreground/55 mt-0.5">
+                    {event
+                      ? new Date(event.at).toLocaleString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : "Pending"}
+                  </p>
+                  {event?.note && (
+                    <p className="text-[11px] text-card-foreground/60 mt-0.5 italic">{event.note}</p>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+
+          {nextStage && (
+            <button
+              onClick={() => {
+                advanceShipping(card.id, nextStage);
+                toast.success(`Updated · ${SHIPPING_LABEL[nextStage]}`);
+              }}
+              className="mt-6 w-full h-11 rounded-full bg-card-foreground/[0.06] text-card-foreground text-[12px] font-bold"
+            >
+              Simulate next update · {SHIPPING_LABEL[nextStage]}
+            </button>
+          )}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+function ActivationSheet({
+  card,
+  onClose,
+  onSuccess,
+}: {
+  card: ReturnType<typeof useCardsStore>["cards"][number];
+  onClose: () => void;
+  onSuccess: () => void;
+}) {
+  const [last4, setLast4] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const canSubmit = last4.length === 4 && cvv.length === 3;
+
+  const submit = () => {
+    setError(null);
+    const ok = activatePhysicalCard(card.id, last4, cvv);
+    if (ok) onSuccess();
+    else setError("Details don't match. Check the back of your card.");
+  };
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="absolute inset-0 z-40 bg-black/70 backdrop-blur-sm"
+      />
+      <motion.div
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", stiffness: 320, damping: 34 }}
+        className="absolute inset-x-0 bottom-0 z-50 bg-card text-card-foreground rounded-t-[2rem] pb-8"
+      >
+        <div className="pt-3 flex justify-center">
+          <div className="h-1 w-10 rounded-full bg-card-foreground/15" />
+        </div>
+        <div className="px-6 pt-4 pb-2 flex items-center justify-between">
+          <h2 className="font-display text-xl font-bold">Activate card</h2>
+          <button onClick={onClose} className="w-9 h-9 rounded-full bg-card-foreground/[0.06] flex items-center justify-center">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="px-6 pt-2 space-y-4">
+          <p className="text-[12.5px] text-card-foreground/65 leading-relaxed">
+            Enter the last 4 digits printed on the card and the 3-digit CVV on the back to activate.
+          </p>
+
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-card-foreground/50 mb-1.5 px-1">Last 4 digits</p>
+            <input
+              value={last4}
+              onChange={(e) => setLast4(e.target.value.replace(/\D/g, "").slice(0, 4))}
+              inputMode="numeric"
+              placeholder="1234"
+              className="w-full h-12 rounded-2xl bg-card-foreground/[0.04] px-4 text-[15px] font-bold tabular-nums tracking-widest outline-none focus:bg-card-foreground/[0.06]"
+            />
+          </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-card-foreground/50 mb-1.5 px-1">CVV</p>
+            <input
+              value={cvv}
+              onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 3))}
+              inputMode="numeric"
+              placeholder="123"
+              className="w-full h-12 rounded-2xl bg-card-foreground/[0.04] px-4 text-[15px] font-bold tabular-nums tracking-widest outline-none focus:bg-card-foreground/[0.06]"
+            />
+          </div>
+
+          {error && (
+            <div className="rounded-xl bg-destructive/10 text-destructive text-[12px] px-3 py-2 font-medium">
+              {error}
+            </div>
+          )}
+
+          <button
+            disabled={!canSubmit}
+            onClick={submit}
+            className="w-full h-12 rounded-full bg-primary text-primary-foreground font-bold text-sm disabled:opacity-40 transition"
+          >
+            Activate now
+          </button>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

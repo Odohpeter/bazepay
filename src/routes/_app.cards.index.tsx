@@ -1,10 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Plus, ShieldCheck, CreditCard, Sparkles, ArrowUpRight, Snowflake, Eye, Layers } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Plus, ShieldCheck, CreditCard, Sparkles, ArrowUpRight, Snowflake, Eye, Layers, Truck, Package, X, Zap, Check } from "lucide-react";
 import { BottomNav } from "@/components/bottom-nav";
 import { VirtualCardArt } from "@/components/virtual-card";
-import { formatNgn, ISSUE_FEE_NGN, relativeDay } from "@/lib/cards";
+import { formatNgn, ISSUE_FEE_NGN, PHYSICAL_ISSUE_FEE_NGN, PHYSICAL_SHIPPING_FEE_NGN, relativeDay, SHIPPING_LABEL, SHIPPING_STAGES } from "@/lib/cards";
 import { useCardsStore } from "@/lib/cards-store";
+
 
 export const Route = createFileRoute("/_app/cards/")({
   head: () => ({
@@ -20,23 +22,27 @@ function CardsPage() {
   const navigate = useNavigate();
   const { cards, txns: allTxns } = useCardsStore();
   const [activeIdx, setActiveIdx] = useState(0);
+  const [chooserOpen, setChooserOpen] = useState(false);
   const safeIdx = Math.min(activeIdx, Math.max(0, cards.length - 1));
   const totalNgn = cards.reduce((s, c) => s + c.balanceNgn, 0);
+
 
   if (cards.length === 0) {
     return (
       <div className="min-h-full bg-background text-foreground flex flex-col">
         <div className="h-10" />
-        <Header count={0} total={0} />
+        <Header count={0} total={0} onIssue={() => setChooserOpen(true)} />
         <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-32">
-          <EmptyState />
+          <EmptyState onIssue={() => setChooserOpen(true)} />
         </div>
+        <IssueChooserSheet open={chooserOpen} onClose={() => setChooserOpen(false)} />
         <BottomNav />
       </div>
     );
   }
 
   const active = cards[safeIdx];
+
   const txns = allTxns
     .filter((t) => t.cardId === active.id)
     .sort((a, b) => +new Date(b.at) - +new Date(a.at))
@@ -52,7 +58,7 @@ function CardsPage() {
   return (
     <div className="min-h-full bg-background text-foreground flex flex-col">
       <div className="h-10" />
-      <Header count={cards.length} total={totalNgn} />
+      <Header count={cards.length} total={totalNgn} onIssue={() => setChooserOpen(true)} />
 
       {/* Stacked wallet */}
       <div className="px-6 mt-8">
@@ -120,6 +126,10 @@ function CardsPage() {
             </Link>
           </div>
         </div>
+
+        {active.type === "physical" && active.physical && (
+          <PhysicalTracker card={active} />
+        )}
 
         <div className="mt-4">
           <div className="flex items-center justify-between text-[11px] text-card-foreground/55 mb-1.5 tabular-nums">
@@ -231,28 +241,29 @@ function CardsPage() {
         </div>
       </div>
 
+      <IssueChooserSheet open={chooserOpen} onClose={() => setChooserOpen(false)} />
       <BottomNav />
     </div>
   );
 }
 
-function Header({ count, total }: { count: number; total: number }) {
+function Header({ count, total, onIssue }: { count: number; total: number; onIssue: () => void }) {
   return (
     <div className="px-6 pt-4 flex items-center justify-between">
       <div>
         <h1 className="font-display text-3xl font-bold tracking-tight">Wallet</h1>
       </div>
-      <Link
-        to="/cards/new"
+      <button
+        onClick={onIssue}
         className="h-10 px-4 rounded-full bg-primary text-primary-foreground text-[12px] font-bold flex items-center gap-1.5"
       >
         <Plus className="w-4 h-4" /> Issue
-      </Link>
+      </button>
     </div>
   );
 }
 
-function EmptyState() {
+function EmptyState({ onIssue }: { onIssue: () => void }) {
   return (
     <div className="flex flex-col items-center text-center py-10">
       <div className="w-16 h-16 rounded-2xl bg-primary/15 text-primary flex items-center justify-center">
@@ -260,14 +271,153 @@ function EmptyState() {
       </div>
       <h3 className="font-display font-bold text-lg mt-4">No cards yet</h3>
       <p className="text-[12px] text-card-foreground/55 mt-1 max-w-[270px]">
-        Issue a Naira virtual card to pay online anywhere Visa or Mastercard is accepted. One-time fee {formatNgn(ISSUE_FEE_NGN)}.
+        Issue a Naira card to pay online anywhere Visa or Mastercard is accepted. Virtual from {formatNgn(ISSUE_FEE_NGN)}.
       </p>
-      <Link
-        to="/cards/new"
+      <button
+        onClick={onIssue}
         className="mt-5 h-11 px-5 rounded-full bg-primary text-primary-foreground font-bold text-sm inline-flex items-center gap-1.5"
       >
         <Sparkles className="w-4 h-4" /> Issue your first card
-      </Link>
+      </button>
     </div>
   );
 }
+
+function PhysicalTracker({ card }: { card: ReturnType<typeof useCardsStore>["cards"][number] }) {
+  if (!card.physical) return null;
+  const stages = SHIPPING_STAGES;
+  const currentIdx = stages.indexOf(card.physical.shippingStage);
+  const isDelivered = card.physical.shippingStage === "delivered";
+  const isActive = card.status === "active";
+  const eta = new Date(card.physical.eta).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+
+  return (
+    <div className="mt-4 rounded-2xl bg-card-foreground/[0.04] p-4">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-8 h-8 rounded-full bg-primary/15 text-primary flex items-center justify-center">
+          <Truck className="w-4 h-4" />
+        </div>
+        <div className="flex-1">
+          <p className="text-[12px] font-bold">
+            {isDelivered ? (isActive ? "Card active" : "Delivered — ready to activate") : SHIPPING_LABEL[card.physical.shippingStage]}
+          </p>
+          <p className="text-[10px] text-card-foreground/55">
+            {card.physical.courier} · {isDelivered ? `Tracking ${card.physical.trackingCode}` : `ETA ${eta}`}
+          </p>
+        </div>
+        {isDelivered && !isActive && (
+          <Link
+            to="/cards/$id"
+            params={{ id: card.id }}
+            className="h-8 px-3 rounded-full bg-primary text-primary-foreground text-[11px] font-bold flex items-center gap-1"
+          >
+            Activate
+          </Link>
+        )}
+      </div>
+      <div className="flex items-center gap-1">
+        {stages.map((s, i) => {
+          const done = i <= currentIdx;
+          return (
+            <div
+              key={s}
+              className={`h-1.5 flex-1 rounded-full transition-colors ${done ? "bg-primary" : "bg-card-foreground/10"}`}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function IssueChooserSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 z-40 bg-black/70 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", stiffness: 320, damping: 34 }}
+            className="absolute inset-x-0 bottom-0 z-50 bg-card text-card-foreground rounded-t-[2rem] pb-8"
+          >
+            <div className="pt-3 flex justify-center">
+              <div className="h-1 w-10 rounded-full bg-card-foreground/15" />
+            </div>
+            <div className="px-6 pt-4 pb-2 flex items-center justify-between">
+              <h2 className="font-display text-xl font-bold">Issue a new card</h2>
+              <button onClick={onClose} className="w-9 h-9 rounded-full bg-card-foreground/[0.06] flex items-center justify-center">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="px-6 pt-2 space-y-3">
+              <Link
+                to="/cards/new"
+                onClick={onClose}
+                className="block rounded-2xl border border-card-foreground/[0.08] p-4 hover:bg-card-foreground/[0.03] transition"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-primary/15 text-primary flex items-center justify-center shrink-0">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-bold text-[15px]">Virtual card</p>
+                      <span className="text-[9px] font-bold uppercase tracking-wider bg-primary/15 text-primary px-1.5 py-0.5 rounded-full">
+                        Instant
+                      </span>
+                    </div>
+                    <p className="text-[11.5px] text-card-foreground/60 mt-0.5 leading-relaxed">
+                      Ready in seconds. Pay online anywhere Visa or Mastercard is accepted.
+                    </p>
+                    <p className="text-[11px] font-bold text-card-foreground/75 mt-1.5 tabular-nums">
+                      {formatNgn(ISSUE_FEE_NGN)} one-time
+                    </p>
+                  </div>
+                  <Check className="w-4 h-4 text-card-foreground/30 mt-2" />
+                </div>
+              </Link>
+
+              <Link
+                to="/cards/physical"
+                onClick={onClose}
+                className="block rounded-2xl border border-card-foreground/[0.08] p-4 hover:bg-card-foreground/[0.03] transition"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-primary/15 text-primary flex items-center justify-center shrink-0">
+                    <Package className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-bold text-[15px]">Physical card</p>
+                      <span className="text-[9px] font-bold uppercase tracking-wider bg-card-foreground/[0.06] px-1.5 py-0.5 rounded-full">
+                        Delivered
+                      </span>
+                    </div>
+                    <p className="text-[11.5px] text-card-foreground/60 mt-0.5 leading-relaxed">
+                      Real card for POS, ATMs and in-store. Delivered anywhere in Nigeria.
+                    </p>
+                    <p className="text-[11px] font-bold text-card-foreground/75 mt-1.5 tabular-nums">
+                      From {formatNgn(PHYSICAL_ISSUE_FEE_NGN + PHYSICAL_SHIPPING_FEE_NGN)}
+                    </p>
+                  </div>
+                  <Check className="w-4 h-4 text-card-foreground/30 mt-2" />
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+

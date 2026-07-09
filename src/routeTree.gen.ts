@@ -40,6 +40,7 @@ import { Route as AppPayAirtimeRouteImport } from './routes/_app.pay.airtime'
 import { Route as AppPayServiceRouteImport } from './routes/_app.pay.$service'
 import { Route as AppNumbersIdRouteImport } from './routes/_app.numbers.$id'
 import { Route as AppEsimsIdRouteImport } from './routes/_app.esims.$id'
+import { Route as AppCardsPhysicalRouteImport } from './routes/_app.cards.physical'
 import { Route as AppCardsNewRouteImport } from './routes/_app.cards.new'
 import { Route as AppCardsIdRouteImport } from './routes/_app.cards.$id'
 import { Route as AppProfileSecurityTwofaRouteImport } from './routes/_app.profile_.security.twofa'
@@ -201,6 +202,11 @@ const AppEsimsIdRoute = AppEsimsIdRouteImport.update({
   path: '/esims/$id',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCardsPhysicalRoute = AppCardsPhysicalRouteImport.update({
+  id: '/cards/physical',
+  path: '/cards/physical',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCardsNewRoute = AppCardsNewRouteImport.update({
   id: '/cards/new',
   path: '/cards/new',
@@ -247,6 +253,7 @@ export interface FileRoutesByFullPath {
   '/auth/signup': typeof AuthSignupRoute
   '/cards/$id': typeof AppCardsIdRoute
   '/cards/new': typeof AppCardsNewRoute
+  '/cards/physical': typeof AppCardsPhysicalRoute
   '/esims/$id': typeof AppEsimsIdRoute
   '/numbers/$id': typeof AppNumbersIdRoute
   '/pay/$service': typeof AppPayServiceRoute
@@ -284,6 +291,7 @@ export interface FileRoutesByTo {
   '/auth/signup': typeof AuthSignupRoute
   '/cards/$id': typeof AppCardsIdRoute
   '/cards/new': typeof AppCardsNewRoute
+  '/cards/physical': typeof AppCardsPhysicalRoute
   '/esims/$id': typeof AppEsimsIdRoute
   '/numbers/$id': typeof AppNumbersIdRoute
   '/pay/$service': typeof AppPayServiceRoute
@@ -324,6 +332,7 @@ export interface FileRoutesById {
   '/auth/signup': typeof AuthSignupRoute
   '/_app/cards/$id': typeof AppCardsIdRoute
   '/_app/cards/new': typeof AppCardsNewRoute
+  '/_app/cards/physical': typeof AppCardsPhysicalRoute
   '/_app/esims/$id': typeof AppEsimsIdRoute
   '/_app/numbers/$id': typeof AppNumbersIdRoute
   '/_app/pay/$service': typeof AppPayServiceRoute
@@ -364,6 +373,7 @@ export interface FileRouteTypes {
     | '/auth/signup'
     | '/cards/$id'
     | '/cards/new'
+    | '/cards/physical'
     | '/esims/$id'
     | '/numbers/$id'
     | '/pay/$service'
@@ -401,6 +411,7 @@ export interface FileRouteTypes {
     | '/auth/signup'
     | '/cards/$id'
     | '/cards/new'
+    | '/cards/physical'
     | '/esims/$id'
     | '/numbers/$id'
     | '/pay/$service'
@@ -440,6 +451,7 @@ export interface FileRouteTypes {
     | '/auth/signup'
     | '/_app/cards/$id'
     | '/_app/cards/new'
+    | '/_app/cards/physical'
     | '/_app/esims/$id'
     | '/_app/numbers/$id'
     | '/_app/pay/$service'
@@ -695,6 +707,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEsimsIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/cards/physical': {
+      id: '/_app/cards/physical'
+      path: '/cards/physical'
+      fullPath: '/cards/physical'
+      preLoaderRoute: typeof AppCardsPhysicalRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/cards/new': {
       id: '/_app/cards/new'
       path: '/cards/new'
@@ -774,6 +793,7 @@ interface AppRouteChildren {
   AppWalletRoute: typeof AppWalletRoute
   AppCardsIdRoute: typeof AppCardsIdRoute
   AppCardsNewRoute: typeof AppCardsNewRoute
+  AppCardsPhysicalRoute: typeof AppCardsPhysicalRoute
   AppEsimsIdRoute: typeof AppEsimsIdRoute
   AppNumbersIdRoute: typeof AppNumbersIdRoute
   AppProfileHelpRoute: typeof AppProfileHelpRoute
@@ -796,6 +816,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppWalletRoute: AppWalletRoute,
   AppCardsIdRoute: AppCardsIdRoute,
   AppCardsNewRoute: AppCardsNewRoute,
+  AppCardsPhysicalRoute: AppCardsPhysicalRoute,
   AppEsimsIdRoute: AppEsimsIdRoute,
   AppNumbersIdRoute: AppNumbersIdRoute,
   AppProfileHelpRoute: AppProfileHelpRoute,
@@ -827,13 +848,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
