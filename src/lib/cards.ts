@@ -75,6 +75,9 @@ export type CardTxn = {
 };
 
 export const ISSUE_FEE_NGN = 1500;
+export const PHYSICAL_ISSUE_FEE_NGN = 5000;
+export const PHYSICAL_SHIPPING_FEE_NGN = 2500;
+export const PHYSICAL_EXPRESS_FEE_NGN = 5000;
 
 export const cards: VirtualCard[] = [
   {
@@ -82,6 +85,7 @@ export const cards: VirtualCard[] = [
     label: "Subscriptions",
     holder: "TUNDE OKE",
     brand: "Visa",
+    type: "virtual",
     pan: "4539 8211 6094 2207",
     cvv: "318",
     expiry: "08/29",
@@ -98,6 +102,7 @@ export const cards: VirtualCard[] = [
     label: "Travel",
     holder: "TUNDE OKE",
     brand: "Mastercard",
+    type: "virtual",
     pan: "5412 7508 4493 1185",
     cvv: "742",
     expiry: "11/28",
@@ -114,6 +119,7 @@ export const cards: VirtualCard[] = [
     label: "Shopping",
     holder: "TUNDE OKE",
     brand: "Visa",
+    type: "virtual",
     pan: "4716 0091 5523 8870",
     cvv: "204",
     expiry: "03/27",
@@ -126,6 +132,7 @@ export const cards: VirtualCard[] = [
     createdAt: "2026-03-18T16:40:00Z",
   },
 ];
+
 
 export const cardTxns: CardTxn[] = [
   { id: "ct1", cardId: "vc-01", merchant: "Netflix", category: "subscriptions", amountNgn: -24_010, at: "2026-05-07T08:42:00Z", status: "settled" },
