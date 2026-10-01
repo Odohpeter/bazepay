@@ -165,7 +165,7 @@ function GlassChip({ label, value, side, y, icon }: GlassChip) {
         {chipIcon(icon)}
       </span>
       <span style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, letterSpacing: "0.14em", color: "oklch(0.98 0.005 260 / 0.5)" }}>{label}</span>
+        <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, letterSpacing: "0.14em", color: "oklch(0.98 0.005 260 / 0.7)" }}>{label}</span>
         <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 30, color: "oklch(0.98 0.005 260)", whiteSpace: "nowrap" }}>{value}</span>
       </span>
     </div>
