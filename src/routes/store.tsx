@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode, CSSProperties } from "react";
 import { ShieldCheck, LockKeyhole, MessageCircle, Zap, Globe2, CreditCard } from "lucide-react";
 import heroHome from "@/assets/hero-app-home.png";
+import bazepayLogo from "@/assets/bazepay-logo.png.asset.json";
 import shotTopup from "@/assets/store/topup.png";
 import shotCards from "@/assets/store/cards.png";
 import shotPay from "@/assets/store/pay.png";
@@ -186,15 +187,11 @@ function themeStyle(theme: Slide["theme"]): CSSProperties {
 function BrandRow({ light = false }: { light?: boolean }) {
   return (
     <div style={{ position: "absolute", top: 76, left: 72, display: "flex", alignItems: "center", gap: 20 }}>
-      <div
-        style={{
-          width: 64, height: 64, borderRadius: 20, background: "var(--lime)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 34, color: "oklch(0.13 0.02 278)",
-        }}
-      >
-        B
-      </div>
+      <img
+        src={bazepayLogo.url}
+        alt=""
+        style={{ height: 64, width: 48, objectFit: "contain", display: "block" }}
+      />
       <span
         style={{
           fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 36,
