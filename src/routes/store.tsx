@@ -178,6 +178,8 @@ function themeStyle(theme: Slide["theme"]): CSSProperties {
                      radial-gradient(660px 500px at -12% 66%, oklch(0.42 0.2 278 / 0.32), transparent 62%),
                      ${dark}`,
       };
+    default:
+      return { background: dark };
   }
 }
 
