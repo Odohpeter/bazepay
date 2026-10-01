@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { ReactNode, CSSProperties } from "react";
 import { ShieldCheck, LockKeyhole, MessageCircle, Zap, Globe2, CreditCard } from "lucide-react";
 import heroHome from "@/assets/hero-app-home.png";
 import shotTopup from "@/assets/store/topup.png";
@@ -31,11 +32,11 @@ type Chip = { text: string; side: "l" | "r"; y: number; icon?: "zap" | "globe" |
 type Slide = {
   theme: "dark" | "indigo" | "limeGlow" | "creamGlow" | "cyanGlow" | "violet";
   badge: string;
-  title: [string, React.ReactNode];
+  title: ReactNode[];
   sub: string;
   img?: string;
-  imgWidth: number;
-  imgTop: number;
+  imgWidth?: number;
+  imgTop?: number;
   subTop: number;
   featureGrid?: { icon: "zap" | "globe" | "card" | "lock" | "shield" | "chat"; label: string; sub: string }[];
   cta?: boolean;
@@ -144,7 +145,7 @@ const SLIDES: Slide[] = [
 
 /* ------------------------------------------------------------------ */
 
-function themeStyle(theme: Slide["theme"]): React.CSSProperties {
+function themeStyle(theme: Slide["theme"]): CSSProperties {
   const dark = `oklch(0.13 0.02 278)`;
   switch (theme) {
     case "indigo":
