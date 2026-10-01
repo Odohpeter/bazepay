@@ -157,7 +157,7 @@ function GlassChip({ label, value, side, y, icon }: GlassChip) {
       style={{
         position: "absolute", top: y, left: side === "l" ? 36 : undefined, right: side === "r" ? 36 : undefined, zIndex: 20,
         display: "flex", alignItems: "center", gap: 18, padding: "22px 30px", borderRadius: 32,
-        background: "oklch(0.98 0.005 260 / 0.1)", border: "1.5px solid oklch(0.98 0.005 260 / 0.2)",
+        background: "oklch(0.18 0.04 278 / 0.88)", border: "1.5px solid oklch(0.98 0.005 260 / 0.2)",
         backdropFilter: "blur(16px)", boxShadow: "0 30px 60px -20px oklch(0 0 0 / 0.65)",
       }}
     >

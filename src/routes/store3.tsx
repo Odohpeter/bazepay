@@ -156,7 +156,7 @@ function FloatChip({ text, side, y, icon }: Chip) {
       style={{
         position: "absolute", top: y, left: side === "l" ? 44 : undefined, right: side === "r" ? 44 : undefined, zIndex: 20,
         display: "flex", alignItems: "center", gap: 14, padding: "20px 30px", borderRadius: 999,
-        background: "oklch(0.98 0.005 260 / 0.1)", border: "1.5px solid oklch(0.98 0.005 260 / 0.18)",
+        background: "oklch(0.18 0.04 278 / 0.88)", border: "1.5px solid oklch(0.98 0.005 260 / 0.18)",
         backdropFilter: "blur(12px)", boxShadow: "0 24px 48px -18px oklch(0 0 0 / 0.6)",
       }}
     >
