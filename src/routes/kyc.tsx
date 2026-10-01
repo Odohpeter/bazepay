@@ -24,6 +24,14 @@ import {
 } from "@/lib/countries";
 
 export const Route = createFileRoute("/kyc")({
+  head: () => ({ meta: [
+    { title: "Verify your identity · BazePay" },
+    { name: "description", content: "Complete identity verification to use your BazePay account." },
+    { property: "og:title", content: "Verify your identity · BazePay" },
+    { property: "og:description", content: "Complete identity verification to use your BazePay account." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: Kyc,
 });
 

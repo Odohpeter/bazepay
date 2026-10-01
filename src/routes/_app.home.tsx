@@ -16,6 +16,14 @@ import { BottomNav } from "@/components/bottom-nav";
 import { CurrencySwitcher } from "@/components/currency-switcher";
 
 export const Route = createFileRoute("/_app/home")({
+  head: () => ({ meta: [
+    { title: "Home · BazePay" },
+    { name: "description", content: "View your BazePay naira balance, quick payments and recent activity." },
+    { property: "og:title", content: "Home · BazePay" },
+    { property: "og:description", content: "View your BazePay naira balance, quick payments and recent activity." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: HomePage,
 });
 

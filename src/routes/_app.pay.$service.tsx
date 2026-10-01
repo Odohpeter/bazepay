@@ -14,6 +14,14 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/_app/pay/$service")({
+  head: () => ({ meta: [
+    { title: "Bill payment · BazePay" },
+    { name: "description", content: "Pay for airtime, data, electricity and more with BazePay." },
+    { property: "og:title", content: "Bill payment · BazePay" },
+    { property: "og:description", content: "Pay for airtime, data, electricity and more with BazePay." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: ServiceFlow,
   notFoundComponent: () => (
     <div className="p-8 text-center text-sm">
