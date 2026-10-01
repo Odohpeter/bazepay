@@ -311,7 +311,7 @@ function Bento() {
         <div className="col-span-6 md:col-span-4 row-span-2 rounded-3xl bg-gradient-primary p-8 relative overflow-hidden">
           <Globe2 className="absolute -right-10 -bottom-10 w-64 h-64 text-primary-foreground/10" strokeWidth={1} />
           <span className="text-[11px] font-semibold uppercase tracking-widest text-primary-foreground/70">
-            No Nigerian bank required
+            For diaspora & travelers
           </span>
           <h3 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl mt-3 text-primary-foreground leading-tight max-w-md">
             Top up in your currency. Spend in Naira instantly.
