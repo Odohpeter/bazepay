@@ -14,12 +14,6 @@ import {
 import { virtualNumbers, vnMessages, relativeTime } from "@/lib/virtual-numbers";
 
 export const Route = createFileRoute("/_app/numbers/$id")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `Inbox · ${params.id} · BazePay` },
-      { name: "description", content: "Receive SMS verification codes on your virtual number." },
-    ],
-  }),
   loader: ({ params }) => {
     const number = virtualNumbers.find((n) => n.id === params.id);
     if (!number) throw notFound();
@@ -33,6 +27,12 @@ export const Route = createFileRoute("/_app/numbers/$id")({
       </Link>
     </div>
   ),
+  head: ({ params }) => ({
+    meta: [
+      { title: `Inbox · ${params.id} · BazePay` },
+      { name: "description", content: "Receive SMS verification codes on your virtual number." },
+    ],
+  }),
   component: NumberDetail,
 });
 

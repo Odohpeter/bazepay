@@ -17,12 +17,6 @@ import { toast } from "sonner";
 import { cards, cardTxns, formatNgn } from "@/lib/cards";
 
 export const Route = createFileRoute("/_app/cards/$id_/txn/$txnId")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `Transaction · ${params.txnId} · BazePay` },
-      { name: "description", content: "Card transaction details and receipt." },
-    ],
-  }),
   loader: ({ params }) => {
     const card = cards.find((c) => c.id === params.id);
     const txn = cardTxns.find((t) => t.id === params.txnId && t.cardId === params.id);
@@ -37,6 +31,12 @@ export const Route = createFileRoute("/_app/cards/$id_/txn/$txnId")({
       </Link>
     </div>
   ),
+  head: ({ params }) => ({
+    meta: [
+      { title: `Transaction · ${params.txnId} · BazePay` },
+      { name: "description", content: "Card transaction details and receipt." },
+    ],
+  }),
   component: TxnDetail,
 });
 

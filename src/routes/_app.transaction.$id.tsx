@@ -19,12 +19,6 @@ import { toast } from "sonner";
 import { txnById, type Txn } from "@/lib/transactions";
 
 export const Route = createFileRoute("/_app/transaction/$id")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `Receipt · ${params.id} · BazePay` },
-      { name: "description", content: "Transaction receipt." },
-    ],
-  }),
   loader: ({ params }) => {
     const t = txnById(params.id);
     if (!t) throw notFound();
@@ -42,6 +36,12 @@ export const Route = createFileRoute("/_app/transaction/$id")({
       <button onClick={reset} className="mt-4 text-sm font-bold text-primary">Retry</button>
     </div>
   ),
+  head: ({ params }) => ({
+    meta: [
+      { title: `Receipt · ${params.id} · BazePay` },
+      { name: "description", content: "Transaction receipt." },
+    ],
+  }),
   component: TxnReceipt,
 });
 
