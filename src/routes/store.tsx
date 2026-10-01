@@ -119,8 +119,8 @@ const SLIDES: Slide[] = [
     title: ["Land connected.",],
     sub: "eSIM data for 190+ countries, live before you reach immigration.",
     img: shotEsims,
-    imgWidth: 580,
-    imgTop: 680,
+    imgWidth: 560,
+    imgTop: 640,
     subTop: 480,
     chips: [
       { text: "190+ countries", side: "l", y: 940, icon: "globe" },
