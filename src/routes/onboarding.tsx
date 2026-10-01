@@ -25,8 +25,8 @@ type Slide = {
 const slides: Slide[] = [
   {
     eyebrow: "Skip the bank queue",
-    title: "Naira spending, without a Nigerian bank account.",
-    body: "No BVN, no NIN, no proof of address. Built for visitors and diaspora who just need to pay and move.",
+    title: "Naira spending, without the bank hustle.",
+    body: "Built for visitors and diaspora who just need to pay and move — no queues, no paperwork.",
     visual: WalletVisual,
   },
   {

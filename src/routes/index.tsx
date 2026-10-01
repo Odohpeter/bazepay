@@ -19,13 +19,13 @@ import bazepayWordmark from "@/assets/bazepay-wordmark.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "BazePay — Naira spending, no Nigerian bank account" },
+      { title: "BazePay — Spend naira without the bank hustle" },
       {
         name: "description",
         content:
           "Fund with your foreign Visa, Mastercard or Amex. Spend in Naira, pay bills, get an eSIM and a Nigerian virtual number — before you even land.",
       },
-      { property: "og:title", content: "BazePay — Naira spending, no Nigerian bank account" },
+      { property: "og:title", content: "BazePay — Spend naira without the bank hustle" },
       {
         property: "og:description",
         content:
@@ -153,7 +153,7 @@ function Hero() {
             className="inline-flex items-center gap-2 h-8 px-3 rounded-full border border-white/10 bg-white/[0.04] text-[11px] font-semibold tracking-wide uppercase text-foreground/70"
           >
             <Sparkles className="w-3.5 h-3.5 text-lime" />
-            No BVN · No NIN · No Nigerian bank
+            Built for diaspora & travelers
           </motion.div>
 
           <motion.h1
@@ -271,7 +271,7 @@ function PhoneMock() {
 /* ---------------------------- MARQUEE ---------------------------- */
 function Marquee() {
   const items = [
-    "No BVN", "No NIN", "Foreign card top-up", "Naira wallet", "Virtual cards",
+    "For diaspora", "For travelers", "Foreign card top-up", "Naira wallet", "Virtual cards",
     "eSIM", "Nigerian number", "Airtime", "Electricity", "Cable TV", "Data",
     "Transfer to any bank",
   ];
@@ -303,7 +303,7 @@ function Bento() {
           </h2>
         </div>
         <p className="hidden md:block max-w-xs text-sm text-foreground/60">
-          Skip the BVN, the queue at GTB, and the SIM-swap at the airport.
+          Skip the paperwork and the bank queue — fund from your foreign card in seconds.
         </p>
       </div>
 
@@ -311,7 +311,7 @@ function Bento() {
         <div className="col-span-6 md:col-span-4 row-span-2 rounded-3xl bg-gradient-primary p-8 relative overflow-hidden">
           <Globe2 className="absolute -right-10 -bottom-10 w-64 h-64 text-primary-foreground/10" strokeWidth={1} />
           <span className="text-[11px] font-semibold uppercase tracking-widest text-primary-foreground/70">
-            No Nigerian bank required
+            For diaspora & travelers
           </span>
           <h3 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl mt-3 text-primary-foreground leading-tight max-w-md">
             Top up in your currency. Spend in Naira instantly.
