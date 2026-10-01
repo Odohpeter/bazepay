@@ -61,12 +61,12 @@ const SLIDES: Slide[] = [
   {
     kicker: "FOR DIASPORA & TRAVELERS",
     title: ["Skip the bank.", "Spend naira."],
-    sub: "No BVN. No NIN. No Nigerian bank account. Fund with your foreign card and spend like a local.",
+    sub: "Built for diaspora and travelers — fund with your foreign card and spend like a local.",
     img: heroHome,
     burst: "FREE",
     tickets: [
-      { text: "NO BVN · NO NIN", x: 66, y: 1010 },
-      { text: "NO NIGERIAN BANK NEEDED", x: 540, y: 1560, dark: true },
+      { text: "DIASPORA · TRAVELERS", x: 66, y: 1010 },
+      { text: "SPEND LIKE A LOCAL", x: 540, y: 1560, dark: true },
     ],
   },
   {
