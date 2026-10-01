@@ -88,15 +88,15 @@ const SLIDES: Slide[] = [
   {
     theme: "violet",
     badge: "INSTANT CARDS",
-    title: ["Cards for every", <>subscription.</>],
-    sub: "Create a Visa in minutes, cap the spend, freeze in one tap.",
+    title: ["Virtual & physical", <>naira cards.</>],
+    sub: "Virtual Visas for online payments and subscriptions. Physical naira cards you tap at stores across Nigeria.",
     img: shotCards,
-    imgWidth: 560,
-    imgTop: 700,
+    imgWidth: 545,
+    imgTop: 718,
     subTop: 566,
     chips: [
-      { text: "Visa •• 2207", side: "l", y: 960, icon: "card" },
-      { text: "Freeze instantly", side: "r", y: 1290, icon: "lock" },
+      { text: "Online · Visa", side: "l", y: 960, icon: "card" },
+      { text: "In-store · Physical", side: "r", y: 1290, icon: "lock" },
     ],
   },
   {
