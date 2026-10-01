@@ -91,8 +91,8 @@ const SLIDES: Slide[] = [
     title: ["Virtual & physical", <>naira cards.</>],
     sub: "Virtual Visas for online payments and subscriptions. Physical naira cards you tap at stores across Nigeria.",
     img: shotCards,
-    imgWidth: 560,
-    imgTop: 700,
+    imgWidth: 545,
+    imgTop: 718,
     subTop: 566,
     chips: [
       { text: "Online · Visa", side: "l", y: 960, icon: "card" },
