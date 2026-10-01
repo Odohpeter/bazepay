@@ -213,7 +213,9 @@ function Phone({ src, tilt = 0 }: { src: string; tilt?: number }) {
 function Header({ i }: { i: number }) {
   return (
     <div className="absolute flex items-center justify-between" style={{ left: 80, right: 80, top: 96 }}>
-      <img src={wordmark.url} alt="BazePay" style={{ height: 52, display: "block" }} />
+      <div style={{ padding: "16px 28px", borderRadius: 999, background: "rgba(12,10,32,0.55)", border: "1px solid rgba(255,255,255,0.12)" }}>
+        <img src={wordmark.url} alt="BazePay" style={{ height: 44, display: "block" }} />
+      </div>
       <div className="flex items-center gap-3" style={{ color: "rgba(255,255,255,0.75)", fontSize: 26, fontWeight: 700, letterSpacing: "0.12em" }}>
         <span style={{ color: LIME }}>{String(i + 1).padStart(2, "0")}</span>
         <span style={{ width: 60, height: 3, background: "rgba(255,255,255,0.35)", display: "inline-block" }} />
