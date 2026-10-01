@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, type ReactElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneFrame } from "@/components/phone-frame";
+import bazepayWordmark from "@/assets/bazepay-wordmark.png.asset.json";
 import { ArrowRight, Wifi, Eye, Shield, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/onboarding")({

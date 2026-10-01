@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneFrame } from "@/components/phone-frame";
+import bazepayWordmark from "@/assets/bazepay-wordmark.png.asset.json";
 import { ArrowRight, Eye, EyeOff, Fingerprint, Mail, Phone, ChevronDown } from "lucide-react";
 import { DIAL_CODES } from "@/lib/countries";
 import { Flag, CountrySheet } from "@/components/country-picker";
