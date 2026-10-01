@@ -1,19 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
-import heroHome from "@/assets/hero-app-home.png";
-import shotTopup from "@/assets/store/topup.png";
-import shotCards from "@/assets/store/cards.png";
-import shotPay from "@/assets/store/pay.png";
-import shotEsims from "@/assets/store/esims-buy.png";
+import { ArrowDownLeft, ArrowLeftRight, ArrowUpRight, CreditCard, Globe2, Home, LayoutGrid, Search, ShieldCheck, Smartphone, Tv, Wifi, Zap } from "lucide-react";
 import wordmark from "@/assets/bazepay-wordmark.png.asset.json";
 
 export const Route = createFileRoute("/store9-tablet")({
   head: () => ({
     meta: [
       { title: "BazePay · Tablet Store Screenshots — Panorama" },
-      { name: "description", content: "Landscape tablet-format BazePay Play Store screenshot concepts in the Panorama design." },
+      { name: "description", content: "BazePay Android tablet app screenshots in the Panorama design." },
       { property: "og:title", content: "BazePay · Tablet Store Screenshots — Panorama" },
-      { property: "og:description", content: "Landscape tablet-format BazePay Play Store screenshot concepts in the Panorama design." },
+      { property: "og:description", content: "BazePay Android tablet app screenshots in the Panorama design." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
@@ -35,8 +30,7 @@ type Slide = {
   kicker: string;
   title: [string, string];
   description: string;
-  image?: string;
-  tilt?: number;
+  screen?: "home" | "exchange" | "cards" | "bills" | "esim";
   indexLabel: string;
 };
 
@@ -45,40 +39,35 @@ const slides: Slide[] = [
     kicker: "FOR DIASPORA & TRAVELERS",
     title: ["Land in Lagos.", "Spend like a local."],
     description: "Fund with your foreign card and pay in naira. Your everyday money for Nigeria, ready when you are.",
-    image: heroHome,
-    tilt: -5,
+    screen: "home",
     indexLabel: "WELCOME",
   },
   {
     kicker: "FUND IN 40+ CURRENCIES",
     title: ["Pounds in.", "Naira out."],
     description: "Fund with Visa, Mastercard or Amex. See your rate and fees before you pay.",
-    image: shotTopup,
-    tilt: 5,
+    screen: "exchange",
     indexLabel: "EXCHANGE",
   },
   {
     kicker: "VIRTUAL & PHYSICAL CARDS",
     title: ["Tap in stores.", "Pay online."],
     description: "A physical naira card for stores in Nigeria. A virtual Visa for online payments and subscriptions.",
-    image: shotCards,
-    tilt: -5,
+    screen: "cards",
     indexLabel: "CARDS",
   },
   {
     kicker: "BILLS & AIRTIME",
     title: ["Bills back home,", "sorted."],
     description: "Take care of electricity, data, airtime and TV for yourself or family — wherever you are.",
-    image: shotPay,
-    tilt: 5,
+    screen: "bills",
     indexLabel: "PAYMENTS",
   },
   {
     kicker: "TRAVEL eSIMs",
     title: ["Online before", "you clear customs."],
     description: "Find a data plan for your destination. Activate in a few taps and land connected.",
-    image: shotEsims,
-    tilt: -5,
+    screen: "esim",
     indexLabel: "CONNECTED",
   },
   {
@@ -121,14 +110,65 @@ function LandscapeWorld() {
   );
 }
 
-function Device({ src, tilt = 0 }: { src: string; tilt?: number }) {
+const nav = [
+  { label: "Home", icon: Home, screen: "home" },
+  { label: "Wallet", icon: LayoutGrid, screen: "exchange" },
+  { label: "Cards", icon: CreditCard, screen: "cards" },
+  { label: "Pay bills", icon: Zap, screen: "bills" },
+  { label: "Travel eSIM", icon: Globe2, screen: "esim" },
+] as const;
+
+function Metric({ label, value, note }: { label: string; value: string; note: string }) {
+  return <div className="rounded-lg bg-card p-5 text-card-foreground shadow-sm"><p className="text-sm font-semibold text-card-foreground/50">{label}</p><p className="mt-3 font-display text-3xl font-bold">{value}</p><p className="mt-2 text-sm text-primary">{note}</p></div>;
+}
+
+function ScreenContent({ screen }: { screen: NonNullable<Slide["screen"]> }) {
+  if (screen === "home") return <>
+    <div className="flex items-end justify-between"><div><p className="text-sm text-foreground/60">Good morning, Alex</p><h3 className="mt-1 font-display text-3xl font-bold">Your money, at a glance</h3></div><span className="rounded-full bg-card px-4 py-2 text-sm text-card-foreground">NGN wallet</span></div>
+    <div className="mt-6 flex items-center justify-between rounded-lg bg-primary p-7 text-primary-foreground"><div><p className="text-sm opacity-80">Available balance</p><p className="mt-2 font-display text-5xl font-bold">₦1,240,500.00</p><p className="mt-3 text-sm opacity-75">≈ £635.50</p></div><div className="flex gap-3"><span className="rounded-full bg-lime px-5 py-3 font-bold text-lime-foreground">＋ Top up</span><span className="rounded-full bg-primary-foreground/15 px-5 py-3 font-bold">↗ Transfer</span></div></div>
+    <div className="mt-5 grid grid-cols-2 gap-4"><Metric label="Topped up" value="₦1.2M" note="↑ 18% this month" /><Metric label="Spent" value="₦654K" note="This month" /></div>
+    <div className="mt-5 rounded-lg bg-card p-5 text-card-foreground"><div className="flex items-center justify-between"><h4 className="font-display text-lg font-bold">Recent activity</h4><span className="text-sm text-primary">View all →</span></div><div className="mt-4 flex items-center gap-3 border-t border-border pt-3"><span className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary"><ArrowDownLeft size={20} /></span><span className="flex-1 font-semibold">Wallet top up <small className="block font-normal text-card-foreground/50">Today · 09:14</small></span><b>+₦250,000</b></div></div>
+  </>;
+  if (screen === "exchange") return <>
+    <div><p className="text-sm text-foreground/60">Wallet / Top up</p><h3 className="mt-1 font-display text-3xl font-bold">Exchange to naira</h3></div>
+    <div className="mt-6 grid grid-cols-[1fr_56px_1fr] items-center gap-3"><div className="rounded-lg bg-card p-6 text-card-foreground"><p className="text-sm text-card-foreground/50">You pay</p><p className="mt-5 text-4xl font-bold">£500.00</p><p className="mt-4 text-sm font-bold">GBP · British Pound</p></div><div className="flex size-12 items-center justify-center rounded-full bg-lime text-lime-foreground"><ArrowLeftRight size={23} /></div><div className="rounded-lg bg-card p-6 text-card-foreground"><p className="text-sm text-card-foreground/50">You receive</p><p className="mt-5 text-4xl font-bold">₦976,000</p><p className="mt-4 text-sm font-bold">NGN · Nigerian Naira</p></div></div>
+    <div className="mt-5 rounded-lg bg-card px-6 py-5 text-card-foreground"><div className="flex justify-between border-b border-border pb-3"><span>Exchange rate</span><b>£1 = ₦1,952</b></div><div className="flex justify-between border-b border-border py-3"><span>Bank Processing Fees (3.9%)</span><b>£19.50</b></div><div className="flex justify-between pt-3"><span>Arrival time</span><b>Instant</b></div></div>
+    <div className="mt-5 flex items-center justify-between"><span className="text-foreground/70">Total to pay <b className="ml-2 text-foreground">£519.50</b></span><span className="rounded-full bg-lime px-8 py-3 font-bold text-lime-foreground">Continue →</span></div>
+  </>;
+  if (screen === "cards") return <>
+    <div className="flex items-end justify-between"><div><p className="text-sm text-foreground/60">Your wallet</p><h3 className="mt-1 font-display text-3xl font-bold">Naira cards</h3></div><span className="rounded-full bg-lime px-5 py-2 font-bold text-lime-foreground">＋ Issue a card</span></div>
+    <div className="mt-6 grid grid-cols-2 gap-5"><div className="relative h-52 overflow-hidden rounded-lg bg-primary p-6 text-primary-foreground"><div className="absolute -right-16 -top-20 size-60 rounded-full border-[28px] border-lime/35" /><p className="text-xl font-bold">bazepay</p><p className="mt-12 text-2xl font-semibold">•••• •••• •••• 4286</p><div className="mt-5 flex justify-between text-sm"><span>VIRTUAL · ONLINE</span><b>VISA</b></div></div><div className="relative h-52 overflow-hidden rounded-lg bg-foreground p-6 text-background"><div className="absolute -right-20 -bottom-28 size-64 rounded-full bg-lime" /><p className="relative text-xl font-bold">bazepay</p><p className="relative mt-12 text-2xl font-semibold">•••• •••• •••• 9012</p><div className="relative mt-5 flex justify-between text-sm"><span>PHYSICAL · IN-STORE</span><b>VISA</b></div></div></div>
+    <div className="mt-5 grid grid-cols-2 gap-5"><div className="rounded-lg bg-card p-5 text-card-foreground"><CreditCard className="text-primary" /><h4 className="mt-3 font-bold">Virtual card</h4><p className="mt-1 text-sm text-card-foreground/55">Online payments & subscriptions</p></div><div className="rounded-lg bg-card p-5 text-card-foreground"><ShieldCheck className="text-primary" /><h4 className="mt-3 font-bold">Physical card</h4><p className="mt-1 text-sm text-card-foreground/55">Shops and ATMs in Nigeria</p></div></div>
+  </>;
+  if (screen === "bills") return <>
+    <div><p className="text-sm text-foreground/60">Payments</p><h3 className="mt-1 font-display text-3xl font-bold">Pay bills</h3></div>
+    <div className="mt-6 flex items-center gap-3 rounded-lg bg-card px-5 py-4 text-card-foreground/50"><Search size={20} /> Search services</div>
+    <div className="mt-5 grid grid-cols-3 gap-4">{[
+      { label: "Airtime", detail: "All networks", icon: Smartphone }, { label: "Data bundles", detail: "Stay connected", icon: Wifi }, { label: "Electricity", detail: "Prepaid & postpaid", icon: Zap },
+      { label: "TV subscription", detail: "Entertainment", icon: Tv }, { label: "Internet", detail: "Home broadband", icon: Globe2 }, { label: "Travel eSIM", detail: "190+ countries", icon: Globe2 },
+    ].map(({ label, detail, icon: Icon }) => <div key={label} className="rounded-lg bg-card p-5 text-card-foreground"><span className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary"><Icon size={23} /></span><h4 className="mt-4 font-bold">{label}</h4><p className="mt-1 text-sm text-card-foreground/50">{detail}</p></div>)}</div>
+    <div className="mt-5 rounded-lg bg-primary/20 p-5"><h4 className="font-bold">Recent payment</h4><p className="mt-1 text-sm text-foreground/65">MTN Airtime · ₦5,000 · Today</p></div>
+  </>;
+  return <>
+    <div><p className="text-sm text-foreground/60">Travel / Connectivity</p><h3 className="mt-1 font-display text-3xl font-bold">Stay connected abroad</h3></div>
+    <div className="mt-6 rounded-lg bg-primary p-7 text-primary-foreground"><div className="flex items-start justify-between"><div><p className="text-sm font-bold text-lime">TRAVEL eSIM</p><h4 className="mt-3 text-3xl font-bold">Data wherever you land.</h4><p className="mt-3 max-w-sm text-base opacity-80">Browse flexible plans for your next trip, then activate in a few taps.</p></div><Globe2 size={92} strokeWidth={1} className="text-lime" /></div></div>
+    <div className="mt-5 flex items-center gap-3 rounded-lg bg-card px-5 py-4 text-card-foreground/60"><Search size={20} /> Search destinations or regions</div>
+    <div className="mt-5 grid grid-cols-3 gap-4">{[{ icon: "NG", name: "Nigeria", detail: "From $4.50 / GB" }, { icon: "UK", name: "United Kingdom", detail: "Flexible plans" }, { icon: "🌐", name: "Global", detail: "190+ countries" }].map((item) => <div key={item.name} className="rounded-lg bg-card p-5 text-card-foreground"><span className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">{item.icon}</span><h4 className="mt-4 font-bold">{item.name}</h4><p className="mt-1 text-sm text-card-foreground/50">{item.detail}</p></div>)}</div>
+  </>;
+}
+
+function TabletDevice({ screen }: { screen: NonNullable<Slide["screen"]> }) {
   return (
-    <div className="absolute" style={{ width: 362, top: 125, left: 1350, transform: `rotate(${tilt}deg)` }}>
-      <div style={{ padding: 5, borderRadius: 55, background: "linear-gradient(140deg, #f4f4fa, #8d8d9e 42%, #32323c 65%, #ededf4)", boxShadow: "0 60px 95px -25px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.4)" }}>
-        <div style={{ padding: 8, borderRadius: 50, background: "#09090c" }}>
-          <div className="overflow-hidden" style={{ borderRadius: 42 }}>
-            <img src={src} alt="BazePay app screen" className="block w-full" style={{ aspectRatio: "430 / 932", objectFit: "cover" }} />
+    <div className="absolute" style={{ width: 1040, height: 720, top: 247, left: 790 }}>
+      <div className="h-full w-full rounded-[35px] border-[9px] border-foreground/85 bg-foreground p-[9px] shadow-[0_50px_90px_-25px_rgba(0,0,0,.55)]">
+        <div className="relative flex h-full overflow-hidden rounded-[18px] bg-background text-foreground">
+          <div className="flex w-[186px] shrink-0 flex-col border-r border-foreground/10 bg-background px-4 py-6">
+            <div className="mb-12 px-2"><img src={wordmark.url} alt="BazePay" className="h-7 w-auto" /></div>
+            <div className="space-y-2">{nav.map(({ label, icon: Icon, screen: item }) => <div key={item} className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold ${item === screen ? "bg-primary text-primary-foreground" : "text-foreground/55"}`}><Icon size={19} />{label}</div>)}</div>
+            <div className="mt-auto flex items-center gap-2 border-t border-foreground/10 pt-5 text-sm"><span className="flex size-8 items-center justify-center rounded-full bg-lime font-bold text-lime-foreground">A</span>Alex Morgan</div>
           </div>
+          <div className="flex-1 overflow-hidden px-7 py-6"><div className="mb-6 flex items-center justify-between border-b border-foreground/10 pb-4 text-sm text-foreground/55"><span>Overview</span><span>● &nbsp; Account active &nbsp; ◉</span></div><ScreenContent screen={screen} /></div>
+          <span className="absolute left-1/2 top-1 size-2 -translate-x-1/2 rounded-full bg-foreground/30" />
         </div>
       </div>
     </div>
@@ -172,17 +212,17 @@ function TabletSlide({ slide, index }: { slide: Slide; index: number }) {
           <span style={{ width: 60, height: 2, background: "rgba(255,255,255,.4)" }} />06
         </div>
       </div>
-      <div className="absolute" style={{ left: 100, top: 230, width: 1070 }}>
+      <div className="absolute" style={{ left: 100, top: 255, width: 650 }}>
         <div className="flex items-center font-extrabold" style={{ gap: 14, color: LIME, fontSize: 25 }}>
           <span style={{ width: 13, height: 13, background: LIME, borderRadius: 20 }} />{slide.kicker}
         </div>
-        <h2 className="font-black" style={{ fontSize: 89, lineHeight: 1.04, marginTop: 26, color: "#fff" }}>
+        <h2 className="font-black" style={{ fontSize: 67, lineHeight: 1.08, marginTop: 26, color: "#fff" }}>
           <span className="block">{slide.title[0]}</span>
           <span className="block" style={{ color: LIME }}>{slide.title[1]}</span>
         </h2>
-        <p style={{ marginTop: 28, maxWidth: 900, fontSize: 30, lineHeight: 1.4, fontWeight: 500, color: "rgba(255,255,255,.82)" }}>{slide.description}</p>
+        <p style={{ marginTop: 28, maxWidth: 620, fontSize: 27, lineHeight: 1.4, fontWeight: 500, color: "rgba(255,255,255,.82)" }}>{slide.description}</p>
       </div>
-      {slide.image ? <Device src={slide.image} tilt={slide.tilt} /> : <Finale />}
+      {slide.screen ? <TabletDevice screen={slide.screen} /> : <Finale />}
       <div className="absolute font-bold" style={{ left: 100, bottom: 64, fontSize: 22, color: "rgba(255,255,255,.72)" }}>{slide.indexLabel} <span style={{ color: LIME, marginLeft: 18 }}>↗</span></div>
     </div>
   );
