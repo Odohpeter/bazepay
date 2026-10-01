@@ -14,6 +14,7 @@ import {
   ArrowLeftRight,
 } from "lucide-react";
 import heroAppHome from "@/assets/hero-app-home.png";
+import bazepayLogo from "@/assets/bazepay-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({

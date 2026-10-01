@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode, CSSProperties } from "react";
 import { ShieldCheck, LockKeyhole, MessageCircle, Zap, Globe2, CreditCard } from "lucide-react";
-import heroHome from "@/assets/hero-app-home.png";
+import bazepayLogo from "@/assets/bazepay-logo.png.asset.json";
 import shotTopup from "@/assets/store/topup.png";
 import shotCards from "@/assets/store/cards.png";
 import shotPay from "@/assets/store/pay.png";
