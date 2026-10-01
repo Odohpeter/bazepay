@@ -94,7 +94,7 @@ const COINS = [
   { x: 3240, y: 860, sym: "€", size: 180, rot: -8 },
   { x: 4320, y: 1180, sym: "₦", size: 200, rot: 12 },
   { x: 5400, y: 1560, sym: "₦", size: 175, rot: -10 },
-  { x: 6050, y: 1250, sym: "₦", size: 260, rot: 8 },
+  { x: 6300, y: 1430, sym: "₦", size: 240, rot: 8 },
 ];
 
 const RIBBON =
