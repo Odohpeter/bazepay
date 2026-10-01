@@ -1,19 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import shotHome from "@/assets/store/tablet/home.png";
-import shotExchange from "@/assets/store/tablet/exchange.png";
-import shotCards from "@/assets/store/tablet/cards.png";
-import shotBills from "@/assets/store/tablet/bills.png";
-import shotEsim from "@/assets/store/tablet/esim.png";
+import shotHome from "@/assets/store/tablet/real/home.png.asset.json";
+import shotExchange from "@/assets/store/tablet/real/exchange.png.asset.json";
+import shotCards from "@/assets/store/tablet/real/cards.png.asset.json";
+import shotBills from "@/assets/store/tablet/real/bills.png.asset.json";
 import wordmark from "@/assets/bazepay-wordmark.png.asset.json";
 
 export const Route = createFileRoute("/store9-tablet")({
   head: () => ({
     meta: [
-      { title: "BazePay · Tablet Store Screenshots — Panorama" },
-      { name: "description", content: "BazePay Android tablet app screenshots in the Panorama design." },
-      { property: "og:title", content: "BazePay · Tablet Store Screenshots — Panorama" },
-      { property: "og:description", content: "BazePay Android tablet app screenshots in the Panorama design." },
+      { title: "BazePay · Panorama Store Screenshots" },
+      { name: "description", content: "BazePay Android app screenshots in the Panorama store design." },
+      { property: "og:title", content: "BazePay · Panorama Store Screenshots" },
+      { property: "og:description", content: "BazePay Android app screenshots in the Panorama store design." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
@@ -44,35 +43,35 @@ const slides: Slide[] = [
     kicker: "FOR DIASPORA & TRAVELERS",
     title: ["Land in Lagos.", "Spend like a local."],
     description: "Fund with your foreign card and pay in naira. Your everyday money for Nigeria, ready when you are.",
-    image: shotHome,
+    image: shotHome.url,
     indexLabel: "WELCOME",
   },
   {
     kicker: "FUND IN 40+ CURRENCIES",
     title: ["Pounds in.", "Naira out."],
     description: "Fund with Visa, Mastercard or Amex. See your rate and fees before you pay.",
-    image: shotExchange,
+    image: shotExchange.url,
     indexLabel: "EXCHANGE",
   },
   {
-    kicker: "VIRTUAL & PHYSICAL CARDS",
-    title: ["Tap in stores.", "Pay online."],
-    description: "A physical naira card for stores in Nigeria. A virtual Visa for online payments and subscriptions.",
-    image: shotCards,
+    kicker: "NAIRA CARDS",
+    title: ["Your card.", "Your control."],
+    description: "See your card, top it up and manage spending right from your wallet.",
+    image: shotCards.url,
     indexLabel: "CARDS",
   },
   {
     kicker: "BILLS & AIRTIME",
     title: ["Bills back home,", "sorted."],
     description: "Take care of electricity, data, airtime and TV for yourself or family — wherever you are.",
-    image: shotBills,
+    image: shotBills.url,
     indexLabel: "PAYMENTS",
   },
   {
     kicker: "TRAVEL eSIMs",
     title: ["Online before", "you clear customs."],
     description: "Find a data plan for your destination. Activate in a few taps and land connected.",
-    image: shotEsim,
+    image: shotBills.url,
     indexLabel: "CONNECTED",
   },
   {
@@ -115,13 +114,12 @@ function LandscapeWorld() {
   );
 }
 
-function TabletDevice({ image }: { image: string }) {
+function ScreenshotDevice({ image }: { image: string }) {
   return (
-    <div className="absolute" style={{ width: 1040, height: 720, top: 247, left: 790 }}>
-      <div className="h-full w-full rounded-[35px] border-[9px] border-foreground/85 bg-foreground p-[9px] shadow-[0_50px_90px_-25px_rgba(0,0,0,.55)]">
-        <div className="relative h-full overflow-hidden rounded-[18px] bg-background">
-          <img src={image} alt="Actual BazePay app running at tablet dimensions" className="block h-full w-full object-fill" />
-          <span className="absolute left-1/2 top-1 size-2 -translate-x-1/2 rounded-full bg-foreground/30" />
+    <div className="absolute" style={{ width: 515, height: 824, top: 147, left: 1190 }}>
+      <div className="h-full w-full rounded-[32px] border-[8px] border-foreground/85 bg-foreground p-[5px] shadow-[0_50px_90px_-25px_rgba(0,0,0,.55)]">
+        <div className="relative h-full overflow-hidden rounded-[21px] bg-background">
+          <img src={image} alt="Real BazePay Android app screenshot" className="block h-full w-full object-contain" />
         </div>
       </div>
     </div>
@@ -175,7 +173,7 @@ function TabletSlide({ slide, index }: { slide: Slide; index: number }) {
         </h2>
         <p style={{ marginTop: 28, maxWidth: 620, fontSize: 27, lineHeight: 1.4, fontWeight: 500, color: "rgba(255,255,255,.82)" }}>{slide.description}</p>
       </div>
-      {slide.image ? <TabletDevice image={slide.image} /> : <Finale />}
+      {slide.image ? <ScreenshotDevice image={slide.image} /> : <Finale />}
       <div className="absolute font-bold" style={{ left: 100, bottom: 64, fontSize: 22, color: "rgba(255,255,255,.72)" }}>{slide.indexLabel} <span style={{ color: LIME, marginLeft: 18 }}>↗</span></div>
     </div>
   );
@@ -184,8 +182,8 @@ function TabletSlide({ slide, index }: { slide: Slide; index: number }) {
 function Store9TabletPage() {
   return (
     <main className="min-h-screen bg-background p-4 sm:p-8 text-foreground">
-      <h1 className="mb-2 text-2xl font-bold">BazePay — Tablet screenshots · Panorama</h1>
-      <p className="mb-6 text-muted-foreground">6 landscape slides · 1920 × 1080 each · previewed at half size</p>
+      <h1 className="mb-2 text-2xl font-bold">BazePay — Panorama store screenshots</h1>
+      <p className="mb-6 text-muted-foreground">6 landscape slides · 1920 × 1080 each · real Android app screenshots · previewed at half size</p>
       <div className="flex gap-3 overflow-x-auto pb-5">
         {slides.map((slide, index) => (
           <div key={index} className="slide-frame shrink-0 overflow-hidden" style={{ width: 960, height: 540 }}>
