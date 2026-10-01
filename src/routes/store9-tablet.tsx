@@ -114,12 +114,12 @@ function LandscapeWorld() {
   );
 }
 
-function ScreenshotDevice({ image, focusEsim = false }: { image: string; focusEsim?: boolean }) {
+function ScreenshotDevice({ image }: { image: string }) {
   return (
     <div className="absolute" style={{ width: 515, height: 824, top: 147, left: 1190 }}>
       <div className="h-full w-full rounded-[32px] border-[8px] border-foreground/85 bg-foreground p-[5px] shadow-[0_50px_90px_-25px_rgba(0,0,0,.55)]">
         <div className="relative h-full overflow-hidden rounded-[21px] bg-background">
-          <img src={image} alt={focusEsim ? "Travel eSIM in the real BazePay Pay bills screenshot" : "Real BazePay Android app screenshot"} className={focusEsim ? "absolute max-w-none" : "block h-full w-full object-contain"} style={focusEsim ? { width: 980, height: 1568, left: -245, top: -115 } : undefined} />
+          <img src={image} alt="Real BazePay Android app screenshot" className="block h-full w-full object-contain" />
         </div>
       </div>
     </div>
@@ -173,7 +173,7 @@ function TabletSlide({ slide, index }: { slide: Slide; index: number }) {
         </h2>
         <p style={{ marginTop: 28, maxWidth: 620, fontSize: 27, lineHeight: 1.4, fontWeight: 500, color: "rgba(255,255,255,.82)" }}>{slide.description}</p>
       </div>
-      {slide.image ? <ScreenshotDevice image={slide.image} focusEsim={index === 4} /> : <Finale />}
+      {slide.image ? <ScreenshotDevice image={slide.image} /> : <Finale />}
       <div className="absolute font-bold" style={{ left: 100, bottom: 64, fontSize: 22, color: "rgba(255,255,255,.72)" }}>{slide.indexLabel} <span style={{ color: LIME, marginLeft: 18 }}>↗</span></div>
     </div>
   );
