@@ -4,7 +4,6 @@ import shotHome from "@/assets/store/tablet/real/home.png.asset.json";
 import shotExchange from "@/assets/store/tablet/real/exchange.png.asset.json";
 import shotCards from "@/assets/store/tablet/real/cards.png.asset.json";
 import shotBills from "@/assets/store/tablet/real/bills.png.asset.json";
-import shotEsim from "@/assets/store/tablet/esim.png";
 import wordmark from "@/assets/bazepay-wordmark.png.asset.json";
 
 export const Route = createFileRoute("/store9-tablet")({
@@ -71,8 +70,8 @@ const slides: Slide[] = [
   {
     kicker: "TRAVEL eSIMs",
     title: ["Online before", "you clear customs."],
-    description: "Find a data plan for your destination. Activate in a few taps and land connected.",
-    image: shotEsim,
+    description: "Explore travel data plans from the app and stay connected when you land.",
+    image: shotBills.url,
     indexLabel: "CONNECTED",
   },
   {
