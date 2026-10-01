@@ -172,7 +172,7 @@ function TopupFlow() {
 
   return (
     <PhoneFrame>
-    <div className="min-h-screen md:min-h-0 md:h-[860px] bg-background text-foreground flex flex-col">
+    <div className="tablet-topup min-h-screen md:min-h-0 md:h-[860px] bg-background text-foreground flex flex-col">
       <div className="h-10" />
       <div className="px-6 pt-4 flex items-center justify-between">
         <button
@@ -200,9 +200,9 @@ function TopupFlow() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
             transition={{ duration: 0.25 }}
-            className="flex-1 flex flex-col"
+            className="tablet-topup-amount flex-1 flex flex-col"
           >
-            <div className="flex-1 flex flex-col px-6 pt-4">
+            <div className="tablet-topup-fields flex-1 flex flex-col px-6 pt-4">
               <p className="text-[11px] uppercase tracking-widest text-foreground/55 font-bold">
                 You pay
               </p>
@@ -275,7 +275,7 @@ function TopupFlow() {
               </div>
             </div>
 
-            <div className="bg-card text-card-foreground rounded-t-[2rem] px-6 pt-5 pb-7 mt-4">
+            <div className="tablet-topup-keypad bg-card text-card-foreground rounded-t-[2rem] px-6 pt-5 pb-7 mt-4">
               <Keypad onPress={press} />
               <button
                 onClick={onContinue}

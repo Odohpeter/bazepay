@@ -31,6 +31,8 @@ export const Route = createFileRoute("/")({
         content:
           "Fund with your foreign Visa, Mastercard or Amex. Spend in Naira, pay bills, get an eSIM and a Nigerian virtual number — before you even land.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Landing,
