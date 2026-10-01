@@ -9,70 +9,55 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TransferRouteImport } from './routes/transfer'
-import { Route as TopupRouteImport } from './routes/topup'
-import { Route as Store9RouteImport } from './routes/store9'
-import { Route as Store6RouteImport } from './routes/store6'
-import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as KycRouteImport } from './routes/kyc'
-import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthSignupRouteImport } from './routes/auth.signup'
-import { Route as AuthPinSetupRouteImport } from './routes/auth.pin-setup'
-import { Route as AuthLoginRouteImport } from './routes/auth.login'
-import { Route as AppWalletRouteImport } from './routes/_app.wallet'
-import { Route as AppProfileRouteImport } from './routes/_app.profile'
-import { Route as AppPayRouteImport } from './routes/_app.pay'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as KycRouteImport } from './routes/kyc'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as Store6RouteImport } from './routes/store6'
+import { Route as Store9RouteImport } from './routes/store9'
+import { Route as Store9TabletRouteImport } from './routes/store9-tablet'
+import { Route as TopupRouteImport } from './routes/topup'
+import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as AppHomeRouteImport } from './routes/_app.home'
-import { Route as AppPayIndexRouteImport } from './routes/_app.pay.index'
-import { Route as AppNumbersIndexRouteImport } from './routes/_app.numbers.index'
-import { Route as AppEsimsIndexRouteImport } from './routes/_app.esims.index'
+import { Route as AppPayRouteImport } from './routes/_app.pay'
+import { Route as AppProfileRouteImport } from './routes/_app.profile'
+import { Route as AppWalletRouteImport } from './routes/_app.wallet'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AuthPinSetupRouteImport } from './routes/auth.pin-setup'
+import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AppCardsIndexRouteImport } from './routes/_app.cards.index'
-import { Route as AppTransactionIdRouteImport } from './routes/_app.transaction.$id'
-import { Route as AppProfileReferralsRouteImport } from './routes/_app.profile_.referrals'
-import { Route as AppProfileLegalRouteImport } from './routes/_app.profile_.legal'
-import { Route as AppProfileHelpRouteImport } from './routes/_app.profile_.help'
-import { Route as AppPayTvRouteImport } from './routes/_app.pay.tv'
-import { Route as AppPayInternetRouteImport } from './routes/_app.pay.internet'
-import { Route as AppPayEsimRouteImport } from './routes/_app.pay.esim'
-import { Route as AppPayElectricityRouteImport } from './routes/_app.pay.electricity'
-import { Route as AppPayDataRouteImport } from './routes/_app.pay.data'
-import { Route as AppPayBettingRouteImport } from './routes/_app.pay.betting'
-import { Route as AppPayAirtimeRouteImport } from './routes/_app.pay.airtime'
-import { Route as AppPayServiceRouteImport } from './routes/_app.pay.$service'
-import { Route as AppNumbersIdRouteImport } from './routes/_app.numbers.$id'
-import { Route as AppEsimsIdRouteImport } from './routes/_app.esims.$id'
-import { Route as AppCardsPhysicalRouteImport } from './routes/_app.cards.physical'
-import { Route as AppCardsNewRouteImport } from './routes/_app.cards.new'
 import { Route as AppCardsIdRouteImport } from './routes/_app.cards.$id'
-import { Route as AppProfileSecurityTwofaRouteImport } from './routes/_app.profile_.security.twofa'
-import { Route as AppProfileSecurityPinRouteImport } from './routes/_app.profile_.security.pin'
+import { Route as AppCardsNewRouteImport } from './routes/_app.cards.new'
+import { Route as AppCardsPhysicalRouteImport } from './routes/_app.cards.physical'
+import { Route as AppEsimsIndexRouteImport } from './routes/_app.esims.index'
+import { Route as AppEsimsIdRouteImport } from './routes/_app.esims.$id'
+import { Route as AppNumbersIndexRouteImport } from './routes/_app.numbers.index'
+import { Route as AppNumbersIdRouteImport } from './routes/_app.numbers.$id'
+import { Route as AppPayIndexRouteImport } from './routes/_app.pay.index'
+import { Route as AppPayServiceRouteImport } from './routes/_app.pay.$service'
+import { Route as AppPayAirtimeRouteImport } from './routes/_app.pay.airtime'
+import { Route as AppPayBettingRouteImport } from './routes/_app.pay.betting'
+import { Route as AppPayDataRouteImport } from './routes/_app.pay.data'
+import { Route as AppPayElectricityRouteImport } from './routes/_app.pay.electricity'
+import { Route as AppPayEsimRouteImport } from './routes/_app.pay.esim'
+import { Route as AppPayInternetRouteImport } from './routes/_app.pay.internet'
+import { Route as AppPayTvRouteImport } from './routes/_app.pay.tv'
+import { Route as AppProfileHelpRouteImport } from './routes/_app.profile_.help'
+import { Route as AppProfileLegalRouteImport } from './routes/_app.profile_.legal'
+import { Route as AppProfileReferralsRouteImport } from './routes/_app.profile_.referrals'
+import { Route as AppTransactionIdRouteImport } from './routes/_app.transaction.$id'
 import { Route as AppProfileHelpChatRouteImport } from './routes/_app.profile_.help_.chat'
+import { Route as AppProfileSecurityPinRouteImport } from './routes/_app.profile_.security.pin'
+import { Route as AppProfileSecurityTwofaRouteImport } from './routes/_app.profile_.security.twofa'
 import { Route as AppCardsIdTxnTxnIdRouteImport } from './routes/_app.cards.$id_.txn.$txnId'
 
-const TransferRoute = TransferRouteImport.update({
-  id: '/transfer',
-  path: '/transfer',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TopupRoute = TopupRouteImport.update({
-  id: '/topup',
-  path: '/topup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Store9Route = Store9RouteImport.update({
-  id: '/store9',
-  path: '/store9',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Store6Route = Store6RouteImport.update({
-  id: '/store6',
-  path: '/store6',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingRoute = OnboardingRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KycRoute = KycRouteImport.update({
@@ -80,38 +65,39 @@ const KycRoute = KycRouteImport.update({
   path: '/kyc',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const Store6Route = Store6RouteImport.update({
+  id: '/store6',
+  path: '/store6',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthSignupRoute = AuthSignupRouteImport.update({
-  id: '/auth/signup',
-  path: '/auth/signup',
+const Store9Route = Store9RouteImport.update({
+  id: '/store9',
+  path: '/store9',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthPinSetupRoute = AuthPinSetupRouteImport.update({
-  id: '/auth/pin-setup',
-  path: '/auth/pin-setup',
+const Store9TabletRoute = Store9TabletRouteImport.update({
+  id: '/store9-tablet',
+  path: '/store9-tablet',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
+const TopupRoute = TopupRouteImport.update({
+  id: '/topup',
+  path: '/topup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppWalletRoute = AppWalletRouteImport.update({
-  id: '/wallet',
-  path: '/wallet',
-  getParentRoute: () => AppRoute,
+const TransferRoute = TransferRouteImport.update({
+  id: '/transfer',
+  path: '/transfer',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AppProfileRoute = AppProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
+const AppHomeRoute = AppHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
   getParentRoute: () => AppRoute,
 } as any)
 const AppPayRoute = AppPayRouteImport.update({
@@ -119,109 +105,34 @@ const AppPayRoute = AppPayRouteImport.update({
   path: '/pay',
   getParentRoute: () => AppRoute,
 } as any)
-const AppHomeRoute = AppHomeRouteImport.update({
-  id: '/home',
-  path: '/home',
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => AppRoute,
 } as any)
-const AppPayIndexRoute = AppPayIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppNumbersIndexRoute = AppNumbersIndexRouteImport.update({
-  id: '/numbers/',
-  path: '/numbers/',
+const AppWalletRoute = AppWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
   getParentRoute: () => AppRoute,
 } as any)
-const AppEsimsIndexRoute = AppEsimsIndexRouteImport.update({
-  id: '/esims/',
-  path: '/esims/',
-  getParentRoute: () => AppRoute,
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthPinSetupRoute = AuthPinSetupRouteImport.update({
+  id: '/auth/pin-setup',
+  path: '/auth/pin-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/auth/signup',
+  path: '/auth/signup',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AppCardsIndexRoute = AppCardsIndexRouteImport.update({
   id: '/cards/',
   path: '/cards/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppTransactionIdRoute = AppTransactionIdRouteImport.update({
-  id: '/transaction/$id',
-  path: '/transaction/$id',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppProfileReferralsRoute = AppProfileReferralsRouteImport.update({
-  id: '/profile_/referrals',
-  path: '/profile/referrals',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppProfileLegalRoute = AppProfileLegalRouteImport.update({
-  id: '/profile_/legal',
-  path: '/profile/legal',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppProfileHelpRoute = AppProfileHelpRouteImport.update({
-  id: '/profile_/help',
-  path: '/profile/help',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppPayTvRoute = AppPayTvRouteImport.update({
-  id: '/tv',
-  path: '/tv',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppPayInternetRoute = AppPayInternetRouteImport.update({
-  id: '/internet',
-  path: '/internet',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppPayEsimRoute = AppPayEsimRouteImport.update({
-  id: '/esim',
-  path: '/esim',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppPayElectricityRoute = AppPayElectricityRouteImport.update({
-  id: '/electricity',
-  path: '/electricity',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppPayDataRoute = AppPayDataRouteImport.update({
-  id: '/data',
-  path: '/data',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppPayBettingRoute = AppPayBettingRouteImport.update({
-  id: '/betting',
-  path: '/betting',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppPayAirtimeRoute = AppPayAirtimeRouteImport.update({
-  id: '/airtime',
-  path: '/airtime',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppPayServiceRoute = AppPayServiceRouteImport.update({
-  id: '/$service',
-  path: '/$service',
-  getParentRoute: () => AppPayRoute,
-} as any)
-const AppNumbersIdRoute = AppNumbersIdRouteImport.update({
-  id: '/numbers/$id',
-  path: '/numbers/$id',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppEsimsIdRoute = AppEsimsIdRouteImport.update({
-  id: '/esims/$id',
-  path: '/esims/$id',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCardsPhysicalRoute = AppCardsPhysicalRouteImport.update({
-  id: '/cards/physical',
-  path: '/cards/physical',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCardsNewRoute = AppCardsNewRouteImport.update({
-  id: '/cards/new',
-  path: '/cards/new',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCardsIdRoute = AppCardsIdRouteImport.update({
@@ -229,9 +140,104 @@ const AppCardsIdRoute = AppCardsIdRouteImport.update({
   path: '/cards/$id',
   getParentRoute: () => AppRoute,
 } as any)
-const AppProfileSecurityTwofaRoute = AppProfileSecurityTwofaRouteImport.update({
-  id: '/profile_/security/twofa',
-  path: '/profile/security/twofa',
+const AppCardsNewRoute = AppCardsNewRouteImport.update({
+  id: '/cards/new',
+  path: '/cards/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCardsPhysicalRoute = AppCardsPhysicalRouteImport.update({
+  id: '/cards/physical',
+  path: '/cards/physical',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEsimsIndexRoute = AppEsimsIndexRouteImport.update({
+  id: '/esims/',
+  path: '/esims/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEsimsIdRoute = AppEsimsIdRouteImport.update({
+  id: '/esims/$id',
+  path: '/esims/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNumbersIndexRoute = AppNumbersIndexRouteImport.update({
+  id: '/numbers/',
+  path: '/numbers/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNumbersIdRoute = AppNumbersIdRouteImport.update({
+  id: '/numbers/$id',
+  path: '/numbers/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPayIndexRoute = AppPayIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayServiceRoute = AppPayServiceRouteImport.update({
+  id: '/$service',
+  path: '/$service',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayAirtimeRoute = AppPayAirtimeRouteImport.update({
+  id: '/airtime',
+  path: '/airtime',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayBettingRoute = AppPayBettingRouteImport.update({
+  id: '/betting',
+  path: '/betting',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayDataRoute = AppPayDataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayElectricityRoute = AppPayElectricityRouteImport.update({
+  id: '/electricity',
+  path: '/electricity',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayEsimRoute = AppPayEsimRouteImport.update({
+  id: '/esim',
+  path: '/esim',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayInternetRoute = AppPayInternetRouteImport.update({
+  id: '/internet',
+  path: '/internet',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppPayTvRoute = AppPayTvRouteImport.update({
+  id: '/tv',
+  path: '/tv',
+  getParentRoute: () => AppPayRoute,
+} as any)
+const AppProfileHelpRoute = AppProfileHelpRouteImport.update({
+  id: '/profile_/help',
+  path: '/profile/help',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileLegalRoute = AppProfileLegalRouteImport.update({
+  id: '/profile_/legal',
+  path: '/profile/legal',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileReferralsRoute = AppProfileReferralsRouteImport.update({
+  id: '/profile_/referrals',
+  path: '/profile/referrals',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTransactionIdRoute = AppTransactionIdRouteImport.update({
+  id: '/transaction/$id',
+  path: '/transaction/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileHelpChatRoute = AppProfileHelpChatRouteImport.update({
+  id: '/profile_/help_/chat',
+  path: '/profile/help/chat',
   getParentRoute: () => AppRoute,
 } as any)
 const AppProfileSecurityPinRoute = AppProfileSecurityPinRouteImport.update({
@@ -239,9 +245,9 @@ const AppProfileSecurityPinRoute = AppProfileSecurityPinRouteImport.update({
   path: '/profile/security/pin',
   getParentRoute: () => AppRoute,
 } as any)
-const AppProfileHelpChatRoute = AppProfileHelpChatRouteImport.update({
-  id: '/profile_/help_/chat',
-  path: '/profile/help/chat',
+const AppProfileSecurityTwofaRoute = AppProfileSecurityTwofaRouteImport.update({
+  id: '/profile_/security/twofa',
+  path: '/profile/security/twofa',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCardsIdTxnTxnIdRoute = AppCardsIdTxnTxnIdRouteImport.update({
@@ -256,6 +262,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
+  '/store9-tablet': typeof Store9TabletRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -297,6 +304,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
+  '/store9-tablet': typeof Store9TabletRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -339,6 +347,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
+  '/store9-tablet': typeof Store9TabletRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/_app/home': typeof AppHomeRoute
@@ -382,6 +391,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/store6'
     | '/store9'
+    | '/store9-tablet'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -423,6 +433,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/store6'
     | '/store9'
+    | '/store9-tablet'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -464,6 +475,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/store6'
     | '/store9'
+    | '/store9-tablet'
     | '/topup'
     | '/transfer'
     | '/_app/home'
@@ -507,6 +519,7 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   Store6Route: typeof Store6Route
   Store9Route: typeof Store9Route
+  Store9TabletRoute: typeof Store9TabletRoute
   TopupRoute: typeof TopupRoute
   TransferRoute: typeof TransferRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -516,46 +529,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/transfer': {
-      id: '/transfer'
-      path: '/transfer'
-      fullPath: '/transfer'
-      preLoaderRoute: typeof TransferRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/topup': {
-      id: '/topup'
-      path: '/topup'
-      fullPath: '/topup'
-      preLoaderRoute: typeof TopupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store9': {
-      id: '/store9'
-      path: '/store9'
-      fullPath: '/store9'
-      preLoaderRoute: typeof Store9RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store6': {
-      id: '/store6'
-      path: '/store6'
-      fullPath: '/store6'
-      preLoaderRoute: typeof Store6RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding': {
-      id: '/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/kyc': {
-      id: '/kyc'
-      path: '/kyc'
-      fullPath: '/kyc'
-      preLoaderRoute: typeof KycRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -565,46 +543,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/kyc': {
+      id: '/kyc'
+      path: '/kyc'
+      fullPath: '/kyc'
+      preLoaderRoute: typeof KycRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/signup': {
-      id: '/auth/signup'
-      path: '/auth/signup'
-      fullPath: '/auth/signup'
-      preLoaderRoute: typeof AuthSignupRouteImport
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/pin-setup': {
-      id: '/auth/pin-setup'
-      path: '/auth/pin-setup'
-      fullPath: '/auth/pin-setup'
-      preLoaderRoute: typeof AuthPinSetupRouteImport
+    '/store6': {
+      id: '/store6'
+      path: '/store6'
+      fullPath: '/store6'
+      preLoaderRoute: typeof Store6RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
+    '/store9': {
+      id: '/store9'
+      path: '/store9'
+      fullPath: '/store9'
+      preLoaderRoute: typeof Store9RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/wallet': {
-      id: '/_app/wallet'
-      path: '/wallet'
-      fullPath: '/wallet'
-      preLoaderRoute: typeof AppWalletRouteImport
-      parentRoute: typeof AppRoute
+    '/store9-tablet': {
+      id: '/store9-tablet'
+      path: '/store9-tablet'
+      fullPath: '/store9-tablet'
+      preLoaderRoute: typeof Store9TabletRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/profile': {
-      id: '/_app/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AppProfileRouteImport
+    '/topup': {
+      id: '/topup'
+      path: '/topup'
+      fullPath: '/topup'
+      preLoaderRoute: typeof TopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transfer': {
+      id: '/transfer'
+      path: '/transfer'
+      fullPath: '/transfer'
+      preLoaderRoute: typeof TransferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/home': {
+      id: '/_app/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof AppHomeRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/pay': {
@@ -614,151 +606,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPayRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/home': {
-      id: '/_app/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof AppHomeRouteImport
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/pay/': {
-      id: '/_app/pay/'
-      path: '/'
-      fullPath: '/pay/'
-      preLoaderRoute: typeof AppPayIndexRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/numbers/': {
-      id: '/_app/numbers/'
-      path: '/numbers'
-      fullPath: '/numbers/'
-      preLoaderRoute: typeof AppNumbersIndexRouteImport
+    '/_app/wallet': {
+      id: '/_app/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof AppWalletRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/esims/': {
-      id: '/_app/esims/'
-      path: '/esims'
-      fullPath: '/esims/'
-      preLoaderRoute: typeof AppEsimsIndexRouteImport
-      parentRoute: typeof AppRoute
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/pin-setup': {
+      id: '/auth/pin-setup'
+      path: '/auth/pin-setup'
+      fullPath: '/auth/pin-setup'
+      preLoaderRoute: typeof AuthPinSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/auth/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_app/cards/': {
       id: '/_app/cards/'
       path: '/cards'
       fullPath: '/cards/'
       preLoaderRoute: typeof AppCardsIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/transaction/$id': {
-      id: '/_app/transaction/$id'
-      path: '/transaction/$id'
-      fullPath: '/transaction/$id'
-      preLoaderRoute: typeof AppTransactionIdRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/profile_/referrals': {
-      id: '/_app/profile_/referrals'
-      path: '/profile/referrals'
-      fullPath: '/profile/referrals'
-      preLoaderRoute: typeof AppProfileReferralsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/profile_/legal': {
-      id: '/_app/profile_/legal'
-      path: '/profile/legal'
-      fullPath: '/profile/legal'
-      preLoaderRoute: typeof AppProfileLegalRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/profile_/help': {
-      id: '/_app/profile_/help'
-      path: '/profile/help'
-      fullPath: '/profile/help'
-      preLoaderRoute: typeof AppProfileHelpRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/pay/tv': {
-      id: '/_app/pay/tv'
-      path: '/tv'
-      fullPath: '/pay/tv'
-      preLoaderRoute: typeof AppPayTvRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/pay/internet': {
-      id: '/_app/pay/internet'
-      path: '/internet'
-      fullPath: '/pay/internet'
-      preLoaderRoute: typeof AppPayInternetRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/pay/esim': {
-      id: '/_app/pay/esim'
-      path: '/esim'
-      fullPath: '/pay/esim'
-      preLoaderRoute: typeof AppPayEsimRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/pay/electricity': {
-      id: '/_app/pay/electricity'
-      path: '/electricity'
-      fullPath: '/pay/electricity'
-      preLoaderRoute: typeof AppPayElectricityRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/pay/data': {
-      id: '/_app/pay/data'
-      path: '/data'
-      fullPath: '/pay/data'
-      preLoaderRoute: typeof AppPayDataRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/pay/betting': {
-      id: '/_app/pay/betting'
-      path: '/betting'
-      fullPath: '/pay/betting'
-      preLoaderRoute: typeof AppPayBettingRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/pay/airtime': {
-      id: '/_app/pay/airtime'
-      path: '/airtime'
-      fullPath: '/pay/airtime'
-      preLoaderRoute: typeof AppPayAirtimeRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/pay/$service': {
-      id: '/_app/pay/$service'
-      path: '/$service'
-      fullPath: '/pay/$service'
-      preLoaderRoute: typeof AppPayServiceRouteImport
-      parentRoute: typeof AppPayRoute
-    }
-    '/_app/numbers/$id': {
-      id: '/_app/numbers/$id'
-      path: '/numbers/$id'
-      fullPath: '/numbers/$id'
-      preLoaderRoute: typeof AppNumbersIdRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/esims/$id': {
-      id: '/_app/esims/$id'
-      path: '/esims/$id'
-      fullPath: '/esims/$id'
-      preLoaderRoute: typeof AppEsimsIdRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/cards/physical': {
-      id: '/_app/cards/physical'
-      path: '/cards/physical'
-      fullPath: '/cards/physical'
-      preLoaderRoute: typeof AppCardsPhysicalRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/cards/new': {
-      id: '/_app/cards/new'
-      path: '/cards/new'
-      fullPath: '/cards/new'
-      preLoaderRoute: typeof AppCardsNewRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/cards/$id': {
@@ -768,11 +655,144 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCardsIdRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/profile_/security/twofa': {
-      id: '/_app/profile_/security/twofa'
-      path: '/profile/security/twofa'
-      fullPath: '/profile/security/twofa'
-      preLoaderRoute: typeof AppProfileSecurityTwofaRouteImport
+    '/_app/cards/new': {
+      id: '/_app/cards/new'
+      path: '/cards/new'
+      fullPath: '/cards/new'
+      preLoaderRoute: typeof AppCardsNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/cards/physical': {
+      id: '/_app/cards/physical'
+      path: '/cards/physical'
+      fullPath: '/cards/physical'
+      preLoaderRoute: typeof AppCardsPhysicalRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/esims/': {
+      id: '/_app/esims/'
+      path: '/esims'
+      fullPath: '/esims/'
+      preLoaderRoute: typeof AppEsimsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/esims/$id': {
+      id: '/_app/esims/$id'
+      path: '/esims/$id'
+      fullPath: '/esims/$id'
+      preLoaderRoute: typeof AppEsimsIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/numbers/': {
+      id: '/_app/numbers/'
+      path: '/numbers'
+      fullPath: '/numbers/'
+      preLoaderRoute: typeof AppNumbersIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/numbers/$id': {
+      id: '/_app/numbers/$id'
+      path: '/numbers/$id'
+      fullPath: '/numbers/$id'
+      preLoaderRoute: typeof AppNumbersIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/pay/': {
+      id: '/_app/pay/'
+      path: '/'
+      fullPath: '/pay/'
+      preLoaderRoute: typeof AppPayIndexRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/$service': {
+      id: '/_app/pay/$service'
+      path: '/$service'
+      fullPath: '/pay/$service'
+      preLoaderRoute: typeof AppPayServiceRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/airtime': {
+      id: '/_app/pay/airtime'
+      path: '/airtime'
+      fullPath: '/pay/airtime'
+      preLoaderRoute: typeof AppPayAirtimeRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/betting': {
+      id: '/_app/pay/betting'
+      path: '/betting'
+      fullPath: '/pay/betting'
+      preLoaderRoute: typeof AppPayBettingRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/data': {
+      id: '/_app/pay/data'
+      path: '/data'
+      fullPath: '/pay/data'
+      preLoaderRoute: typeof AppPayDataRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/electricity': {
+      id: '/_app/pay/electricity'
+      path: '/electricity'
+      fullPath: '/pay/electricity'
+      preLoaderRoute: typeof AppPayElectricityRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/esim': {
+      id: '/_app/pay/esim'
+      path: '/esim'
+      fullPath: '/pay/esim'
+      preLoaderRoute: typeof AppPayEsimRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/internet': {
+      id: '/_app/pay/internet'
+      path: '/internet'
+      fullPath: '/pay/internet'
+      preLoaderRoute: typeof AppPayInternetRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/pay/tv': {
+      id: '/_app/pay/tv'
+      path: '/tv'
+      fullPath: '/pay/tv'
+      preLoaderRoute: typeof AppPayTvRouteImport
+      parentRoute: typeof AppPayRoute
+    }
+    '/_app/profile_/help': {
+      id: '/_app/profile_/help'
+      path: '/profile/help'
+      fullPath: '/profile/help'
+      preLoaderRoute: typeof AppProfileHelpRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile_/legal': {
+      id: '/_app/profile_/legal'
+      path: '/profile/legal'
+      fullPath: '/profile/legal'
+      preLoaderRoute: typeof AppProfileLegalRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile_/referrals': {
+      id: '/_app/profile_/referrals'
+      path: '/profile/referrals'
+      fullPath: '/profile/referrals'
+      preLoaderRoute: typeof AppProfileReferralsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/transaction/$id': {
+      id: '/_app/transaction/$id'
+      path: '/transaction/$id'
+      fullPath: '/transaction/$id'
+      preLoaderRoute: typeof AppTransactionIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile_/help_/chat': {
+      id: '/_app/profile_/help_/chat'
+      path: '/profile/help/chat'
+      fullPath: '/profile/help/chat'
+      preLoaderRoute: typeof AppProfileHelpChatRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/profile_/security/pin': {
@@ -782,11 +802,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProfileSecurityPinRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/profile_/help_/chat': {
-      id: '/_app/profile_/help_/chat'
-      path: '/profile/help/chat'
-      fullPath: '/profile/help/chat'
-      preLoaderRoute: typeof AppProfileHelpChatRouteImport
+    '/_app/profile_/security/twofa': {
+      id: '/_app/profile_/security/twofa'
+      path: '/profile/security/twofa'
+      fullPath: '/profile/security/twofa'
+      preLoaderRoute: typeof AppProfileSecurityTwofaRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/cards/$id_/txn/$txnId': {
@@ -881,6 +901,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   Store6Route: Store6Route,
   Store9Route: Store9Route,
+  Store9TabletRoute: Store9TabletRoute,
   TopupRoute: TopupRoute,
   TransferRoute: TransferRoute,
   AuthLoginRoute: AuthLoginRoute,
