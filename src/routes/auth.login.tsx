@@ -35,11 +35,12 @@ function Login() {
         <div className="h-10" />
 
         {/* Brand */}
-        <div className="px-6 pt-4 flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-lime to-[oklch(0.85_0.2_130)] flex items-center justify-center font-display font-bold text-[14px] text-[oklch(0.2_0.05_80)]">
-            B
-          </div>
-          <span className="font-display font-bold text-[15px] tracking-tight">BazePay</span>
+        <div className="px-6 pt-4 flex items-center">
+          <img
+            src={bazepayWordmark.url}
+            alt="BazePay"
+            className="h-6 w-auto"
+          />
         </div>
 
         {/* Heading */}
