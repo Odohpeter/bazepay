@@ -1,0 +1,1 @@
+Keep promotional screenshot variants in separate self-contained routes; this preserves approved designs while allowing each format to be previewed independently.

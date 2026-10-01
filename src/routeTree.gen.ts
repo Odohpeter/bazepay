@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as TopupRouteImport } from './routes/topup'
+import { Route as Store9TabletRouteImport } from './routes/store9-tablet'
 import { Route as Store9RouteImport } from './routes/store9'
 import { Route as Store6RouteImport } from './routes/store6'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
@@ -58,6 +59,11 @@ const TransferRoute = TransferRouteImport.update({
 const TopupRoute = TopupRouteImport.update({
   id: '/topup',
   path: '/topup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Store9TabletRoute = Store9TabletRouteImport.update({
+  id: '/store9-tablet',
+  path: '/store9-tablet',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Store9Route = Store9RouteImport.update({
@@ -256,6 +262,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
+  '/store9-tablet': typeof Store9TabletRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -297,6 +304,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
+  '/store9-tablet': typeof Store9TabletRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -339,6 +347,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
+  '/store9-tablet': typeof Store9TabletRoute
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/_app/home': typeof AppHomeRoute
@@ -382,6 +391,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/store6'
     | '/store9'
+    | '/store9-tablet'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -423,6 +433,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/store6'
     | '/store9'
+    | '/store9-tablet'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -464,6 +475,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/store6'
     | '/store9'
+    | '/store9-tablet'
     | '/topup'
     | '/transfer'
     | '/_app/home'
@@ -507,6 +519,7 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   Store6Route: typeof Store6Route
   Store9Route: typeof Store9Route
+  Store9TabletRoute: typeof Store9TabletRoute
   TopupRoute: typeof TopupRoute
   TransferRoute: typeof TransferRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -528,6 +541,13 @@ declare module '@tanstack/react-router' {
       path: '/topup'
       fullPath: '/topup'
       preLoaderRoute: typeof TopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store9-tablet': {
+      id: '/store9-tablet'
+      path: '/store9-tablet'
+      fullPath: '/store9-tablet'
+      preLoaderRoute: typeof Store9TabletRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/store9': {
@@ -881,6 +901,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   Store6Route: Store6Route,
   Store9Route: Store9Route,
+  Store9TabletRoute: Store9TabletRoute,
   TopupRoute: TopupRoute,
   TransferRoute: TransferRoute,
   AuthLoginRoute: AuthLoginRoute,
