@@ -130,7 +130,7 @@ const SLIDES: Slide[] = [
 
 function Starburst({ text }: { text: string }) {
   return (
-    <div className="absolute" style={{ right: 70, top: 620, width: 220, height: 220 }}>
+    <div className="absolute" style={{ right: 60, top: 560, width: 220, height: 220 }}>
       <svg viewBox="0 0 200 200" className="w-full h-full" style={{ filter: "drop-shadow(0 14px 24px rgba(0,0,0,0.25))" }}>
         <polygon
           fill={INK}
@@ -173,7 +173,7 @@ function TicketTag({ t }: { t: Ticket }) {
 
 function Phone({ src }: { src: string }) {
   return (
-    <div className="absolute left-1/2" style={{ top: 750, width: 490, transform: "translateX(-50%)" }}>
+    <div className="absolute left-1/2" style={{ top: 655, width: 560, transform: "translateX(-50%)" }}>
       <div
         className="relative rounded-[80px] p-[10px]"
         style={{
