@@ -211,7 +211,7 @@ function SlideCard({ s, i }: { s: Slide; i: number }) {
             }}
           >
             <div style={{ fontFamily: flap, fontSize: 20, letterSpacing: 5, color: `${PAPER}88` }}>{c.k}</div>
-            <div style={{ fontFamily: flap, fontSize: 40, letterSpacing: 3, color: PAPER, marginTop: 8, fontWeight: 700 }}>
+            <div style={{ fontFamily: flap, fontSize: 34, letterSpacing: 2, color: PAPER, marginTop: 8, fontWeight: 700, whiteSpace: "nowrap" }}>
               {c.v}
             </div>
           </div>
@@ -221,8 +221,8 @@ function SlideCard({ s, i }: { s: Slide; i: number }) {
           <div
             className="inline-flex items-center gap-2"
             style={{
-              marginTop: 10, fontFamily: flap, fontSize: 26, letterSpacing: 3, fontWeight: 700,
-              color: INK, background: LIME, borderRadius: 8, padding: "6px 16px",
+              marginTop: 10, fontFamily: flap, fontSize: 22, letterSpacing: 2, fontWeight: 700,
+              color: INK, background: LIME, borderRadius: 8, padding: "6px 16px", whiteSpace: "nowrap",
             }}
           >
             <span style={{ width: 10, height: 10, borderRadius: 99, background: INK, display: "inline-block" }} />
@@ -232,15 +232,15 @@ function SlideCard({ s, i }: { s: Slide; i: number }) {
       </div>
 
       {/* headline + sub */}
-      <div style={{ position: "absolute", top: 460, left: 80, right: 80 }}>
-        <h1 style={{ fontSize: 96, lineHeight: 1.02, fontWeight: 800, letterSpacing: -2, color: PAPER, margin: 0 }}>
+      <div style={{ position: "absolute", top: 440, left: 80, right: 80 }}>
+        <h1 style={{ fontSize: 84, lineHeight: 1.02, fontWeight: 800, letterSpacing: -2, color: PAPER, margin: 0 }}>
           {s.title.map((line, li) => (
             <span key={li} style={{ display: "block" }}>
               {line}
             </span>
           ))}
         </h1>
-        <p style={{ fontSize: 36, lineHeight: 1.4, color: `${PAPER}BB`, marginTop: 28, maxWidth: 860 }}>{s.sub}</p>
+        <p style={{ fontSize: 32, lineHeight: 1.4, color: `${PAPER}BB`, marginTop: 24, maxWidth: 820 }}>{s.sub}</p>
       </div>
 
       {/* body: phone or departures board */}
@@ -280,7 +280,7 @@ function SlideCard({ s, i }: { s: Slide; i: number }) {
           ))}
         </div>
       ) : (
-        <div className="absolute" style={{ top: 860, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
+        <div className="absolute" style={{ top: 762, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
           <Phone src={s.img!} alt={s.imgAlt!} />
         </div>
       )}
@@ -297,7 +297,7 @@ function SlideCard({ s, i }: { s: Slide; i: number }) {
           <span style={{ fontFamily: flap, fontSize: 26, letterSpacing: 3, fontWeight: 700, color: INK }}>LHR</span>
           <Plane size={26} color={INK} style={{ transform: "rotate(45deg)" }} />
           <span style={{ fontFamily: flap, fontSize: 26, letterSpacing: 3, fontWeight: 700, color: INK }}>LOS</span>
-          <span style={{ fontFamily: flap, fontSize: 22, letterSpacing: 2, color: `${INK}99`, marginLeft: 12 }}>
+          <span style={{ fontFamily: flap, fontSize: 20, letterSpacing: 1, color: `${INK}99`, marginLeft: 12, whiteSpace: "nowrap" }}>
             SEAT {String(i + 1).padStart(2, "0")}A · BAZEPAY.COM
           </span>
         </div>
