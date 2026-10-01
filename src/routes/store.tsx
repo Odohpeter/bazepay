@@ -225,21 +225,33 @@ function Badge({ text }: { text: string }) {
 
 function Phone({ img, width, top }: { img: string; width: number; top: number }) {
   return (
-    <div
-      style={{
-        position: "absolute", top, left: (CANVAS_W - width) / 2, width, zIndex: 5,
-        borderRadius: 64, padding: 14, background: "oklch(0.09 0.01 278)",
-        boxShadow: "0 60px 120px -30px oklch(0 0 0 / 0.7), 0 0 0 1.5px oklch(0.98 0.005 260 / 0.08)",
-      }}
-    >
-      <img
-        src={img}
-        alt=""
+    <div style={{ position: "absolute", top, left: (CANVAS_W - width) / 2, width, zIndex: 5 }}>
+      {/* soft glow behind the phone so it lifts off dark backgrounds */}
+      <div
         style={{
-          display: "block", width: "100%", borderRadius: 52,
-          border: "1px solid oklch(0.98 0.005 260 / 0.1)",
+          position: "absolute", inset: -60, zIndex: -1,
+          background: "radial-gradient(closest-side, oklch(0.7 0.15 278 / 0.38), transparent 75%)",
+          filter: "blur(24px)",
         }}
       />
+      <div
+        style={{
+          borderRadius: 64, padding: 14, position: "relative",
+          background: "linear-gradient(150deg, oklch(0.42 0.03 265) 0%, oklch(0.16 0.015 265) 38%, oklch(0.24 0.02 265) 68%, oklch(0.5 0.03 265) 100%)",
+          border: "2.5px solid oklch(0.78 0.02 260 / 0.55)",
+          boxShadow:
+            "0 60px 120px -30px oklch(0 0 0 / 0.75), 0 0 44px oklch(0.6 0.18 278 / 0.35), inset 0 1.5px 2px oklch(0.98 0.005 260 / 0.5)",
+        }}
+      >
+        <img
+          src={img}
+          alt=""
+          style={{
+            display: "block", width: "100%", borderRadius: 52,
+            border: "1px solid oklch(0.98 0.005 260 / 0.12)",
+          }}
+        />
+      </div>
     </div>
   );
 }
