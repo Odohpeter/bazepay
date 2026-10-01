@@ -5,7 +5,7 @@ import heroHome from "@/assets/hero-app-home.png";
 import shotTopup from "@/assets/store/topup.png";
 import shotCards from "@/assets/store/cards.png";
 import shotPay from "@/assets/store/pay.png";
-import shotEsims from "@/assets/store/esims.png";
+import shotEsims from "@/assets/store/esims-buy.png";
 
 export const Route = createFileRoute("/store")({
   component: StorePreview,
