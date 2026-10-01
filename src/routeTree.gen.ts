@@ -14,6 +14,7 @@ import { Route as TopupRouteImport } from './routes/topup'
 import { Route as Store9TabletRouteImport } from './routes/store9-tablet'
 import { Route as Store9RouteImport } from './routes/store9'
 import { Route as Store6RouteImport } from './routes/store6'
+import { Route as Store10TabletRouteImport } from './routes/store10-tablet'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as KycRouteImport } from './routes/kyc'
 import { Route as AppRouteImport } from './routes/_app'
@@ -74,6 +75,11 @@ const Store9Route = Store9RouteImport.update({
 const Store6Route = Store6RouteImport.update({
   id: '/store6',
   path: '/store6',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Store10TabletRoute = Store10TabletRouteImport.update({
+  id: '/store10-tablet',
+  path: '/store10-tablet',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -260,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
+  '/store10-tablet': typeof Store10TabletRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
   '/store9-tablet': typeof Store9TabletRoute
@@ -302,6 +309,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
+  '/store10-tablet': typeof Store10TabletRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
   '/store9-tablet': typeof Store9TabletRoute
@@ -345,6 +353,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
+  '/store10-tablet': typeof Store10TabletRoute
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
   '/store9-tablet': typeof Store9TabletRoute
@@ -389,6 +398,7 @@ export interface FileRouteTypes {
     | '/'
     | '/kyc'
     | '/onboarding'
+    | '/store10-tablet'
     | '/store6'
     | '/store9'
     | '/store9-tablet'
@@ -431,6 +441,7 @@ export interface FileRouteTypes {
     | '/'
     | '/kyc'
     | '/onboarding'
+    | '/store10-tablet'
     | '/store6'
     | '/store9'
     | '/store9-tablet'
@@ -473,6 +484,7 @@ export interface FileRouteTypes {
     | '/_app'
     | '/kyc'
     | '/onboarding'
+    | '/store10-tablet'
     | '/store6'
     | '/store9'
     | '/store9-tablet'
@@ -517,6 +529,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   KycRoute: typeof KycRoute
   OnboardingRoute: typeof OnboardingRoute
+  Store10TabletRoute: typeof Store10TabletRoute
   Store6Route: typeof Store6Route
   Store9Route: typeof Store9Route
   Store9TabletRoute: typeof Store9TabletRoute
@@ -562,6 +575,13 @@ declare module '@tanstack/react-router' {
       path: '/store6'
       fullPath: '/store6'
       preLoaderRoute: typeof Store6RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store10-tablet': {
+      id: '/store10-tablet'
+      path: '/store10-tablet'
+      fullPath: '/store10-tablet'
+      preLoaderRoute: typeof Store10TabletRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -899,6 +919,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   KycRoute: KycRoute,
   OnboardingRoute: OnboardingRoute,
+  Store10TabletRoute: Store10TabletRoute,
   Store6Route: Store6Route,
   Store9Route: Store9Route,
   Store9TabletRoute: Store9TabletRoute,
