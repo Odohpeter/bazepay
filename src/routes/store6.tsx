@@ -59,20 +59,20 @@ const gridIcon = (i: string) => {
 
 const SLIDES: Slide[] = [
   {
-    kicker: "NOW ON GOOGLE PLAY",
-    title: ["Spend naira", "from anywhere."],
-    sub: "No local bank. No paperwork. Your money, ready the moment you land.",
+    kicker: "FOR DIASPORA & TRAVELERS",
+    title: ["Skip the bank.", "Spend naira."],
+    sub: "No BVN. No NIN. No Nigerian bank account. Fund with your foreign card and spend like a local.",
     img: heroHome,
     burst: "FREE",
     tickets: [
-      { text: "READY IN MINUTES", x: 66, y: 1010 },
-      { text: "NO LOCAL BANK NEEDED", x: 560, y: 1560, dark: true },
+      { text: "NO BVN · NO NIN", x: 66, y: 1010 },
+      { text: "NO NIGERIAN BANK NEEDED", x: 540, y: 1560, dark: true },
     ],
   },
   {
-    kicker: "TOP UP IN SECONDS",
-    title: ["Fund from", "40+ currencies."],
-    sub: "Real exchange rates, live before you confirm. Arrives instantly.",
+    kicker: "FUND WITH ANY CARD",
+    title: ["Your foreign card,", "now in naira."],
+    sub: "Visa, Mastercard or Amex — 40+ currencies, live rates, lands in your wallet in seconds.",
     img: shotTopup,
     burst: "3.9% FEE",
     tickets: [
@@ -93,8 +93,8 @@ const SLIDES: Slide[] = [
   },
   {
     kicker: "BILLS MADE EASY",
-    title: ["Every bill,", "one tap away."],
-    sub: "Airtime, data, power, TV and betting — all from your wallet.",
+    title: ["Pay every bill", "back home."],
+    sub: "Airtime, data, power, TV and betting — for you or family in Nigeria, in one tap.",
     img: shotPay,
     burst: "1 TAP",
     tickets: [
@@ -173,7 +173,7 @@ function TicketTag({ t }: { t: Ticket }) {
 
 function Phone({ src }: { src: string }) {
   return (
-    <div className="absolute left-1/2" style={{ top: 800, width: 540, transform: "translateX(-50%)" }}>
+    <div className="absolute left-1/2" style={{ top: 750, width: 490, transform: "translateX(-50%)" }}>
       <div
         className="relative rounded-[80px] p-[10px]"
         style={{
