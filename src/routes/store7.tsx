@@ -327,7 +327,7 @@ function Store7Page() {
       <p className="mb-6 text-sm text-neutral-400">6 slides · 1080×1920 · shown at 40%</p>
       <div className="flex gap-6 overflow-x-auto pb-6">
         {SLIDES.map((s, i) => (
-          <div key={i} style={{ width: 432, height: 768, overflow: "hidden" }} className="shrink-0">
+          <div key={i} style={{ width: 432, height: 768, overflow: "hidden" }} className="shrink-0 slide-frame">
             <div style={{ transform: "scale(0.4)", transformOrigin: "top left" }}>
               <SlideCard s={s} i={i} />
             </div>
