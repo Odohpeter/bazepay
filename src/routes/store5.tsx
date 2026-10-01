@@ -287,7 +287,7 @@ function SlideCanvas({ s, index }: { s: Slide; index: number }) {
       {s.cta && (
         <div className="absolute left-1/2" style={{ top: 1560, transform: "translateX(-50%)" }}>
           <div
-            className="flex items-center gap-4 rounded-full font-black"
+            className="flex items-center gap-4 rounded-full font-black whitespace-nowrap"
             style={{ background: INK, color: LIME, padding: "30px 64px", fontSize: 40, boxShadow: `10px 12px 0 ${BLUE}` }}
           >
             Download BazePay free
