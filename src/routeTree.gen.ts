@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as TopupRouteImport } from './routes/topup'
+import { Route as Store6RouteImport } from './routes/store6'
 import { Route as Store5RouteImport } from './routes/store5'
 import { Route as Store4RouteImport } from './routes/store4'
 import { Route as Store3RouteImport } from './routes/store3'
@@ -61,6 +62,11 @@ const TransferRoute = TransferRouteImport.update({
 const TopupRoute = TopupRouteImport.update({
   id: '/topup',
   path: '/topup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Store6Route = Store6RouteImport.update({
+  id: '/store6',
+  path: '/store6',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Store5Route = Store5RouteImport.update({
@@ -277,6 +283,7 @@ export interface FileRoutesByFullPath {
   '/store3': typeof Store3Route
   '/store4': typeof Store4Route
   '/store5': typeof Store5Route
+  '/store6': typeof Store6Route
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -321,6 +328,7 @@ export interface FileRoutesByTo {
   '/store3': typeof Store3Route
   '/store4': typeof Store4Route
   '/store5': typeof Store5Route
+  '/store6': typeof Store6Route
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -366,6 +374,7 @@ export interface FileRoutesById {
   '/store3': typeof Store3Route
   '/store4': typeof Store4Route
   '/store5': typeof Store5Route
+  '/store6': typeof Store6Route
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/_app/home': typeof AppHomeRoute
@@ -412,6 +421,7 @@ export interface FileRouteTypes {
     | '/store3'
     | '/store4'
     | '/store5'
+    | '/store6'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -456,6 +466,7 @@ export interface FileRouteTypes {
     | '/store3'
     | '/store4'
     | '/store5'
+    | '/store6'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -500,6 +511,7 @@ export interface FileRouteTypes {
     | '/store3'
     | '/store4'
     | '/store5'
+    | '/store6'
     | '/topup'
     | '/transfer'
     | '/_app/home'
@@ -546,6 +558,7 @@ export interface RootRouteChildren {
   Store3Route: typeof Store3Route
   Store4Route: typeof Store4Route
   Store5Route: typeof Store5Route
+  Store6Route: typeof Store6Route
   TopupRoute: typeof TopupRoute
   TransferRoute: typeof TransferRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -567,6 +580,13 @@ declare module '@tanstack/react-router' {
       path: '/topup'
       fullPath: '/topup'
       preLoaderRoute: typeof TopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store6': {
+      id: '/store6'
+      path: '/store6'
+      fullPath: '/store6'
+      preLoaderRoute: typeof Store6RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/store5': {
@@ -944,6 +964,7 @@ const rootRouteChildren: RootRouteChildren = {
   Store3Route: Store3Route,
   Store4Route: Store4Route,
   Store5Route: Store5Route,
+  Store6Route: Store6Route,
   TopupRoute: TopupRoute,
   TransferRoute: TransferRoute,
   AuthLoginRoute: AuthLoginRoute,
