@@ -196,9 +196,7 @@
 
   .tablet-topup { height: 100vh; min-height: 0; margin-left: 190px; }
   .tablet-topup::before { content: "BazePay"; position: absolute; left: 0; top: 0; bottom: 0; width: 190px; display: flex; align-items: start; padding: 36px 24px; font-size: 22px; font-weight: 800; background: var(--background); border-right: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent); }
-  .tablet-topup > :nth-child(3) { display: flex; flex-direction: column; }
-  .tablet-topup > :nth-child(3) > div { flex: 1; }
-  .tablet-topup > :nth-child(3) > div > div { height: 100%; display: grid; grid-template-columns: minmax(300px, 1fr) minmax(340px, 1fr); }
-  .tablet-topup > :nth-child(3) > div > div > :first-child { grid-column: 1; }
-  .tablet-topup > :nth-child(3) > div > div > :nth-child(2) { grid-column: 2; grid-row: 1; margin: 0; border-radius: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+  .tablet-topup-amount { display: grid; grid-template-columns: minmax(300px, 1fr) minmax(340px, 1fr); min-height: 0; }
+  .tablet-topup-fields { grid-column: 1; min-width: 0; padding-top: 44px; }
+  .tablet-topup-keypad { grid-column: 2; grid-row: 1; margin: 0; height: 100%; border-radius: 0; display: flex; flex-direction: column; justify-content: center; }
 }

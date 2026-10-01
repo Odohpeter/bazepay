@@ -236,7 +236,7 @@ function CardsPage() {
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div className="text-[12px] text-card-foreground/70 leading-relaxed">
-            All BazePay cards are Naira virtual cards protected by 3-D Secure. Freeze instantly from card details if anything looks off.
+            Manage your Naira cards from card details. Freeze a card instantly if anything looks off.
           </div>
         </div>
       </div>
