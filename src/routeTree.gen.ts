@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as TopupRouteImport } from './routes/topup'
+import { Route as Store4RouteImport } from './routes/store4'
+import { Route as Store3RouteImport } from './routes/store3'
+import { Route as Store2RouteImport } from './routes/store2'
 import { Route as StoreRouteImport } from './routes/store'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as KycRouteImport } from './routes/kyc'
@@ -57,6 +60,21 @@ const TransferRoute = TransferRouteImport.update({
 const TopupRoute = TopupRouteImport.update({
   id: '/topup',
   path: '/topup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Store4Route = Store4RouteImport.update({
+  id: '/store4',
+  path: '/store4',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Store3Route = Store3RouteImport.update({
+  id: '/store3',
+  path: '/store3',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Store2Route = Store2RouteImport.update({
+  id: '/store2',
+  path: '/store2',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StoreRoute = StoreRouteImport.update({
@@ -249,6 +267,9 @@ export interface FileRoutesByFullPath {
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
   '/store': typeof StoreRoute
+  '/store2': typeof Store2Route
+  '/store3': typeof Store3Route
+  '/store4': typeof Store4Route
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -289,6 +310,9 @@ export interface FileRoutesByTo {
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
   '/store': typeof StoreRoute
+  '/store2': typeof Store2Route
+  '/store3': typeof Store3Route
+  '/store4': typeof Store4Route
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/home': typeof AppHomeRoute
@@ -330,6 +354,9 @@ export interface FileRoutesById {
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
   '/store': typeof StoreRoute
+  '/store2': typeof Store2Route
+  '/store3': typeof Store3Route
+  '/store4': typeof Store4Route
   '/topup': typeof TopupRoute
   '/transfer': typeof TransferRoute
   '/_app/home': typeof AppHomeRoute
@@ -372,6 +399,9 @@ export interface FileRouteTypes {
     | '/kyc'
     | '/onboarding'
     | '/store'
+    | '/store2'
+    | '/store3'
+    | '/store4'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -412,6 +442,9 @@ export interface FileRouteTypes {
     | '/kyc'
     | '/onboarding'
     | '/store'
+    | '/store2'
+    | '/store3'
+    | '/store4'
     | '/topup'
     | '/transfer'
     | '/home'
@@ -452,6 +485,9 @@ export interface FileRouteTypes {
     | '/kyc'
     | '/onboarding'
     | '/store'
+    | '/store2'
+    | '/store3'
+    | '/store4'
     | '/topup'
     | '/transfer'
     | '/_app/home'
@@ -494,6 +530,9 @@ export interface RootRouteChildren {
   KycRoute: typeof KycRoute
   OnboardingRoute: typeof OnboardingRoute
   StoreRoute: typeof StoreRoute
+  Store2Route: typeof Store2Route
+  Store3Route: typeof Store3Route
+  Store4Route: typeof Store4Route
   TopupRoute: typeof TopupRoute
   TransferRoute: typeof TransferRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -515,6 +554,27 @@ declare module '@tanstack/react-router' {
       path: '/topup'
       fullPath: '/topup'
       preLoaderRoute: typeof TopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store4': {
+      id: '/store4'
+      path: '/store4'
+      fullPath: '/store4'
+      preLoaderRoute: typeof Store4RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store3': {
+      id: '/store3'
+      path: '/store3'
+      fullPath: '/store3'
+      preLoaderRoute: typeof Store3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store2': {
+      id: '/store2'
+      path: '/store2'
+      fullPath: '/store2'
+      preLoaderRoute: typeof Store2RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/store': {
@@ -860,6 +920,9 @@ const rootRouteChildren: RootRouteChildren = {
   KycRoute: KycRoute,
   OnboardingRoute: OnboardingRoute,
   StoreRoute: StoreRoute,
+  Store2Route: Store2Route,
+  Store3Route: Store3Route,
+  Store4Route: Store4Route,
   TopupRoute: TopupRoute,
   TransferRoute: TransferRoute,
   AuthLoginRoute: AuthLoginRoute,
