@@ -13,12 +13,6 @@ import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as TopupRouteImport } from './routes/topup'
 import { Route as Store9RouteImport } from './routes/store9'
 import { Route as Store6RouteImport } from './routes/store6'
-import { Route as Store5RouteImport } from './routes/store5'
-import { Route as Store4RouteImport } from './routes/store4'
-import { Route as Store3RouteImport } from './routes/store3'
-import { Route as Store2RouteImport } from './routes/store2'
-import { Route as Store10RouteImport } from './routes/store10'
-import { Route as StoreRouteImport } from './routes/store'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as KycRouteImport } from './routes/kyc'
 import { Route as AppRouteImport } from './routes/_app'
@@ -74,36 +68,6 @@ const Store9Route = Store9RouteImport.update({
 const Store6Route = Store6RouteImport.update({
   id: '/store6',
   path: '/store6',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Store5Route = Store5RouteImport.update({
-  id: '/store5',
-  path: '/store5',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Store4Route = Store4RouteImport.update({
-  id: '/store4',
-  path: '/store4',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Store3Route = Store3RouteImport.update({
-  id: '/store3',
-  path: '/store3',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Store2Route = Store2RouteImport.update({
-  id: '/store2',
-  path: '/store2',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Store10Route = Store10RouteImport.update({
-  id: '/store10',
-  path: '/store10',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoreRoute = StoreRouteImport.update({
-  id: '/store',
-  path: '/store',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -290,12 +254,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
-  '/store': typeof StoreRoute
-  '/store10': typeof Store10Route
-  '/store2': typeof Store2Route
-  '/store3': typeof Store3Route
-  '/store4': typeof Store4Route
-  '/store5': typeof Store5Route
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
   '/topup': typeof TopupRoute
@@ -337,12 +295,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
-  '/store': typeof StoreRoute
-  '/store10': typeof Store10Route
-  '/store2': typeof Store2Route
-  '/store3': typeof Store3Route
-  '/store4': typeof Store4Route
-  '/store5': typeof Store5Route
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
   '/topup': typeof TopupRoute
@@ -385,12 +337,6 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/kyc': typeof KycRoute
   '/onboarding': typeof OnboardingRoute
-  '/store': typeof StoreRoute
-  '/store10': typeof Store10Route
-  '/store2': typeof Store2Route
-  '/store3': typeof Store3Route
-  '/store4': typeof Store4Route
-  '/store5': typeof Store5Route
   '/store6': typeof Store6Route
   '/store9': typeof Store9Route
   '/topup': typeof TopupRoute
@@ -434,12 +380,6 @@ export interface FileRouteTypes {
     | '/'
     | '/kyc'
     | '/onboarding'
-    | '/store'
-    | '/store10'
-    | '/store2'
-    | '/store3'
-    | '/store4'
-    | '/store5'
     | '/store6'
     | '/store9'
     | '/topup'
@@ -481,12 +421,6 @@ export interface FileRouteTypes {
     | '/'
     | '/kyc'
     | '/onboarding'
-    | '/store'
-    | '/store10'
-    | '/store2'
-    | '/store3'
-    | '/store4'
-    | '/store5'
     | '/store6'
     | '/store9'
     | '/topup'
@@ -528,12 +462,6 @@ export interface FileRouteTypes {
     | '/_app'
     | '/kyc'
     | '/onboarding'
-    | '/store'
-    | '/store10'
-    | '/store2'
-    | '/store3'
-    | '/store4'
-    | '/store5'
     | '/store6'
     | '/store9'
     | '/topup'
@@ -577,12 +505,6 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   KycRoute: typeof KycRoute
   OnboardingRoute: typeof OnboardingRoute
-  StoreRoute: typeof StoreRoute
-  Store10Route: typeof Store10Route
-  Store2Route: typeof Store2Route
-  Store3Route: typeof Store3Route
-  Store4Route: typeof Store4Route
-  Store5Route: typeof Store5Route
   Store6Route: typeof Store6Route
   Store9Route: typeof Store9Route
   TopupRoute: typeof TopupRoute
@@ -620,48 +542,6 @@ declare module '@tanstack/react-router' {
       path: '/store6'
       fullPath: '/store6'
       preLoaderRoute: typeof Store6RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store5': {
-      id: '/store5'
-      path: '/store5'
-      fullPath: '/store5'
-      preLoaderRoute: typeof Store5RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store4': {
-      id: '/store4'
-      path: '/store4'
-      fullPath: '/store4'
-      preLoaderRoute: typeof Store4RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store3': {
-      id: '/store3'
-      path: '/store3'
-      fullPath: '/store3'
-      preLoaderRoute: typeof Store3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store2': {
-      id: '/store2'
-      path: '/store2'
-      fullPath: '/store2'
-      preLoaderRoute: typeof Store2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store10': {
-      id: '/store10'
-      path: '/store10'
-      fullPath: '/store10'
-      preLoaderRoute: typeof Store10RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store': {
-      id: '/store'
-      path: '/store'
-      fullPath: '/store'
-      preLoaderRoute: typeof StoreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -999,12 +879,6 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   KycRoute: KycRoute,
   OnboardingRoute: OnboardingRoute,
-  StoreRoute: StoreRoute,
-  Store10Route: Store10Route,
-  Store2Route: Store2Route,
-  Store3Route: Store3Route,
-  Store4Route: Store4Route,
-  Store5Route: Store5Route,
   Store6Route: Store6Route,
   Store9Route: Store9Route,
   TopupRoute: TopupRoute,
