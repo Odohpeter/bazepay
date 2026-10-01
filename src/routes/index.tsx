@@ -78,9 +78,11 @@ function Nav() {
 function BrandMark() {
   return (
     <Link to="/" className="flex items-center gap-2.5">
-      <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center font-display font-bold text-primary-foreground text-lg shadow-[0_10px_30px_-10px_oklch(0.55_0.24_280/0.7)]">
-        B
-      </div>
+      <img
+        src={bazepayLogo.url}
+        alt="BazePay logo"
+        className="h-9 w-auto"
+      />
       <span className="font-display font-bold text-xl tracking-tight">BazePay</span>
     </Link>
   );
