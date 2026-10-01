@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDownLeft, ArrowLeftRight, ArrowUpRight, CreditCard, Globe2, Home, LayoutGrid, Plus, Search, ShieldCheck, Smartphone, Tv, Wifi, Zap } from "lucide-react";
+import { ArrowDownLeft, ArrowLeftRight, ArrowUpRight, CreditCard, Globe2, Home, LayoutGrid, Search, ShieldCheck, Smartphone, Tv, Wifi, Zap } from "lucide-react";
 import wordmark from "@/assets/bazepay-wordmark.png.asset.json";
 
 export const Route = createFileRoute("/store9-tablet")({
@@ -131,7 +131,7 @@ function ScreenContent({ screen }: { screen: NonNullable<Slide["screen"]> }) {
   </>;
   if (screen === "exchange") return <>
     <div><p className="text-sm text-foreground/60">Wallet / Top up</p><h3 className="mt-1 font-display text-3xl font-bold">Exchange to naira</h3></div>
-    <div className="mt-6 grid grid-cols-[1fr_56px_1fr] items-center gap-3"><div className="rounded-lg bg-card p-6 text-card-foreground"><p className="text-sm text-card-foreground/50">You pay</p><p className="mt-5 text-4xl font-bold">£500.00</p><p className="mt-4 text-sm font-bold">🇬🇧 GBP · British Pound</p></div><div className="flex size-12 items-center justify-center rounded-full bg-lime text-lime-foreground"><ArrowLeftRight size={23} /></div><div className="rounded-lg bg-card p-6 text-card-foreground"><p className="text-sm text-card-foreground/50">You receive</p><p className="mt-5 text-4xl font-bold">₦976,000</p><p className="mt-4 text-sm font-bold">🇳🇬 NGN · Nigerian Naira</p></div></div>
+    <div className="mt-6 grid grid-cols-[1fr_56px_1fr] items-center gap-3"><div className="rounded-lg bg-card p-6 text-card-foreground"><p className="text-sm text-card-foreground/50">You pay</p><p className="mt-5 text-4xl font-bold">£500.00</p><p className="mt-4 text-sm font-bold">GBP · British Pound</p></div><div className="flex size-12 items-center justify-center rounded-full bg-lime text-lime-foreground"><ArrowLeftRight size={23} /></div><div className="rounded-lg bg-card p-6 text-card-foreground"><p className="text-sm text-card-foreground/50">You receive</p><p className="mt-5 text-4xl font-bold">₦976,000</p><p className="mt-4 text-sm font-bold">NGN · Nigerian Naira</p></div></div>
     <div className="mt-5 rounded-lg bg-card px-6 py-5 text-card-foreground"><div className="flex justify-between border-b border-border pb-3"><span>Exchange rate</span><b>£1 = ₦1,952</b></div><div className="flex justify-between border-b border-border py-3"><span>Bank Processing Fees (3.9%)</span><b>£19.50</b></div><div className="flex justify-between pt-3"><span>Arrival time</span><b>Instant</b></div></div>
     <div className="mt-5 flex items-center justify-between"><span className="text-foreground/70">Total to pay <b className="ml-2 text-foreground">£519.50</b></span><span className="rounded-full bg-lime px-8 py-3 font-bold text-lime-foreground">Continue →</span></div>
   </>;
@@ -153,7 +153,7 @@ function ScreenContent({ screen }: { screen: NonNullable<Slide["screen"]> }) {
     <div><p className="text-sm text-foreground/60">Travel / Connectivity</p><h3 className="mt-1 font-display text-3xl font-bold">Stay connected abroad</h3></div>
     <div className="mt-6 rounded-lg bg-primary p-7 text-primary-foreground"><div className="flex items-start justify-between"><div><p className="text-sm font-bold text-lime">TRAVEL eSIM</p><h4 className="mt-3 text-3xl font-bold">Data wherever you land.</h4><p className="mt-3 max-w-sm text-base opacity-80">Browse flexible plans for your next trip, then activate in a few taps.</p></div><Globe2 size={92} strokeWidth={1} className="text-lime" /></div></div>
     <div className="mt-5 flex items-center gap-3 rounded-lg bg-card px-5 py-4 text-card-foreground/60"><Search size={20} /> Search destinations or regions</div>
-    <div className="mt-5 grid grid-cols-3 gap-4">{[{ flag: "🇳🇬", name: "Nigeria", detail: "From $4.50 / GB" }, { flag: "🇬🇧", name: "United Kingdom", detail: "Flexible plans" }, { flag: "🌍", name: "Global", detail: "190+ countries" }].map((item) => <div key={item.name} className="rounded-lg bg-card p-5 text-card-foreground"><span className="text-3xl">{item.flag}</span><h4 className="mt-4 font-bold">{item.name}</h4><p className="mt-1 text-sm text-card-foreground/50">{item.detail}</p></div>)}</div>
+    <div className="mt-5 grid grid-cols-3 gap-4">{[{ icon: "NG", name: "Nigeria", detail: "From $4.50 / GB" }, { icon: "UK", name: "United Kingdom", detail: "Flexible plans" }, { icon: "🌐", name: "Global", detail: "190+ countries" }].map((item) => <div key={item.name} className="rounded-lg bg-card p-5 text-card-foreground"><span className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">{item.icon}</span><h4 className="mt-4 font-bold">{item.name}</h4><p className="mt-1 text-sm text-card-foreground/50">{item.detail}</p></div>)}</div>
   </>;
 }
 
@@ -163,7 +163,7 @@ function TabletDevice({ screen }: { screen: NonNullable<Slide["screen"]> }) {
       <div className="h-full w-full rounded-[35px] border-[9px] border-foreground/85 bg-foreground p-[9px] shadow-[0_50px_90px_-25px_rgba(0,0,0,.55)]">
         <div className="relative flex h-full overflow-hidden rounded-[18px] bg-background text-foreground">
           <div className="flex w-[186px] shrink-0 flex-col border-r border-foreground/10 bg-background px-4 py-6">
-            <div className="mb-12 flex items-center gap-2 px-2"><span className="flex size-9 items-center justify-center rounded-lg bg-primary font-bold text-lime">B</span><b className="text-xl">bazepay</b></div>
+            <div className="mb-12 px-2"><img src={wordmark.url} alt="BazePay" className="h-7 w-auto" /></div>
             <div className="space-y-2">{nav.map(({ label, icon: Icon, screen: item }) => <div key={item} className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold ${item === screen ? "bg-primary text-primary-foreground" : "text-foreground/55"}`}><Icon size={19} />{label}</div>)}</div>
             <div className="mt-auto flex items-center gap-2 border-t border-foreground/10 pt-5 text-sm"><span className="flex size-8 items-center justify-center rounded-full bg-lime font-bold text-lime-foreground">A</span>Alex Morgan</div>
           </div>
