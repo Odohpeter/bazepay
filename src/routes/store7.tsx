@@ -67,7 +67,7 @@ const SLIDES: Slide[] = [
     flight: "BZ 003",
     gate: "B1",
     dest: "CARDS",
-    title: ["Two cards.", "Every till in Nigeria."],
+    title: ["Two cards.", "Every till."],
     sub: "A virtual Visa for online payments and subscriptions, and a physical naira card that taps at stores nationwide.",
     img: shotCards,
     imgAlt: "Cards",
@@ -139,7 +139,7 @@ function Phone({ src, alt }: { src: string; alt: string }) {
     <div
       className="relative"
       style={{
-        width: 520,
+        width: 420,
         borderRadius: 64,
         padding: 10,
         background: "linear-gradient(160deg, oklch(0.85 0.02 280), oklch(0.55 0.03 280) 40%, oklch(0.8 0.02 280))",
