@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, type ReactElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneFrame } from "@/components/phone-frame";
+import bazepayWordmark from "@/assets/bazepay-wordmark.png.asset.json";
 import { ArrowRight, Wifi, Eye, Shield, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/onboarding")({
@@ -55,12 +56,11 @@ function Onboarding() {
 
         {/* Top bar */}
         <header className="px-6 pt-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center font-display font-bold text-[14px] text-primary-foreground">
-              B
-            </div>
-            <span className="font-display font-bold text-[15px] tracking-tight">BazePay</span>
-          </div>
+          <img
+            src={bazepayWordmark.url}
+            alt="BazePay"
+            className="h-6 w-auto"
+          />
           <button
             onClick={() => nav({ to: "/auth/signup" })}
             className="text-[12px] font-semibold text-foreground/55 hover:text-foreground transition px-3 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.08]"

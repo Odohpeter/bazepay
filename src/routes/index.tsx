@@ -14,7 +14,7 @@ import {
   ArrowLeftRight,
 } from "lucide-react";
 import heroAppHome from "@/assets/hero-app-home.png";
-import bazepayLogo from "@/assets/bazepay-logo.png.asset.json";
+import bazepayWordmark from "@/assets/bazepay-wordmark.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -78,13 +78,12 @@ function Nav() {
 
 function BrandMark() {
   return (
-    <Link to="/" className="flex items-center gap-2.5">
+    <Link to="/" className="inline-flex items-center">
       <img
-        src={bazepayLogo.url}
-        alt="BazePay logo"
+        src={bazepayWordmark.url}
+        alt="BazePay"
         className="h-9 w-auto"
       />
-      <span className="font-display font-bold text-xl tracking-tight">BazePay</span>
     </Link>
   );
 }
