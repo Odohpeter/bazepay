@@ -154,3 +154,51 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
+
+/* The app uses a true two-pane landscape layout on Android-sized tablets.
+   Desktop previews remain in the existing phone silhouette. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .phone-frame-outer { padding: 0; min-height: 100vh; background: var(--background); }
+  .phone-frame-device { width: 100%; height: 100vh; min-height: 0; border: 0; border-radius: 0; box-shadow: none; }
+  .phone-frame-notch { display: none; }
+  .app-shell { height: 100vh; min-height: 0; }
+  .app-content { height: 100%; }
+
+  .app-navigation { left: 0; right: auto; top: 0; bottom: 0; width: 190px; padding: 24px 12px; background: var(--background); border-right: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent); }
+  .app-navigation-inner { height: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch; gap: 12px; background: transparent; box-shadow: none; padding: 76px 4px 0; }
+  .app-navigation-link { width: 100%; min-height: 48px; border-radius: 8px; display: flex; justify-content: flex-start; padding: 10px 14px; gap: 12px; }
+  .app-navigation-link:not(.bg-primary) { color: var(--foreground); }
+  .tablet-navigation-label { display: inline; font-size: 14px; font-weight: 600; }
+
+  .tablet-home, .tablet-pay, .tablet-cards, .tablet-esim { margin-left: 190px; min-height: 100%; }
+  .tablet-home, .tablet-cards { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(390px, 1.2fr); grid-template-rows: 86px auto auto 1fr; column-gap: 0; }
+  .tablet-home > :first-child, .tablet-cards > :first-child { grid-column: 1 / -1; }
+  .tablet-home > :nth-child(2), .tablet-cards > :nth-child(2) { grid-column: 1; grid-row: 2; }
+  .tablet-home > :nth-child(3), .tablet-cards > :nth-child(3) { grid-column: 1; grid-row: 3; }
+  .tablet-home > :nth-child(4) { grid-column: 1; grid-row: 4; align-self: start; }
+  .tablet-home > :nth-child(5), .tablet-cards > :nth-child(4) { grid-column: 2; grid-row: 2 / 5; margin: 0; height: 100%; overflow-y: auto; border-radius: 0; padding-top: 38px; }
+  .tablet-cards > :nth-child(3) { align-self: start; margin-top: 24px; }
+  .tablet-cards > :nth-child(4) { min-width: 0; }
+
+  .tablet-pay { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(390px, 1.2fr); grid-template-rows: 86px auto auto 1fr; }
+  .tablet-pay > :first-child { grid-column: 1 / -1; }
+  .tablet-pay > :nth-child(2) { grid-column: 1; grid-row: 2; }
+  .tablet-pay > :nth-child(3) { grid-column: 1; grid-row: 3; }
+  .tablet-pay > :nth-child(4) { grid-column: 2; grid-row: 2 / 5; margin: 0; height: 100%; overflow-y: auto; border-radius: 0; padding-top: 38px; }
+  .tablet-pay > :nth-child(4) .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .tablet-esim { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(390px, 1.2fr); grid-template-rows: 86px auto 1fr; }
+  .tablet-esim > :first-child { grid-column: 1 / -1; }
+  .tablet-esim > :nth-child(2) { grid-column: 1; grid-row: 2; }
+  .tablet-esim > :nth-child(3) { grid-column: 1; grid-row: 3; align-self: start; }
+  .tablet-esim > :nth-child(4) { grid-column: 2; grid-row: 2 / 4; margin: 0; border-radius: 0; height: 100%; overflow-y: auto; padding-bottom: 120px; }
+  .tablet-esim > .absolute.bottom-0 { left: auto; right: 0; width: calc((100% - 190px) * .6); }
+
+  .tablet-topup { height: 100vh; min-height: 0; margin-left: 190px; }
+  .tablet-topup::before { content: "BazePay"; position: absolute; left: 0; top: 0; bottom: 0; width: 190px; display: flex; align-items: start; padding: 36px 24px; font-size: 22px; font-weight: 800; background: var(--background); border-right: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent); }
+  .tablet-topup > :nth-child(3) { display: flex; flex-direction: column; }
+  .tablet-topup > :nth-child(3) > div { flex: 1; }
+  .tablet-topup > :nth-child(3) > div > div { height: 100%; display: grid; grid-template-columns: minmax(300px, 1fr) minmax(340px, 1fr); }
+  .tablet-topup > :nth-child(3) > div > div > :first-child { grid-column: 1; }
+  .tablet-topup > :nth-child(3) > div > div > :nth-child(2) { grid-column: 2; grid-row: 1; margin: 0; border-radius: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+}
