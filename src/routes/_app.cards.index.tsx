@@ -29,7 +29,7 @@ function CardsPage() {
 
   if (cards.length === 0) {
     return (
-      <div className="min-h-full bg-background text-foreground flex flex-col">
+      <div className="tablet-cards min-h-full bg-background text-foreground flex flex-col">
         <div className="h-10" />
         <Header count={0} total={0} onIssue={() => setChooserOpen(true)} />
         <div className="flex-1 mt-6 bg-card text-card-foreground rounded-t-[2rem] px-6 pt-6 pb-32">
@@ -56,7 +56,7 @@ function CardsPage() {
   ];
 
   return (
-    <div className="min-h-full bg-background text-foreground flex flex-col">
+    <div className="tablet-cards min-h-full bg-background text-foreground flex flex-col">
       <div className="h-10" />
       <Header count={cards.length} total={totalNgn} onIssue={() => setChooserOpen(true)} />
 

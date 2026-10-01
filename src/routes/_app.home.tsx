@@ -38,7 +38,7 @@ function HomePage() {
   const w = wallets[currency];
 
   return (
-    <div className="min-h-full bg-background text-foreground flex flex-col">
+    <div className="tablet-home min-h-full bg-background text-foreground flex flex-col">
       <div className="h-10" />
 
       {/* Balance */}

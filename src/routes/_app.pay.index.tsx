@@ -45,7 +45,7 @@ function PayHub() {
   );
 
   return (
-    <div className="min-h-full bg-background text-foreground flex flex-col">
+    <div className="tablet-pay min-h-full bg-background text-foreground flex flex-col">
       <div className="h-10" />
       <div className="px-6 pt-4">
         <h1 className="font-display text-3xl font-bold tracking-tight">Pay bills</h1>

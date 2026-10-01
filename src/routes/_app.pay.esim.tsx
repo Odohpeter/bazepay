@@ -209,7 +209,7 @@ function EsimPage() {
   const filtersActive = dataF !== "all" || valF !== "all" || sort !== "cheap";
 
   return (
-    <div className="min-h-full bg-background text-foreground flex flex-col">
+    <div className="tablet-esim min-h-full bg-background text-foreground flex flex-col">
       <div className="h-10" />
       <div className="px-6 pt-4 flex items-center gap-3">
         <button

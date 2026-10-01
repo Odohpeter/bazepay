@@ -1,1 +1,2 @@
 Keep promotional screenshot variants in separate self-contained routes; this preserves approved designs while allowing each format to be previewed independently.
+Use tablet-width layouts in the actual app before capturing tablet store images; otherwise wide screenshots merely stretch a phone interface.
