@@ -19,12 +19,6 @@ import {
 import { esims, esimStatusMeta, dataPct, type Esim } from "@/lib/esims";
 
 export const Route = createFileRoute("/_app/esims/$id")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `eSIM · ${params.id} · BazePay` },
-      { name: "description", content: "View eSIM data, install QR, top up, and manage subscription." },
-    ],
-  }),
   loader: ({ params }) => {
     const e = esims.find((x) => x.id === params.id);
     if (!e) throw notFound();
@@ -38,6 +32,12 @@ export const Route = createFileRoute("/_app/esims/$id")({
       </Link>
     </div>
   ),
+  head: ({ params }) => ({
+    meta: [
+      { title: `eSIM · ${params.id} · BazePay` },
+      { name: "description", content: "View eSIM data, install QR, top up, and manage subscription." },
+    ],
+  }),
   component: EsimDetail,
 });
 

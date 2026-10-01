@@ -42,12 +42,6 @@ import {
 
 
 export const Route = createFileRoute("/_app/cards/$id")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `Card · ${params.id} · BazePay` },
-      { name: "description", content: "Manage card limits, freeze, and review transactions." },
-    ],
-  }),
   loader: ({ params }) => ({ id: params.id }),
   notFoundComponent: () => (
     <div className="min-h-full flex flex-col items-center justify-center p-6 text-center">
@@ -57,6 +51,12 @@ export const Route = createFileRoute("/_app/cards/$id")({
       </Link>
     </div>
   ),
+  head: ({ params }) => ({
+    meta: [
+      { title: `Card · ${params.id} · BazePay` },
+      { name: "description", content: "Manage card limits, freeze, and review transactions." },
+    ],
+  }),
   component: CardDetail,
 });
 

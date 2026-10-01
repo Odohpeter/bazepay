@@ -306,7 +306,7 @@ function FeatureGrid({ items }: { items: NonNullable<Slide["featureGrid"]> }) {
 }
 
 function Slide({ slide }: { slide: Slide }) {
-  const imgHeight = (slide.imgWidth * 1864) / 860;
+  const imgHeight = ((slide.imgWidth ?? 560) * 1864) / 860;
   return (
     <div
       style={{
