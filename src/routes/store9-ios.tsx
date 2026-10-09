@@ -258,7 +258,7 @@ function Copy({ s }: { s: Slide }) {
 
 function Finale() {
   const steps = [
-    { n: "01", t: "Download BazePay", d: "Free on Google Play" },
+    { n: "01", t: "Download BazePay", d: "Free on the App Store" },
     { n: "02", t: "Fund with your foreign card", d: "40+ currencies, live rates" },
     { n: "03", t: "Spend naira everywhere", d: "Cards, bills, transfers, eSIMs" },
   ];
@@ -303,7 +303,7 @@ function Finale() {
           boxShadow: "0 30px 60px -20px rgba(0,0,0,0.6)",
         }}
       >
-        Get it on Google Play
+        Download on the App Store
         <span className="flex items-center justify-center rounded-full" style={{ width: 64, height: 64, background: BLUE, color: "#fff" }}>
           <ArrowRight style={{ width: 34, height: 34 }} strokeWidth={3} />
         </span>
