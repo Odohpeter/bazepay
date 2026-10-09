@@ -5,6 +5,7 @@ import shotExchange from "@/assets/store/ipad/wallet.png.asset.json";
 import shotCards from "@/assets/store/ipad/cards.png.asset.json";
 import shotBills from "@/assets/store/ipad/bills.png.asset.json";
 import wordmark from "@/assets/bazepay-wordmark.png.asset.json";
+// Full, uncropped iPad screenshots (app centred on the iPad screen).
 
 export const Route = createFileRoute("/store-ipad")({
   head: () => ({
