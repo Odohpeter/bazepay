@@ -85,7 +85,7 @@ const coins = [
   { x: 2400, y: 1250, symbol: "$", rotation: 11 },
   { x: 3600, y: 1100, symbol: "€", rotation: -9 },
   { x: 4800, y: 1250, symbol: "₦", rotation: 12 },
-  { x: 6000, y: 1120, symbol: "₦", rotation: -11 },
+  { x: 6000, y: 1440, symbol: "₦", rotation: -11 },
 ];
 
 function PortraitWorld() {
