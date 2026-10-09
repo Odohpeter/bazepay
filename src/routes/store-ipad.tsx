@@ -109,10 +109,10 @@ function PortraitWorld() {
 
 function TabletScreenshot({ image }: { image: string }) {
   return (
-    <div className="absolute" style={{ left: 359, top: 540, width: 482, height: 1000 }}>
-      <div className="h-full w-full rounded-[40px] border-[8px] border-foreground/70 bg-background p-[9px] shadow-[0_55px_110px_-24px_color-mix(in_oklab,var(--background)_75%,transparent)]">
+    <div className="absolute" style={{ left: 70, top: 600, width: 1060, height: 802 }}>
+      <div className="h-full w-full rounded-[44px] border-[12px] border-foreground/70 bg-background p-[9px] shadow-[0_55px_110px_-24px_color-mix(in_oklab,var(--background)_75%,transparent)]">
         <div className="h-full w-full overflow-hidden rounded-[26px] bg-background">
-          <img src={image} alt="BazePay iPad app screenshot" className="block h-full w-full object-cover object-top" />
+          <img src={image} alt="BazePay iPad app screenshot" className="block h-full w-full object-cover" />
         </div>
       </div>
     </div>
